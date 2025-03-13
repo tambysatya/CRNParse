@@ -52,7 +52,16 @@ class Function():
     def __init__(self, function):
         self.internal = function
         body = function.getBody()
-        self.expression = libsbml.formulaToL3String(body)
+        body = libsbml.formulaToL3String(body)
+        name = function.getName()
+        args = []
+        for i in range(function.getNumArguments()):
+            args.append(function.getArgument(i).getName())
+        
+        self.expr = sympy.lambdify (sympy.symbols(args), body)
+
+        
+        
 
 class DiffEqSystem ():
 
