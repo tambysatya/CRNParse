@@ -6,6 +6,7 @@ import sympy
 
 
 
+
 class Specie ():
     def __init__ (self, index, specie, reactionids = set()):
         self.reactions = reactionids #the reaction IDs where the considered specie is either a product or reactant
@@ -53,18 +54,22 @@ class Function():
         self.internal = function
         body = function.getBody()
         body = libsbml.formulaToL3String(body)
-        name = function.getId()
         args = []
         for i in range(function.getNumArguments()):
             args.append(function.getArgument(i).getName())
-        print(parse_expr(body))
-        #self.expr = sympy.lambdify (sympy.symbols(args), body, "sympy")
-        fonction = lambda *arguments: self.expr.subs(dict(zip(sp.symbols(args), arguments)))
-        globals()[name]=fonction
-        print (name, fonction)
+        args = sympy.symbols(args)
+        self.name = function.getId()
+        self.symbol = sympy.Function(self.name)(*args)
 
-        
-        
+
+        body=body.replace("^","**") #TODO check the parsing 
+        self.expr = parse_expr(body)
+
+    def apply(self, expression):       
+        for func in expression.atoms(sympy.Function):
+            if func.func.__name__ == self.name:
+                expression = expression.subs(func, self.expr)
+        return expression       
 
 class DiffEqSystem ():
 
@@ -125,12 +130,15 @@ class DiffEqSystem ():
                                  self.parameters.values())
 
         symbol_map = dict(species_symbol_map) | dict(paramspecies_symbol_map) | dict(param_symbol_map)
+        function_map = dict(map(lambda function: (function.symbol, function.expr), self.functions.values()))
 
 
 
         for specie in self.species.values():
             expr = specie.buildDifferentialEquation(self.reactions)
             expr=expr.subs(symbol_map)
+            for function in self.functions.values():
+                expr=function.apply(expr)
             exprs.append(expr)
             print (f"{specie.internal.getId()}|{specie.symbol}: ", expr)
 
@@ -143,4 +151,5 @@ def test():
     return system
 
 mdl = libsbml.readSBML("examples/BIOMD0000000056_decomposition_r1.xml").getModel()
+mdl = libsbml.readSBML("examples/BIOMD0000000095_decomposition_r1.xml").getModel()
 #mdl = libsbml.readSBML("example1.xml").getModel()
