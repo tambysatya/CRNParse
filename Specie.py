@@ -9,15 +9,11 @@ t = sympy.symbols("t")
 
 
 class Specie ():
-    def __init__ (self, index, specie, reactionids = set(), isParam=False):
+    def __init__ (self, specie, reactionids = set()):
         self.reactions = reactionids #the reaction IDs where the considered specie is either a product or reactant
         self.internal = specie #the sbml specie object
-        self.index = index
-        self.isParam = isParam
-        if not isParam:
-            self.symbol = sympy.Function("x"+str(index))(t)
-        else:
-            self.symbol = sympy.symbols("k"+str(index))
+        self.symbol = sympy.Dummy()
+
     def addReaction (self, reactionid):
         self.reactions.add(reactionid)
     def buildDifferentialEquation (self, reactions_dict):
@@ -32,13 +28,5 @@ class Specie ():
                 expr -= kinetic
             else:
                 expr += coef*kinetic
-        #expr = expr_prefix + '+'.join(terms)
         return expr
-    def reindex (self, idx):
-        self.index = idx
-        if self.isParam:
-            self.symbol = sympy.symbols("k"+str(idx))
-        else:
-            self.symbol = sympy.symbols("x"+str(idx))
-
-
+    

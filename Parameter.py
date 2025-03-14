@@ -3,16 +3,14 @@ import sympy
 import libsbml
 
 class Parameter():
-    def __init__ (self, index, parameter, name=""):
-        self.index = index
+    def __init__ (self, parameter, name=None):
         self.internal = parameter
-        if name == "":
-            self.symbol = sympy.symbols("k"+str(index))
+        if name != None:
+            self.symbol = sympy.symbol(name)
         else:
-            self.symbol = sympy.symbols(name)
-    def reindex (self, idx):
-        self.index = idx
-        self.symbol = sympy.symbols("k"+str(idx))
+            self.symbol = sympy.Dummy()
+    def label(self, idx):
+        self.symbol = sympy.symbol("k"+str(idx))
 
 
 
