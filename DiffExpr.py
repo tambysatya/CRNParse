@@ -82,6 +82,7 @@ class Function():
         for i in range(function.getNumArguments()):
             args.append(function.getArgument(i).getName())
         args = sympy.symbols(args)
+        self.args = args
         self.name = function.getId()
         self.symbol = sympy.Function(self.name)(*args)
 
@@ -92,7 +93,10 @@ class Function():
     def apply(self, expression):       
         for func in expression.atoms(sympy.Function):
             if func.func.__name__ == self.name:
-                expression = expression.subs(func, self.expr)
+                calledargs = func.args #the arguments on which the function is called
+                symmap = dict(zip (self.args, calledargs))
+                newexpr = self.expr.subs(symmap) #substitute the variables in the definition with the arguments of the function call
+                expression = expression.subs(func, newexpr)
         return expression       
 
 class DiffEqSystem ():
@@ -156,7 +160,6 @@ class DiffEqSystem ():
                                  self.parameters.values())
 
         symbol_map = dict(species_symbol_map) | dict(paramspecies_symbol_map) | dict(param_symbol_map)
-        function_map = dict(map(lambda function: (function.symbol, function.expr), self.functions.values()))
 
 
 
@@ -202,7 +205,7 @@ def test():
     system = DiffEqSystem(mdl)
     return system
 
-#mdl = libsbml.readSBML("examples/BIOMD0000000056_decomposition_r1.xml").getModel()
-mdl = libsbml.readSBML("examples/BIOMD0000000095_decomposition_r1.xml").getModel()
+mdl = libsbml.readSBML("examples/BIOMD0000000056_decomposition_r1.xml").getModel()
+#mdl = libsbml.readSBML("examples/BIOMD0000000095_decomposition_r1.xml").getModel()
 #mdl = libsbml.readSBML("examples/BIOMD0000000096_decomposition_r1.xml").getModel()
 #mdl = libsbml.readSBML("example1.xml").getModel()
