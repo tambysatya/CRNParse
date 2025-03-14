@@ -81,31 +81,40 @@ class DiffEqSystem ():
         for specieid, expr in self.eqdiffsystem.items():
             print (specieid,": ", expr)
 
-    def relabelSymbols(self):
+    def indexSymbols(self):
         """
             Labels species "x1...xN" and parameters "k1...kN"
         """
-        speciesym = {}
-        reactionlocalsym = {} #map reactionid -> (map localparamID symbol)
+
+        # Constructions of the substitutions maps: ID -> Int (index)
+        speciesidx = {}
+        globalparamsidx = {}
+        parametersspeciesidx = {}
+        reactionlocalparametersidx = {} #map reactionid -> (map localparamID symbol)
 
         specieidx, paramidx = 0,0
-        for paramid in [param.getId() for param in self.mdl.getListOfLocalParameters()]: #required to keep the order identical as described in the sbml file
-            self.parameters[paramid].reindex(paramidx)
+
+        #global parameters
+        for paramid in [param.getId() for param in self.mdl.getListOfParameters()]: #required to keep the order identical as described in the sbml file
+            globalparamsidx[paramid] = paramidx
             paramidx += 1
+
+        #species AND constant species
         for specieid in [specie.getId() for specie in self.mdl.getListOfSpecies()]:
             if specieid in self.species:
-                speciesym[specieid]=sympy.symbols("x"+str(specieidx))
+                speciesidx[specieid] = specieidx
                 specieidx += 1
             else:
-                self.parametersspecies[specieid].reindex(paramidx)
+                parametersspeciesidx[specieid] = paramidx
                 paramidx += 1
+
+        #local parameters
         for reactionid in [reaction.getId() for reaction in self.mdl.getListOfReactions()]:
             reaction = self.reactions[reactionid]
-            for paramid in [param.getId() for param in reaction.internal.getListOfLocalParameters()]:
-                reaction[reactionid].localparameters[paramid].label(paramidx)
+            reactionlocalparametersidx[reaction] = {}
+            for paramid in [param.getId() for param in reaction.internal.getKineticLaw().getListOfLocalParameters()]:
+                reactionlocalparametersidx[reaction][paramid]=paramidx
                 paramidx += 1
-            reaction.substituteKineticFormula()
-        
         
 
         
