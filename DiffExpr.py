@@ -12,29 +12,19 @@ class Specie ():
         self.reactions = reactionids #the reaction IDs where the considered specie is either a product or reactant
         self.internal = specie #the sbml specie object
         self.index = index
+        self.isParam = isParam
         if not isParam:
-            self.symbol = sympy.Function("X"+str(index))(t)
+            self.symbol = sympy.Function("x"+str(index))(t)
         else:
-            self.symbol = sympy.symbols("S"+str(index))
-
+            self.symbol = sympy.symbols("k"+str(index))
     def addReaction (self, reactionid):
         self.reactions.add(reactionid)
-            
     def buildDifferentialEquation (self, reactions_dict):
-        #expr_prefix = "d"+self.internal.getId()+"/dt="
         expr = 0
         for reactionid in self.reactions:
             reaction = reactions_dict[reactionid]
             kinetic = reaction.kineticformula
-            coef = 0
-            for reactant in reaction.internal.getListOfReactants():
-                if reactant.getSpecies() == self.internal.getId():
-                    coef -= reactant.getStoichiometry()
-                    break
-            for product in reaction.internal.getListOfProducts():
-                if product.getSpecies() == self.internal.getId():
-                    coef += product.getStoichiometry()
-                    break
+            coef = reaction.getStoichiometryMatrixCoeficient(self)
             if coef == 1:
                 expr += kinetic
             elif coef == -1:
@@ -43,6 +33,13 @@ class Specie ():
                 expr += coef*kinetic
         #expr = expr_prefix + '+'.join(terms)
         return expr
+    def relabel (self, idx):
+        self.index = idx
+        if self.isParam:
+            self.symbol = sympy.symbols("k"+str(idx))
+        else:
+            self.symbol = sympy.symbols("x"+str(idx))
+
 class Reaction():
     def __init__ (self,index,reaction):
         self.index = index
@@ -53,14 +50,28 @@ class Reaction():
             paramname = f"L{index}_{paramindex}"
             self.localparameters[param.getId()] = Parameter(paramindex, param, name=paramname)
             self.kineticformula = self.kineticformula.subs(param.getId(),sympy.symbols(paramname) )
+    def getStoichiometryMatrixCoeficient (self, specie):
+        coef = 0
+        specieid = specie.internal.getId()
+        for reactant in self.internal.getListOfReactants():
+            if reactant.getSpecies() == specieid:
+                coef -= reactant.getStoichiometry()
+        for product in self.internal.getListOfProducts():
+            if product.getSpecies() == specieid:
+                coef += product.getStoichiometry()
+        return coef
+
 class Parameter():
     def __init__ (self, index, parameter, name=""):
         self.index = index
         self.internal = parameter
         if name == "":
-            self.symbol = sympy.symbols("K"+str(index))
+            self.symbol = sympy.symbols("k"+str(index))
         else:
             self.symbol = sympy.symbols(name)
+    def reindex (self, idx):
+        self.index = idx
+        self.symbol = sympy.symbols("k"+str(idx))
 
 class Function():
     def __init__(self, function):
@@ -75,7 +86,6 @@ class Function():
         self.symbol = sympy.Function(self.name)(*args)
 
 
-        body=body.replace("^","**") #TODO check the parsing 
         self.expr = parse_expr(body)
         print (self.symbol,"=",body)
 
@@ -102,6 +112,7 @@ class DiffEqSystem ():
         for paramindex, param in enumerate(sbml_mdl.getListOfParameters()):
             self.parameters[param.getId()] = Parameter(paramindex, param)
             paramindex += 1
+
         specieindex, paramindex = 0,0
         for specie in sbml_mdl.getListOfSpecies():
             if specie.getBoundaryCondition() or specie.getConstant():
@@ -157,7 +168,7 @@ class DiffEqSystem ():
             newspecies = {}
             for specieid, specie in self.species.items():
                 expr = specie.buildDifferentialEquation(self.reactions)
-                expr = expr.subs(symbol_map)
+                #expr = expr.subs(symbol_map)
                 expr = self.expandFunctions(expr)
                 if expr == 0:
                     newspecie = Specie (len(self.parametersspecies),specie.internal, isParam=True)
