@@ -1,6 +1,6 @@
 
 import libsbml
-from sympy.parsing.sympy_parser import parse_expr
+from utils import parse_expr
 import sympy
 
 
@@ -18,39 +18,46 @@ class Specie ():
         self.reactions.add(reactionid)
             
     def buildDifferentialEquation (self, reactions_dict):
-        expr_prefix = "d"+self.internal.getId()+"/dt="
-        terms = []
+        #expr_prefix = "d"+self.internal.getId()+"/dt="
+        expr = 0
         for reactionid in self.reactions:
-            reaction = reactions_dict[reactionid].internal
-            kinetic = reaction.getKineticLaw().getFormula()
+            reaction = reactions_dict[reactionid]
+            kinetic = reaction.kineticformula
             coef = 0
-            for reactant in reaction.getListOfReactants():
+            for reactant in reaction.internal.getListOfReactants():
                 if reactant.getSpecies() == self.internal.getId():
                     coef -= reactant.getStoichiometry()
                     break
-            for product in reaction.getListOfProducts():
+            for product in reaction.internal.getListOfProducts():
                 if product.getSpecies() == self.internal.getId():
                     coef += product.getStoichiometry()
                     break
             if coef == 1:
-                term = "(" + kinetic +")"
+                expr += kinetic
             elif coef == -1:
-                term = "-(" + kinetic +")"
+                expr -= kinetic
             else:
-                term = str(coef)+'*('+kinetic+')'
-            terms.append(term)
+                expr += coef*kinetic
         #expr = expr_prefix + '+'.join(terms)
-        expr = '+'.join(terms)
-        return parse_expr(expr)
+        return expr
 class Reaction():
     def __init__ (self,index,reaction):
         self.index = index
         self.internal = reaction
+        self.localparameters = {}
+        self.kineticformula = parse_expr(reaction.getKineticLaw().getFormula())
+        for paramindex, param in enumerate(reaction.getKineticLaw().getListOfLocalParameters()):
+            paramname = f"L{index}_{paramindex}"
+            self.localparameters[param.getId()] = Parameter(paramindex, param, name=paramname)
+            self.kineticformula = self.kineticformula.subs(param.getId(),sympy.symbols(paramname) )
 class Parameter():
-    def __init__ (self, index, parameter):
+    def __init__ (self, index, parameter, name=""):
         self.index = index
         self.internal = parameter
-        self.symbol = sympy.symbols("K"+str(index))
+        if name == "":
+            self.symbol = sympy.symbols("K"+str(index))
+        else:
+            self.symbol = sympy.symbols(name)
 
 class Function():
     def __init__(self, function):
@@ -78,7 +85,7 @@ class Function():
 class DiffEqSystem ():
 
     def __init__(self, sbml_mdl):
-        self.reactions = {} # map reactionid -> sbml reaction object
+        self.reactions = {} # map reactionid -> Reaction
         self.species = {}   # map specieid -> Specie : for the variables species
         self.parametersspecies = {} #map specieid -> Specie : for the constant specices that acts like parameters
         self.parameters = {} #map identifier -> Parameter
@@ -166,6 +173,6 @@ def test():
     system = DiffEqSystem(mdl)
     return system
 
-mdl = libsbml.readSBML("examples/BIOMD0000000056_decomposition_r1.xml").getModel()
-#mdl = libsbml.readSBML("examples/BIOMD0000000095_decomposition_r1.xml").getModel()
+#mdl = libsbml.readSBML("examples/BIOMD0000000056_decomposition_r1.xml").getModel()
+mdl = libsbml.readSBML("examples/BIOMD0000000095_decomposition_r1.xml").getModel()
 #mdl = libsbml.readSBML("example1.xml").getModel()
