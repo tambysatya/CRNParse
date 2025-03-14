@@ -53,12 +53,15 @@ class Function():
         self.internal = function
         body = function.getBody()
         body = libsbml.formulaToL3String(body)
-        name = function.getName()
+        name = function.getId()
         args = []
         for i in range(function.getNumArguments()):
             args.append(function.getArgument(i).getName())
-        
-        self.expr = sympy.lambdify (sympy.symbols(args), body)
+        print(parse_expr(body))
+        #self.expr = sympy.lambdify (sympy.symbols(args), body, "sympy")
+        fonction = lambda *arguments: self.expr.subs(dict(zip(sp.symbols(args), arguments)))
+        globals()[name]=fonction
+        print (name, fonction)
 
         
         

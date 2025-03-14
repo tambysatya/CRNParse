@@ -4,6 +4,7 @@ let
   pkgs = import <nixpkgs> {};
 in pkgs.mkShell {
   buildInputs = [
+    pkgs.libsbml
     pkgs.python311
     pkgs.stdenv.cc.cc.lib
     pkgs.python311Packages.libsbml
