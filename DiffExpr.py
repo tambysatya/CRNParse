@@ -21,7 +21,7 @@ class Specie ():
         expr_prefix = "d"+self.internal.getId()+"/dt="
         terms = []
         for reactionid in self.reactions:
-            reaction = reactions_dict[reactionid]
+            reaction = reactions_dict[reactionid].internal
             kinetic = reaction.getKineticLaw().getFormula()
             coef = 0
             for reactant in reaction.getListOfReactants():
@@ -42,7 +42,10 @@ class Specie ():
         #expr = expr_prefix + '+'.join(terms)
         expr = '+'.join(terms)
         return parse_expr(expr)
-        
+class Reaction():
+    def __init__ (self,index,reaction):
+        self.index = index
+        self.internal = reaction
 class Parameter():
     def __init__ (self, index, parameter):
         self.index = index
@@ -64,6 +67,7 @@ class Function():
 
         body=body.replace("^","**") #TODO check the parsing 
         self.expr = parse_expr(body)
+        print (self.symbol,"=",body)
 
     def apply(self, expression):       
         for func in expression.atoms(sympy.Function):
@@ -99,9 +103,9 @@ class DiffEqSystem ():
                 specieindex += 1
 
 
-        for reaction in sbml_mdl.getListOfReactions():
+        for index, reaction in enumerate(sbml_mdl.getListOfReactions()):
             reactionid=reaction.getId()
-            self.reactions[reactionid]=reaction
+            self.reactions[reactionid]=Reaction(index, reaction)
             for reactant in reaction.getListOfReactants():
                 self.addReactionToSpecie(reactant.getSpecies(), reactionid)
             for product in reaction.getListOfProducts():
@@ -136,12 +140,24 @@ class DiffEqSystem ():
 
         for specie in self.species.values():
             expr = specie.buildDifferentialEquation(self.reactions)
-            expr=expr.subs(symbol_map)
-            for function in self.functions.values():
-                expr=function.apply(expr)
+            expr = expr.subs(symbol_map)
+            expr = self.expandFunctions(expr)
             exprs.append(expr)
             print (f"{specie.internal.getId()}|{specie.symbol}: ", expr)
 
+
+    def expandFunctions(self, expression):
+        while True: #because there is no infinite recursions in python (nor do-until syntax) -_-
+            recursive_call = False
+            for func in expression.atoms(sympy.Function):
+                name = func.func.__name__
+                if name in self.functions:
+                    expression = self.functions[name].apply(expression)
+                    recursive_call = True
+            if recursive_call == False:
+                break
+        return expression
+            
 
 
 
@@ -151,5 +167,5 @@ def test():
     return system
 
 mdl = libsbml.readSBML("examples/BIOMD0000000056_decomposition_r1.xml").getModel()
-mdl = libsbml.readSBML("examples/BIOMD0000000095_decomposition_r1.xml").getModel()
+#mdl = libsbml.readSBML("examples/BIOMD0000000095_decomposition_r1.xml").getModel()
 #mdl = libsbml.readSBML("example1.xml").getModel()
