@@ -4,7 +4,7 @@ from utils import parse_expr
 import sympy
 
 
-
+t = sympy.symbols("t")
 
 
 class Specie ():
@@ -13,7 +13,7 @@ class Specie ():
         self.internal = specie #the sbml specie object
         self.index = index
         if not isParam:
-            self.symbol = sympy.symbols("X"+str(index))
+            self.symbol = sympy.Function("X"+str(index))(t)
         else:
             self.symbol = sympy.symbols("S"+str(index))
 
@@ -191,6 +191,7 @@ def test():
     system = DiffEqSystem(mdl)
     return system
 
-mdl = libsbml.readSBML("examples/BIOMD0000000056_decomposition_r1.xml").getModel()
-#mdl = libsbml.readSBML("examples/BIOMD0000000095_decomposition_r1.xml").getModel()
+#mdl = libsbml.readSBML("examples/BIOMD0000000056_decomposition_r1.xml").getModel()
+mdl = libsbml.readSBML("examples/BIOMD0000000095_decomposition_r1.xml").getModel()
+#mdl = libsbml.readSBML("examples/BIOMD0000000096_decomposition_r1.xml").getModel()
 #mdl = libsbml.readSBML("example1.xml").getModel()
