@@ -8,11 +8,14 @@ import sympy
 
 
 class Specie ():
-    def __init__ (self, index, specie, reactionids = set()):
+    def __init__ (self, index, specie, reactionids = set(), isParam=False):
         self.reactions = reactionids #the reaction IDs where the considered specie is either a product or reactant
         self.internal = specie #the sbml specie object
         self.index = index
-        self.symbol = sympy.symbols("X"+str(index))
+        if not isParam:
+            self.symbol = sympy.symbols("X"+str(index))
+        else:
+            self.symbol = sympy.symbols("S"+str(index))
 
     def addReaction (self, reactionid):
         self.reactions.add(reactionid)
@@ -89,23 +92,24 @@ class DiffEqSystem ():
         self.species = {}   # map specieid -> Specie : for the variables species
         self.parametersspecies = {} #map specieid -> Specie : for the constant specices that acts like parameters
         self.parameters = {} #map identifier -> Parameter
-        self.functions = {}
+        self.functions = {} # map functionID -> Function (for the functions defined in the sbml)
+        self.eqdiffsystem = {} #specieid -> expression: system of differential equations
         
-        paramindex, specieindex = 0,0
 
         for function in sbml_mdl.getListOfFunctionDefinitions():
             self.functions[function.getId()] = Function(function)
-        for param in sbml_mdl.getListOfParameters():
+
+        for paramindex, param in enumerate(sbml_mdl.getListOfParameters()):
             self.parameters[param.getId()] = Parameter(paramindex, param)
             paramindex += 1
-
+        specieindex, paramindex = 0,0
         for specie in sbml_mdl.getListOfSpecies():
             if specie.getBoundaryCondition() or specie.getConstant():
-                s = Specie(paramindex, specie)
+                s = Specie(paramindex, specie, isParam=True)
                 self.parametersspecies[specie.getId()] = s
                 paramindex += 1
             else:
-                s = Specie(specieindex, specie)
+                s = Specie(specieindex, specie, isParam=False)
                 self.species[specie.getId()] = s
                 specieindex += 1
 
@@ -132,7 +136,7 @@ class DiffEqSystem ():
 
         
     def build (self):
-        exprs = []
+        self.eqdiffsystem = {}
         species_symbol_map = map(lambda specie: (sympy.symbols(specie.internal.getId()), specie.symbol),
                                  self.species.values())
         paramspecies_symbol_map = map(lambda specie: (sympy.symbols(specie.internal.getId()), specie.symbol),
@@ -145,12 +149,26 @@ class DiffEqSystem ():
 
 
 
-        for specie in self.species.values():
-            expr = specie.buildDifferentialEquation(self.reactions)
-            expr = expr.subs(symbol_map)
-            expr = self.expandFunctions(expr)
-            exprs.append(expr)
-            print (f"{specie.internal.getId()}|{specie.symbol}: ", expr)
+        substituted = True
+        #iteratively simplifies and substitutes variables that have been proved to be constant
+        while (substituted == True):
+            print ("substituting...")
+            substituted = False
+            newspecies = {}
+            for specieid, specie in self.species.items():
+                expr = specie.buildDifferentialEquation(self.reactions)
+                expr = expr.subs(symbol_map)
+                expr = self.expandFunctions(expr)
+                if expr == 0:
+                    newspecie = Specie (len(self.parametersspecies),specie.internal, isParam=True)
+                    self.parametersspecies[specieid] = newspecie
+                    print (f"{specieid} is constant and thus becomes the parameter {newspecie.symbol}")
+                    substituted=True
+                else:
+                    newspecies[specieid] = specie
+                    self.eqdiffsystem[specieid] = expr
+                    print (f"{specie.internal.getId()}|{specie.symbol}: ", expr)
+            self.species = newspecies
 
 
     def expandFunctions(self, expression):
@@ -173,6 +191,6 @@ def test():
     system = DiffEqSystem(mdl)
     return system
 
-#mdl = libsbml.readSBML("examples/BIOMD0000000056_decomposition_r1.xml").getModel()
-mdl = libsbml.readSBML("examples/BIOMD0000000095_decomposition_r1.xml").getModel()
+mdl = libsbml.readSBML("examples/BIOMD0000000056_decomposition_r1.xml").getModel()
+#mdl = libsbml.readSBML("examples/BIOMD0000000095_decomposition_r1.xml").getModel()
 #mdl = libsbml.readSBML("example1.xml").getModel()
