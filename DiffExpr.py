@@ -3,109 +3,21 @@ import libsbml
 from utils import parse_expr
 import sympy
 
-
-t = sympy.symbols("t")
-
-
-class Specie ():
-    def __init__ (self, index, specie, reactionids = set(), isParam=False):
-        self.reactions = reactionids #the reaction IDs where the considered specie is either a product or reactant
-        self.internal = specie #the sbml specie object
-        self.index = index
-        self.isParam = isParam
-        if not isParam:
-            self.symbol = sympy.Function("x"+str(index))(t)
-        else:
-            self.symbol = sympy.symbols("k"+str(index))
-    def addReaction (self, reactionid):
-        self.reactions.add(reactionid)
-    def buildDifferentialEquation (self, reactions_dict):
-        expr = 0
-        for reactionid in self.reactions:
-            reaction = reactions_dict[reactionid]
-            kinetic = reaction.kineticformula
-            coef = reaction.getStoichiometryMatrixCoeficient(self)
-            if coef == 1:
-                expr += kinetic
-            elif coef == -1:
-                expr -= kinetic
-            else:
-                expr += coef*kinetic
-        #expr = expr_prefix + '+'.join(terms)
-        return expr
-    def relabel (self, idx):
-        self.index = idx
-        if self.isParam:
-            self.symbol = sympy.symbols("k"+str(idx))
-        else:
-            self.symbol = sympy.symbols("x"+str(idx))
-
-class Reaction():
-    def __init__ (self,index,reaction):
-        self.index = index
-        self.internal = reaction
-        self.localparameters = {}
-        self.kineticformula = parse_expr(reaction.getKineticLaw().getFormula())
-        for paramindex, param in enumerate(reaction.getKineticLaw().getListOfLocalParameters()):
-            paramname = f"L{index}_{paramindex}"
-            self.localparameters[param.getId()] = Parameter(paramindex, param, name=paramname)
-            self.kineticformula = self.kineticformula.subs(param.getId(),sympy.symbols(paramname) )
-    def getStoichiometryMatrixCoeficient (self, specie):
-        coef = 0
-        specieid = specie.internal.getId()
-        for reactant in self.internal.getListOfReactants():
-            if reactant.getSpecies() == specieid:
-                coef -= reactant.getStoichiometry()
-        for product in self.internal.getListOfProducts():
-            if product.getSpecies() == specieid:
-                coef += product.getStoichiometry()
-        return coef
-
-class Parameter():
-    def __init__ (self, index, parameter, name=""):
-        self.index = index
-        self.internal = parameter
-        if name == "":
-            self.symbol = sympy.symbols("k"+str(index))
-        else:
-            self.symbol = sympy.symbols(name)
-    def reindex (self, idx):
-        self.index = idx
-        self.symbol = sympy.symbols("k"+str(idx))
-
-class Function():
-    def __init__(self, function):
-        self.internal = function
-        body = function.getBody()
-        body = libsbml.formulaToL3String(body)
-        args = []
-        for i in range(function.getNumArguments()):
-            args.append(function.getArgument(i).getName())
-        args = sympy.symbols(args)
-        self.args = args
-        self.name = function.getId()
-        self.symbol = sympy.Function(self.name)(*args)
+from Specie import *
+from Reaction import *
+from Parameter import *
+from Function import *
 
 
-        self.expr = parse_expr(body)
-        print (self.symbol,"=",body)
-
-    def apply(self, expression):       
-        for func in expression.atoms(sympy.Function):
-            if func.func.__name__ == self.name:
-                calledargs = func.args #the arguments on which the function is called
-                symmap = dict(zip (self.args, calledargs))
-                newexpr = self.expr.subs(symmap) #substitute the variables in the definition with the arguments of the function call
-                expression = expression.subs(func, newexpr)
-        return expression       
 
 class DiffEqSystem ():
 
     def __init__(self, sbml_mdl):
+        self.mdl = sbml_mdl
         self.reactions = {} # map reactionid -> Reaction
         self.species = {}   # map specieid -> Specie : for the variables species
         self.parametersspecies = {} #map specieid -> Specie : for the constant specices that acts like parameters
-        self.parameters = {} #map identifier -> Parameter
+        self.parameters = {} #map identifier -> Parameter (global parameters)
         self.functions = {} # map functionID -> Function (for the functions defined in the sbml)
         self.eqdiffsystem = {} #specieid -> expression: system of differential equations
         
@@ -184,6 +96,25 @@ class DiffEqSystem ():
                     print (f"{specie.internal.getId()}|{specie.symbol}: ", expr)
             self.species = newspecies
 
+    def rlabelSymbols(self):
+        """
+            Labels species "x1...xN" and parameters "k1...kN"
+        """
+        speciesym = {}
+        specieidx, paramidx = 0,0
+        for paramid in [param.getId() for param in self.mdl.getListOfLocalParameters()]: #required to keep the order identical as described in the sbml file
+            self.parameters[paramid].reindex(paramidx)
+            paramidx += 1
+        for specieid in [specie.getId() for specie in self.mdl.getListOfSpecies()]:
+            if specieid in self.species:
+                self.species[specieid].reindex(specieidx)
+                specieidx += 1
+            else:
+                self.parametersspecies[specieid].reindex(paramidx)
+                paramidx += 1
+        for reactionid in [reaction.getId() for reaction in self.mdl.getListOfReactions()]:
+            reaction = self.reactions[reactionid]
+        
 
     def expandFunctions(self, expression):
         while True: #because there is no infinite recursions in python (nor do-until syntax) -_-
