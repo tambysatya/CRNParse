@@ -86,35 +86,60 @@ class DiffEqSystem ():
             Labels species "x1...xN" and parameters "k1...kN"
         """
 
-        # Constructions of the substitutions maps: ID -> Int (index)
-        speciesidx = {}
-        globalparamsidx = {}
-        parametersspeciesidx = {}
-        reactionlocalparametersidx = {} #map reactionid -> (map localparamID symbol)
 
-        specieidx, paramidx = 0,0
+        symbidx = {} #Map Unique Symbol -> Index
+
+        # Constructions of the substitutions maps: ID -> Symbol
+        speciessymb = {}
+        globalparamssymb = {}
+        paramsspeciessymb = {}
+        reactionlocalparamssymb = {} #map reactionid -> (map localparamID symbol)
+
+        specieidx, paramidx = 1,1
 
         #global parameters
         for paramid in [param.getId() for param in self.mdl.getListOfParameters()]: #required to keep the order identical as described in the sbml file
-            globalparamsidx[paramid] = paramidx
+            symb = self.parameters[paramid].symbol
+            globalparamssymb[paramid] = symb
+            symbidx[symb] = "K" + str(paramidx)
             paramidx += 1
 
         #species AND constant species
         for specieid in [specie.getId() for specie in self.mdl.getListOfSpecies()]:
             if specieid in self.species:
-                speciesidx[specieid] = specieidx
+                symb = self.species[specieid].symbol
+                speciessymb[specieid] = symb
+                symbidx[symb] = "X" + str(specieidx)
                 specieidx += 1
             else:
-                parametersspeciesidx[specieid] = paramidx
+                symb = self.parametersspecies[specieid].symbol
+                paramsspeciessymb[specieid] = symb
+                symbidx[symb] = "K" + str(paramidx)
                 paramidx += 1
 
         #local parameters
         for reactionid in [reaction.getId() for reaction in self.mdl.getListOfReactions()]:
             reaction = self.reactions[reactionid]
-            reactionlocalparametersidx[reaction] = {}
+            reactionlocalparamssymb[reactionid] = {}
             for paramid in [param.getId() for param in reaction.internal.getKineticLaw().getListOfLocalParameters()]:
-                reactionlocalparametersidx[reaction][paramid]=paramidx
+                symb = reaction.localparameters[paramid].symbol
+                reactionlocalparamssymb[reactionid][paramid]=symb
+                symbidx[symb]= "K" + str(paramidx)
                 paramidx += 1
+
+        #rewriting kinetic formulas:
+        for reaction in self.reactions.values():
+            reaction.rewriteKineticFormula(speciessymb, globalparamssymb, paramsspeciessymb, reactionlocalparamssymb, symbidx)
+
+        exprs = {}
+        for specieid in [specie.getId() for specie in self.mdl.getListOfSpecies()]:
+            if specieid in self.species:
+                specie = self.species[specieid]
+                expr = specie.buildDifferentialEquation(self.reactions)
+                expr = self.expandFunctions(expr)
+                print (specieid, ": ", expr)
+                exprs[specieid] = expr
+                
         
 
         
@@ -139,7 +164,8 @@ def test():
     system = DiffEqSystem(mdl)
     return system
 
-mdl = libsbml.readSBML("examples/BIOMD0000000056_decomposition_r1.xml").getModel()
+mdl = libsbml.readSBML("examples/02.xml").getModel()
+#mdl = libsbml.readSBML("examples/BIOMD0000000056_decomposition_r1.xml").getModel()
 #mdl = libsbml.readSBML("examples/BIOMD0000000095_decomposition_r1.xml").getModel()
 #mdl = libsbml.readSBML("examples/BIOMD0000000096_decomposition_r1.xml").getModel()
 #mdl = libsbml.readSBML("example1.xml").getModel()

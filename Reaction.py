@@ -24,10 +24,17 @@ class Reaction():
                 coef += product.getStoichiometry()
         return coef
     
-    def substituteKineticFormula(self):
-        paramsub = [(param.internal.getId(), param.symbol()) in self.localparameters]
+    def rewriteKineticFormula(self, speciessymb, globalparamssymb, paramspeciessymb, reactionlocalparamssymb, symbolmap):
+        #paramsub = [(param.internal.getId(), param.symbol()) in self.localparameters]
+        print ("rewriting ", self.internal.getId())
         expr = parse_expr(self.internal.getKineticLaw().getFormula())
-        expr = expr.subs(paramsub)
+        
+        expr = expr.subs(reactionlocalparamssymb[self.internal.getId()]) #first rewrite the local params (that shadows the global params)
+        expr = expr.subs(speciessymb | globalparamssymb | paramspeciessymb)
+
+        expr = expr.subs(symbolmap)
+
+        #expr = expr.subs(paramsub)
         self.kineticformula = expr
         return expr
 
