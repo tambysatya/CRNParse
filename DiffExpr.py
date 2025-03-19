@@ -2,6 +2,7 @@
 import libsbml
 from utils import parse_expr
 import sympy
+import argparse
 
 from Specie import *
 from Reaction import *
@@ -68,12 +69,12 @@ class DiffEqSystem ():
             for specieid, specie in self.species.items():
                 expr = specie.buildDifferentialEquation(self.reactions)
                 #expr = expr.subs(symbol_map)
-                expr = self.expandFunctions(expr)
                 if expr == 0:
                     self.parametersspecies[specieid] = specie
                     print (f"{specieid} is constant and thus becomes a parameter.")
                     substituted=True
                 else:
+                    expr = self.expandFunctions(expr)
                     newspecies[specieid] = specie
                     self.eqdiffsystem[specieid] = expr
             self.species = newspecies
@@ -155,16 +156,34 @@ class DiffEqSystem ():
             if recursive_call == False:
                 break
         return expression
+    def writeDiffEqs (self, filename):
+        with open(filename, "w") as file:
+            for var, eq in self.eqdiffsystem.items():
+                file.write(f"{var}: {eq}\n")
             
 
 
 
+def run(filename, targetname):
+    mdl = libsbml.readSBML(filename).getModel()
+    system = DiffEqSystem(mdl)
+    system.build()
+    system.writeDiffEqs(targetname)
 
 def test():
     system = DiffEqSystem(mdl)
     return system
 
-mdl = libsbml.readSBML("examples/02.xml").getModel()
+#if __name__ == '__main__':
+#    parser = argparse.ArgumentParser()
+#    parser.add_argument("-i", "--input_file", help="the sbml file to be processed.", required=True)
+#    parser.add_argument("-o", "--output_file", help="where to store the differential equations system.", required=True)
+#    args = parser.parse_args()
+#    run(args.input_file, args.output_file)
+
+
+
+mdl = libsbml.readSBML("models/biomodels/BIOMD0000000301.xml").getModel()
 #mdl = libsbml.readSBML("examples/BIOMD0000000056_decomposition_r1.xml").getModel()
 #mdl = libsbml.readSBML("examples/BIOMD0000000095_decomposition_r1.xml").getModel()
 #mdl = libsbml.readSBML("examples/BIOMD0000000096_decomposition_r1.xml").getModel()
