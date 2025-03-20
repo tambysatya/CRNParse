@@ -1,5 +1,5 @@
 import libsbml
-x = {libsbml.AST_ALGEBRA_ARG :"libsbml.AST_ALGEBRA_ARG", 
+types = {libsbml.AST_ALGEBRA_ARG :"libsbml.AST_ALGEBRA_ARG", 
 libsbml.AST_DISTRIB_FUNCTION_BERNOULLI :"libsbml.AST_DISTRIB_FUNCTION_BERNOULLI", 
 libsbml.AST_FUNCTION_LN :"libsbml.AST_FUNCTION_LN", 
 libsbml.AST_POWER  : "libsbml.AST_POWER",

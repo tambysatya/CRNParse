@@ -8,7 +8,6 @@ class Function():
     def __init__(self, function):
         self.internal = function
         body = function.getBody()
-        body = libsbml.formulaToL3String(body)
         args = []
         for i in range(function.getNumArguments()):
             args.append(function.getArgument(i).getName())

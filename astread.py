@@ -2,8 +2,10 @@ import libsbml as l
 import sympy as sp
 import sympy.physics.units as u
 from sympy.functions.elementary.complexes import *
+import AST_TYPES as DBG #dictionary
 
-TIME_SYMBOL = sp.Dummy()
+TIME_SYMBOL = sp.Dummy("t")
+DELAY_SYMBOL = sp.Function(sp.Dummy())
 
 def processLambda(ast):
     raise ValueError ("AST_LAMBDA not implemented")
@@ -123,11 +125,13 @@ def getFunctionSymb (ast):
 
 
             case l.AST_FUNCTION_DELAY:	
-                raise ValueError("AST_FUNCTION_DELAY not implemented")
+                return DELAY_SYMBOL
             case l.AST_FUNCTION_PIECEWISE:	
                 return sp.Piecewise
             case l.AST_FUNCTION_POWER:	
-                raise ValueError("AST_FUNCTION_POWER not implemented")
+                if ast.getNumChildren() > 2:
+                    raise ValueError("AST_FUNCTION_POWER with args {ast.getNumChildren()} > 2")
+                return sp.Pow
             case l.AST_FUNCTION_RATE_OF:	
                 raise ValueError("AST_FUNCTION_RATE_OF not implemented")
             case l.AST_LAMBDA:
@@ -136,9 +140,10 @@ def getFunctionSymb (ast):
                 if ast.isOperator() or ast.isNumber():
                     raise ValueError ("getFunctionSymb(): type is AST_NAME but ast.isOperator() or ast.isNumber()")
                 name = ast.getName()
-                return sp.symbols(name)
+                return sp.Function(name)
+
             case _:
-                raise ValueError (f"getType() {ast.getType()} not implemented")
+                raise ValueError (f"getType() {DBG.types[ast.getType()]} not implemented")
 
 
 def getLogicalSymb (ast):
@@ -179,6 +184,18 @@ def getOperatorSymb (ast):
 
 def getArguments (ast):
     children = []
+    if ast.getType() == l.AST_FUNCTION_PIECEWISE:
+        i=0
+        while (i+1 < ast.getNumChildren()):
+            x = ast.getChild(i)
+            y = ast.getChild(i+1)
+            children.append((astToExpr(x),astToExpr(y)))
+            i+=2
+        return children
+
+    if ast.getType() == l.AST_NAME and ast.getNumChildren() == 0:
+        #it is a specie
+        return [TIME_SYMBOL]
     for i in range(ast.getNumChildren()):
         child = ast.getChild(i)
         expr = astToExpr(child)
@@ -188,14 +205,17 @@ def getArguments (ast):
 def processOperator (ast):
     match ast.getType():
         case l.AST_MINUS: 
-            if ast.getNumChildren() > 1:
-                raise ValueError ("processOperator(): AST_MINUS with NumChildren() > 1")
-            left = astToExpr(ast.getLeftChild())
-            right = astToExpr(ast.getRightChild())
-            return left - right
+            if ast.getNumChildren() > 2:
+                raise ValueError (f"processOperator(): AST_MINUS with NumChildren() {ast.getNumChildren()}> 2")
+            left = ast.getLeftChild()
+            right = ast.getRightChild()
+            if right == None:
+                return - astToExpr(left)
+            else:
+                return astToExpr(left) - astToExpr(right)
         case l.AST_DIVIDE:	
-            if ast.getNumChildren() > 1:
-                raise ValueError ("processOperator(): AST_DIVIDE with NumChildren() > 1")
+            if ast.getNumChildren() > 2:
+                raise ValueError (f"processOperator(): AST_DIVIDE with NumChildren() {ast.getNumChildren()}> 1")
             left = astToExpr(ast.getLeftChild())
             right = astToExpr(ast.getRightChild())
             return left / right
@@ -220,7 +240,7 @@ def astToExpr(ast):
     if ast.getType() == l.AST_UNKNOWN:
         raise ValueError("AST_UNKNOWN type")
     ast.canonicalize()
-    if ast.isConstant() or ast.isNumber():
+    if ast.isConstant() or ast.isNumber() or ast.getType() == l.AST_NAME_TIME:
         return getConstantSymb(ast)
     elif ast.isOperator():
         return processOperator(ast)

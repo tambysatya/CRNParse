@@ -73,6 +73,8 @@ class DiffEqSystem ():
                     self.parametersspecies[specieid] = specie
                     print (f"{specieid} is constant and thus becomes a parameter.")
                     substituted=True
+                if expr.is_constant():
+                    self.eqdiffsystem[specieid] = expr
                 else:
                     expr = self.expandFunctions(expr)
                     newspecies[specieid] = specie
@@ -172,18 +174,13 @@ def run(filename, targetname):
 
 def test():
     system = DiffEqSystem(mdl)
+    system.build()
     return system
 
-#if __name__ == '__main__':
-#    parser = argparse.ArgumentParser()
-#    parser.add_argument("-i", "--input_file", help="the sbml file to be processed.", required=True)
-#    parser.add_argument("-o", "--output_file", help="where to store the differential equations system.", required=True)
-#    args = parser.parse_args()
-#    run(args.input_file, args.output_file)
 
 
+mdl = libsbml.readSBML("models/biomodels/BIOMD0000000056.xml").getModel()
 
-mdl = libsbml.readSBML("models/biomodels/BIOMD0000000301.xml").getModel()
 #mdl = libsbml.readSBML("examples/BIOMD0000000056_decomposition_r1.xml").getModel()
 #mdl = libsbml.readSBML("examples/BIOMD0000000095_decomposition_r1.xml").getModel()
 #mdl = libsbml.readSBML("examples/BIOMD0000000096_decomposition_r1.xml").getModel()
