@@ -73,7 +73,7 @@ class DiffEqSystem ():
                     self.parametersspecies[specieid] = specie
                     print (f"{specieid} is constant and thus becomes a parameter.")
                     substituted=True
-                if expr.is_constant():
+                elif expr.is_real:
                     self.eqdiffsystem[specieid] = expr
                 else:
                     expr = self.expandFunctions(expr)

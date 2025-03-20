@@ -140,7 +140,10 @@ def getFunctionSymb (ast):
                 if ast.isOperator() or ast.isNumber():
                     raise ValueError ("getFunctionSymb(): type is AST_NAME but ast.isOperator() or ast.isNumber()")
                 name = ast.getName()
-                return sp.Function(name)
+                if ast.getNumChildren() == 0:
+                    return sp.symbols(name)
+                else:
+                    return sp.Function(name)
 
             case _:
                 raise ValueError (f"getType() {DBG.types[ast.getType()]} not implemented")
@@ -193,9 +196,6 @@ def getArguments (ast):
             i+=2
         return children
 
-    if ast.getType() == l.AST_NAME and ast.getNumChildren() == 0:
-        #it is a specie
-        return [TIME_SYMBOL]
     for i in range(ast.getNumChildren()):
         child = ast.getChild(i)
         expr = astToExpr(child)
@@ -232,7 +232,11 @@ def processCallable(ast):
     else:
         symb = getFunctionSymb(ast)
     args = getArguments(ast)
-    return symb(*args)
+    if len(args) > 0:
+        return symb(*args)
+    else: #constant function
+        return symb
+
 
 def astToExpr(ast):    
     #if ast.getType() == l.AST_ORIGINATES_IN_PACKAGE2:
