@@ -8,11 +8,44 @@ TIME_SYMBOL = sp.Dummy()
 def processLambda(ast):
     raise ValueError ("AST_LAMBDA not implemented")
 
+def getConstantSymb (ast):
+    match ast.getType():
+        case l.AST_CONSTANT_FALSE:	
+            return sp.false
+        case l.AST_CONSTANT_TRUE:	
+            return sp.true
+        case l.AST_CONSTANT_E:
+            return sp.exp(1)
+        case l.AST_CONSTANT_PI:	
+            return sp.pi
+        case l.AST_NAME_AVOGADRO:
+            return u.avogadro_number
+        case l.AST_INTEGER:	
+            return ast.getValue()
+        case l.AST_REAL:
+            return ast.getValue()
+            #return ast.getReal()
+        case l.AST_REAL_E:
+            return ast.getValue()
+            #return ast.getReal()
+        case l.AST_RATIONAL:
+            return ast.getValue()
+            #return ast.getReal()
+        case l.AST_NAME_TIME:
+            return TIME_SYMBOL
+        case l.AST_NAME:
+            return sp.symbols(ast.getName())
+        case _:
+            raise ValueError("getConstantSymb(): type not implemented")
+
+
+
 def getFunctionSymb (ast):
         match ast.getType():
             case l.AST_FUNCTION:
                 if ast.isOperator() or ast.isNumber():
                     raise ValueError ("getFunctionSymb(): type is AST_FUNCTION but ast.isOperator() or ast.isNumber()")
+                name = ast.getName()
                 return sp.Function(name)
             case l.AST_FUNCTION_ABS:
                 return abs
@@ -76,65 +109,37 @@ def getFunctionSymb (ast):
                 return sp.tan
             case l.AST_FUNCTION_TANH:
                 return sp.tanh
-
-
-            #calculus 
-            case l.AST_FUNCTION_MAX2:
+            case l.AST_FUNCTION_MAX:
                return sp.Max
-            case l.AST_FUNCTION_MIN2:
+            case l.AST_FUNCTION_MIN:
                 return sp.Min
-
             case l.AST_FUNCTION_ROOT:
                 return sp.root
-
             #polynomial quotients
-            case l.AST_FUNCTION_QUOTIENT2:
+            case l.AST_FUNCTION_QUOTIENT:
                 return sp.quo
-            case l.AST_FUNCTION_REM2:
+            case l.AST_FUNCTION_REM:
                 return sp.rem
 
 
             case l.AST_FUNCTION_DELAY:	
                 raise ValueError("AST_FUNCTION_DELAY not implemented")
             case l.AST_FUNCTION_PIECEWISE:	
-                raise ValueError("AST_FUNCTION_PIECEWISE not implemented")
+                return sp.Piecewise
             case l.AST_FUNCTION_POWER:	
                 raise ValueError("AST_FUNCTION_POWER not implemented")
-            case l.AST_FUNCTION_RATE_OF2:	
-                raise ValueError("AST_FUNCTION_RATE_OF2 not implemented")
+            case l.AST_FUNCTION_RATE_OF:	
+                raise ValueError("AST_FUNCTION_RATE_OF not implemented")
             case l.AST_LAMBDA:
                 return processLambda(ast)
             case l.AST_NAME:
                 if ast.isOperator() or ast.isNumber():
                     raise ValueError ("getFunctionSymb(): type is AST_NAME but ast.isOperator() or ast.isNumber()")
+                name = ast.getName()
                 return sp.symbols(name)
+            case _:
+                raise ValueError (f"getType() {ast.getType()} not implemented")
 
-
-def getConstantSymb (ast):
-    match ast.getType():
-        case l.AST_CONSTANT_FALSE:	
-            return sp.false
-        case l.AST_CONSTANT_TRUE:	
-            return sp.true
-        case l.AST_CONSTANT_E:
-            return sp.exp(1)
-        case l.AST_CONSTANT_PI:	
-            return sp.pi
-        case l.AST_NAME_AVOGADRO1:
-            return u.avogadro_number
-        case l.AST_INTEGER:	
-            return ast.getValue()
-        case l.AST_REAL:
-            return ast.getValue()
-            #return ast.getReal()
-        case l.AST_REAL_E:
-            return ast.getValue()
-            #return ast.getReal()
-        case l.AST_RATIONAL:
-            return ast.getValue()
-            #return ast.getReal()
-        case l.AST_NAME_TIME:
-            return TIME_SYMBOL
 
 def getLogicalSymb (ast):
     match ast.getType():
@@ -154,13 +159,13 @@ def getRelationalSymb (ast):
             return sp.Eq
         case l.AST_RELATIONAL_GEQ:
             return sp.Ge
-        case l.AST_RELATIONAL_GT
+        case l.AST_RELATIONAL_GT:
             return sp.Gt
-        case l.AST_RELATIONAL_LEQ
+        case l.AST_RELATIONAL_LEQ:
             return sp.Le
-        case l.AST_RELATIONAL_LT
+        case l.AST_RELATIONAL_LT:
             return sp.Lt
-        case l.AST_RELATIONAL_NEQ
+        case l.AST_RELATIONAL_NEQ:
             return sp.Ne
 
 def getOperatorSymb (ast):
@@ -172,30 +177,53 @@ def getOperatorSymb (ast):
         case l.AST_POWER:
             return sp.Pow
 
-        case l.AST_MINUS #TODO
-        case l.AST_DIVIDE	
-
-
-
-def processFunction (ast):
-    symb = getFunctionSymb(ast)
+def getArguments (ast):
     children = []
-    for i in ast.getNumChildren():
+    for i in range(ast.getNumChildren()):
         child = ast.getChild(i)
         expr = astToExpr(child)
         children.append(expr)
-    return symb(*children)
+    return children
 
+def processOperator (ast):
+    match ast.getType():
+        case l.AST_MINUS: 
+            if ast.getNumChildren() > 1:
+                raise ValueError ("processOperator(): AST_MINUS with NumChildren() > 1")
+            left = astToExpr(ast.getLeftChild())
+            right = astToExpr(ast.getRightChild())
+            return left - right
+        case l.AST_DIVIDE:	
+            if ast.getNumChildren() > 1:
+                raise ValueError ("processOperator(): AST_DIVIDE with NumChildren() > 1")
+            left = astToExpr(ast.getLeftChild())
+            right = astToExpr(ast.getRightChild())
+            return left / right
+        case _:
+            symb = getOperatorSymb(ast)
+            children = getArguments(ast)
+            return symb(*children)
 
-def astToExpr(ast, symbolmap):    
+def processCallable(ast):
+    if ast.isLogical():
+        symb = getLogicalSymb(ast)
+    elif ast.isRelational():
+        symb = getRelationalSymb(ast)
+    else:
+        symb = getFunctionSymb(ast)
+    args = getArguments(ast)
+    return symb(*args)
+
+def astToExpr(ast):    
+    #if ast.getType() == l.AST_ORIGINATES_IN_PACKAGE2:
+    #    raise ValueError("AST_ORIGINATES_IN_PACKAGE2 not implemented")
+    if ast.getType() == l.AST_UNKNOWN:
+        raise ValueError("AST_UNKNOWN type")
     ast.canonicalize()
-    if ast.isCiNumber():
-        return processConstant(ast)
-    elif ast.isFunction():
-        return processFunction(ast)
-    
-        case l.AST_ORIGINATES_IN_PACKAGE2
+    if ast.isConstant() or ast.isNumber():
+        return getConstantSymb(ast)
+    elif ast.isOperator():
+        return processOperator(ast)
+    else:
+        return processCallable(ast)
 
-        case l.AST_UNKNOWN
-
-    pass

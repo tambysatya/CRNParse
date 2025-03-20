@@ -2,6 +2,7 @@ import sympy.parsing.sympy_parser as sp
 from sympy.parsing.mathematica import parse_mathematica
 from sympy import Dummy
 from sympy.parsing.sympy_parser import auto_symbol, auto_number, factorial_notation
+from astread import astToExpr
 
 
 #from https://github.com/oradules/odeparse/blob/main/sympifyer.py
@@ -26,11 +27,8 @@ def escapeSymbs (expr):
 
 
 def parse_expr(expr):
-    expr = expr.replace("^","**")
-    expr = escapeSymbs(expr)
-    print (expr)
     try:
-        return sp.parse_expr(expr) #, global_dict=global_dict, transformations=(auto_symbol,auto_number,factorial_notation))
+        return astToExpr(expr) #, global_dict=global_dict, transformations=(auto_symbol,auto_number,factorial_notation))
     except TypeError as err:
         print ("parse error for expression: ", expr)
         print (err)
