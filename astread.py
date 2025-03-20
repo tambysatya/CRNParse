@@ -184,6 +184,8 @@ def getOperatorSymb (ast):
             return sp.Mul
         case l.AST_POWER:
             return sp.Pow
+        case _:
+            print ("getOperatorSymb(): invalid type")
 
 def getArguments (ast):
     children = []
@@ -222,6 +224,9 @@ def processOperator (ast):
         case _:
             symb = getOperatorSymb(ast)
             children = getArguments(ast)
+
+            print (symb(*children))
+
             return symb(*children)
 
 def processCallable(ast):
@@ -248,6 +253,8 @@ def astToExpr(ast):
         return getConstantSymb(ast)
     elif ast.isOperator():
         return processOperator(ast)
-    else:
+    elif ast.isFunction() or ast.getType() == l.AST_NAME:
         return processCallable(ast)
+    else:
+        raise ValueError (f"astToExpr() type {DBG.types[ast.getType()]} not processed")
 

@@ -35,10 +35,10 @@ def parse_expr(expr):
         print (err)
         raise err
     except ValueError as err:
-        print ("parse error for expression: ", expr)
+        print ("parse error for expression: ", libsbml.formulaToL3String(expr))
         print (err)
         raise err
     except _ as err:
-        print ("parse error for expression: ", expr)
+        print ("parse error for expression: ", libsbml.formulaToL3String(expr))
         print (err)
         raise err
