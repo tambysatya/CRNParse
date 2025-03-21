@@ -247,7 +247,12 @@ def astToExpr(ast):
         return getConstantSymb(ast)
     elif ast.isOperator():
         return processOperator(ast)
-    elif ast.isFunction() or ast.getType() == l.AST_NAME:
+    elif(
+         ast.isFunction() or 
+         ast.getType() == l.AST_NAME or
+         ast.isRelational() or
+         ast.isLogical()
+        ):
         return processCallable(ast)
     else:
         raise ValueError (f"astToExpr() type {DBG.types[ast.getType()]} not processed")

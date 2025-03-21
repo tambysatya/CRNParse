@@ -10,7 +10,10 @@ class Reaction():
     def __init__ (self,reaction):
         self.internal = reaction
         self.localparameters = {}
-        self.kineticformula = parse_expr(reaction.getKineticLaw().getMath())
+        law = reaction.getKineticLaw()
+        if None == law:
+            raise ValueError(f"reaction {reaction.getId()} does not have a kinetic law")
+        self.kineticformula = parse_expr(law.getMath())
         for param in reaction.getKineticLaw().getListOfLocalParameters():
             self.localparameters[param.getId()] = Parameter(param)
     def getStoichiometryMatrixCoeficient (self, specie):

@@ -179,7 +179,7 @@ def test():
 
 
 
-mdl = libsbml.readSBML("examples/607.xml").getModel()
+#mdl = libsbml.readSBML("examples/607.xml").getModel()
 
 #mdl = libsbml.readSBML("examples/BIOMD0000000056_decomposition_r1.xml").getModel()
 #mdl = libsbml.readSBML("examples/BIOMD0000000095_decomposition_r1.xml").getModel()
