@@ -12,14 +12,23 @@ class Function():
         args = []
         for i in range(function.getNumArguments()):
             args.append(function.getArgument(i).getName())
-        args = sympy.symbols(args)
-        self.args = args
+#        args = sympy.symbols(args)
+
+        #to avoid situations where variables have the same name as functions 
+        #(i see you model 770)
+        uniq_args = {sym:sympy.Function(sympy.Dummy())() for sym in args} 
+        uniq_fun = {sympy.Function(sym)():val for sym,val in uniq_args.items()}
+
+        self.args = uniq_args.values()
         self.name = function.getId()
-        self.symbol = sympy.Function(self.name)(*args)
+        self.symbol = sympy.Function(self.name)(*self.args)
 
 
         self.expr = parse_expr(body)
-        print (self.symbol,"=",body)
+        if not isinstance(self.expr, numbers.Number):
+            self.expr = self.expr.subs(uniq_fun)
+            print (self.expr)
+        print (self.symbol,"=",self.expr)
 
     def apply(self, expression):       
         for func in expression.atoms(sympy.Function):
