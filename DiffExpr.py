@@ -73,7 +73,7 @@ class DiffEqSystem ():
                     self.parametersspecies[specieid] = specie
                     print (f"{specieid} is constant and thus becomes a parameter.")
                     substituted=True
-                elif expr.is_real:
+                elif expr.is_number:
                     self.eqdiffsystem[specieid] = expr
                 else:
                     expr = self.expandFunctions(expr)
@@ -179,7 +179,7 @@ def test():
 
 
 
-mdl = libsbml.readSBML("models/biomodels/BIOMD0000000056.xml").getModel()
+mdl = libsbml.readSBML("examples/607.xml").getModel()
 
 #mdl = libsbml.readSBML("examples/BIOMD0000000056_decomposition_r1.xml").getModel()
 #mdl = libsbml.readSBML("examples/BIOMD0000000095_decomposition_r1.xml").getModel()

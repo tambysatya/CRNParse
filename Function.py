@@ -1,6 +1,7 @@
 import libsbml
 from utils import parse_expr
 import sympy
+import numbers
 
 
 
@@ -25,8 +26,11 @@ class Function():
             if func.func.__name__ == self.name:
                 calledargs = func.args #the arguments on which the function is called
                 symmap = dict(zip (self.args, calledargs))
-                newexpr = self.expr.subs(symmap) #substitute the variables in the definition with the arguments of the function call
-                expression = expression.subs(func, newexpr)
+                if not isinstance(self.expr, numbers.Number): #when the expression is not constant
+                    newexpr = self.expr.subs(symmap) #substitute the variables in the definition with the arguments of the function call
+                    expression = expression.subs(func, newexpr)
+                else:
+                    expression = expression.subs(func, self.expr)
         return expression       
 
 
