@@ -8,10 +8,10 @@ import sympy
 t = sympy.symbols("t")
 
 
-class Specie ():
+class Specie (libsbml.Species):
     def __init__ (self, specie, reactionids = set()):
+        super().__init__(specie)
         self.reactions = reactionids #the reaction IDs where the considered specie is either a product or reactant
-        self.internal = specie #the sbml specie object
         self.symbol = sympy.Dummy()
 
     def addReaction (self, reactionid):

@@ -5,9 +5,9 @@ import numbers
 
 
 
-class Function():
+class Function(libsbml.FunctionDefinition):
     def __init__(self, function):
-        self.internal = function
+        super().__init__(function)
         body = function.getBody()
         args = []
         for i in range(function.getNumArguments()):

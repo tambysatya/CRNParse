@@ -6,9 +6,9 @@ import libsbml
 from Specie import *
 from Parameter import *
 
-class Reaction():
+class Reaction(libsbml.Reaction):
     def __init__ (self,reaction):
-        self.internal = reaction
+        super().__init__(reaction)
         self.localparameters = {}
         law = reaction.getKineticLaw()
         if None == law:
@@ -18,11 +18,11 @@ class Reaction():
             self.localparameters[param.getId()] = Parameter(param)
     def getStoichiometryMatrixCoeficient (self, specie):
         coef = 0
-        specieid = specie.internal.getId()
-        for reactant in self.internal.getListOfReactants():
+        specieid = specie.getId()
+        for reactant in self.getListOfReactants():
             if reactant.getSpecies() == specieid:
                 coef -= reactant.getStoichiometry()
-        for product in self.internal.getListOfProducts():
+        for product in self.getListOfProducts():
             if product.getSpecies() == specieid:
                 coef += product.getStoichiometry()
         return coef
@@ -30,9 +30,9 @@ class Reaction():
     def rewriteKineticFormula(self, speciessymb, globalparamssymb, paramspeciessymb, reactionlocalparamssymb, symbolmap):
         #paramsub = [(param.internal.getId(), param.symbol()) in self.localparameters]
         print ("rewriting ", self.internal.getId())
-        expr = parse_expr(self.internal.getKineticLaw().getMath())
+        expr = parse_expr(self.getKineticLaw().getMath())
         
-        expr = expr.subs(reactionlocalparamssymb[self.internal.getId()]) #first rewrite the local params (that shadows the global params)
+        expr = expr.subs(reactionlocalparamssymb[self.getId()]) #first rewrite the local params (that shadows the global params)
         expr = expr.subs(speciessymb | globalparamssymb | paramspeciessymb)
 
         expr = expr.subs(symbolmap)
