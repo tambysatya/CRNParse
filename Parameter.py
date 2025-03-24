@@ -2,9 +2,9 @@ import sympy
 
 import libsbml
 
-class Parameter():
+class Parameter(libsbml.Parameter):
     def __init__ (self, parameter, name=None):
-        self.internal = parameter
+        super().__init__(parameter)
         if name != None:
             self.symbol = sympy.symbol(name)
         else:
