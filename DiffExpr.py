@@ -1,9 +1,10 @@
 
 import libsbml
 from utils import parse_expr
-import sympy
+import sympy as sp
 import argparse
 
+from astread import TIME_SYMBOL
 from Specie import *
 from Reaction import *
 from Parameter import *
@@ -83,74 +84,25 @@ class DiffEqSystem ():
 
         for specieid, expr in self.eqdiffsystem.items():
             print (specieid,": ", expr)
-
-    def indexSymbols(self):
-        """
-            Labels species "x1...xN" and parameters "k1...kN"
-        """
-
-
-        symbidx = {} #Map Unique Symbol -> Index
-
-        # Constructions of the substitutions maps: ID -> Symbol
-        speciessymb = {}
-        globalparamssymb = {}
-        paramsspeciessymb = {}
-        reactionlocalparamssymb = {} #map reactionid -> (map localparamID symbol)
-
-        specieidx, paramidx = 1,1
-
-        #global parameters
-        for paramid in [param.getId() for param in self.mdl.getListOfParameters()]: #required to keep the order identical as described in the sbml file
-            symb = self.parameters[paramid].symbol
-            globalparamssymb[paramid] = symb
-            symbidx[symb] = "K" + str(paramidx)
-            paramidx += 1
-
-        #species AND constant species
-        for specieid in [specie.getId() for specie in self.mdl.getListOfSpecies()]:
-            if specieid in self.species:
-                symb = self.species[specieid].symbol
-                speciessymb[specieid] = symb
-                symbidx[symb] = "X" + str(specieidx)
-                specieidx += 1
-            else:
-                symb = self.parametersspecies[specieid].symbol
-                paramsspeciessymb[specieid] = symb
-                symbidx[symb] = "K" + str(paramidx)
-                paramidx += 1
-
-        #local parameters
-        for reactionid in [reaction.getId() for reaction in self.mdl.getListOfReactions()]:
-            reaction = self.reactions[reactionid]
-            reactionlocalparamssymb[reactionid] = {}
-            for paramid in [param.getId() for param in reaction.internal.getKineticLaw().getListOfLocalParameters()]:
-                symb = reaction.localparameters[paramid].symbol
-                reactionlocalparamssymb[reactionid][paramid]=symb
-                symbidx[symb]= "K" + str(paramidx)
-                paramidx += 1
-
-        #rewriting kinetic formulas:
-        for reaction in self.reactions.values():
-            reaction.rewriteKineticFormula(speciessymb, globalparamssymb, paramsspeciessymb, reactionlocalparamssymb, symbidx)
-
-        exprs = {}
-        for specieid in [specie.getId() for specie in self.mdl.getListOfSpecies()]:
-            if specieid in self.species:
-                specie = self.species[specieid]
-                expr = specie.buildDifferentialEquation(self.reactions)
-                expr = self.expandFunctions(expr)
-                print (specieid, ": ", expr)
-                exprs[specieid] = expr
-                
         
+        print ("rewriting:")
+        self.rewriteSymbols()
+
+       
+    def rewriteSymbols(self):
+        speciesDict = {sp.Function(sym.getId())():sp.Function(sym.symbol)(TIME_SYMBOL) for sym in self.species.values()}
+        paramspeciesDict = {sp.Function(sym.getId())():sp.Function(sym.symbol)(TIME_SYMBOL) for sym in self.parametersspecies.values()}
+        parameters = {sp.Function(sym.getId())():sym.symbol for sym in self.parameters.values()}
+        for expr in self.eqdiffsystem:
+            self.eqdiffsystem[expr] = (self.eqdiffsystem[expr].subs(speciesDict | paramspeciesDict |parameters))
+            print ("\t",self.eqdiffsystem[expr])
 
         
 
     def expandFunctions(self, expression):
         while True: #because there is no infinite recursions in python (nor do-until syntax) -_-
             recursive_call = False
-            for func in expression.atoms(sympy.Function):
+            for func in expression.atoms(sp.Function):
                 name = func.func.__name__
                 if name in self.functions:
                     expression = self.functions[name].apply(expression)
