@@ -12,7 +12,6 @@ class Function(libsbml.FunctionDefinition):
         args = []
         for i in range(function.getNumArguments()):
             args.append(function.getArgument(i).getName())
-#        args = sympy.symbols(args)
 
         #to avoid situations where variables have the same name as functions 
         #(i see you model 770)
@@ -27,7 +26,6 @@ class Function(libsbml.FunctionDefinition):
         self.expr = parse_expr(body)
         if not isinstance(self.expr, numbers.Number):
             self.expr = self.expr.subs(uniq_fun)
-            print (self.expr)
         print (self.symbol,"=",self.expr)
 
     def apply(self, expression):       

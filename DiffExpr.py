@@ -89,7 +89,7 @@ class DiffEqSystem ():
         print ("rewriting:")
         self.rewriteSymbols()
 
-        print (f"Found {len(self.species)} species, {len(self.reactions)} reactions, {len(self.parameters)} parameters, {len(self.parametersspecies)} species considered as parameters and {len(self.functions)} function definitions.")
+        print (f"Found {len(self.species)} specie(s), {len(self.reactions)} reaction(s), {len(self.parameters)} parameter(s), {len(self.parametersspecies)} specie(s) considered as parameter(s) and {len(self.functions)} function definition(s).")
 
        
     def rewriteSymbols(self):
@@ -126,15 +126,20 @@ class DiffEqSystem ():
             symbolmap [param.symbol] = sp.symbols("k"+str(count))
             count += 1
         count =1
+        speciemap = {}
         for specie in self.species.values():
             symbolmap[sp.Function(specie.symbol)] = sp.Function("x"+str(count))
+            speciemap[specie.getId()] = sp.Function("x"+str(count))(sp.symbols("t"))
             count += 1
 
+        neqs = {}
         with open(filename, "w") as file:
             for var, eq in self.eqdiffsystem.items():
+                varsym = speciemap[var]
                 neq = eq.subs(symbolmap)
                 neq = neq.subs(TIME_SYMBOL, sp.symbols("t")) #rewrite the time _t -> t
-                file.write(f"{var}: {neq}\n")
+                file.write(f"{varsym}: {neq}\n")
+        
             
 
     def listParameters (self):
