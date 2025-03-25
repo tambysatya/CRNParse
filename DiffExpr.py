@@ -72,6 +72,7 @@ class DiffEqSystem ():
                 self.parametersspecies[specieid] = specie
                 print (f"{specieid} is constant and thus becomes a parameter.")
             elif expr.is_number:
+                newspecies[specieid] = specie
                 self.eqdiffsystem[specieid] = expr
             else:
                 expr = self.expandFunctions(expr)
@@ -128,8 +129,8 @@ class DiffEqSystem ():
         count =1
         speciemap = {}
         for specie in self.species.values():
-            symbolmap[sp.Function(specie.symbol)] = sp.Function("x"+str(count))
-            speciemap[specie.getId()] = sp.Function("x"+str(count))(sp.symbols("t"))
+            symbolmap[sp.Function(specie.symbol)(TIME_SYMBOL)] = sp.symbols("x"+str(count))
+            speciemap[specie.getId()] = sp.symbols("x"+str(count))
             count += 1
 
         neqs = {}
@@ -137,7 +138,6 @@ class DiffEqSystem ():
             for var, eq in self.eqdiffsystem.items():
                 varsym = speciemap[var]
                 neq = eq.subs(symbolmap)
-                neq = neq.subs(TIME_SYMBOL, sp.symbols("t")) #rewrite the time _t -> t
                 file.write(f"{varsym}: {neq}\n")
         
             

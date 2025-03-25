@@ -2,7 +2,7 @@
 
 
 
-MODELS=`ls models/biomodels/*`
+MODELS=`ls models/biomodels/BIO*`
 
 for MODEL in $MODELS
 do

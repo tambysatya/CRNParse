@@ -5,6 +5,7 @@ import sympy as sp
 import libsbml
 from Specie import *
 from Parameter import *
+import numbers
 
 class Reaction(libsbml.Reaction):
     def __init__ (self,reaction):
@@ -23,7 +24,8 @@ class Reaction(libsbml.Reaction):
             parameter = Parameter(param)
             self.localparameters[param.getId()] = parameter
             localsymbs[sp.Function(parameter.getId())()] = parameter.symbol
-        self.kineticformula = self.kineticformula.subs(localsymbs)
+        if not isinstance(self.kineticformula, numbers.Number):
+            self.kineticformula = self.kineticformula.subs(localsymbs)
     def getStoichiometryMatrixCoeficient (self, specie):
         coef = 0
         specieid = specie.getId()
