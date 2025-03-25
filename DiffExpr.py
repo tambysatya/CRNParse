@@ -144,19 +144,19 @@ class DiffEqSystem ():
 
     def listParameters (self):
         params = []
-        
+
+        for param in self.parameters.values():
+           params.append(param)
+       
         for compartment in self.compartments.values():
             params.append(compartment)
-        
-        for param in self.parameters.values():
-            params.append(param)
-
-        for param in self.parametersspecies.values():
-            params.append(param)
 
         for reaction in self.reactions.values():
             for param in reaction.localparameters.values():
                 params.append(param)
+       
+        for param in self.parametersspecies.values():
+            params.append(param)
 
         return params
 
