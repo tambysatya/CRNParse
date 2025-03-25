@@ -65,30 +65,23 @@ class DiffEqSystem ():
     def build (self):
         self.eqdiffsystem = {}
 
-        substituted = True
-        #iteratively simplifies and substitutes variables that have been proved to be constant
-        while (substituted == True):
-            substituted = False
-            newspecies = {}
-            for specieid, specie in self.species.items():
-                expr = specie.buildDifferentialEquation(self.reactions)
-                #expr = expr.subs(symbol_map)
+        newspecies = {}
+        for specieid, specie in self.species.items():
+            expr = specie.buildDifferentialEquation(self.reactions)
+            if expr == 0:
+                self.parametersspecies[specieid] = specie
+                print (f"{specieid} is constant and thus becomes a parameter.")
+            elif expr.is_number:
+                self.eqdiffsystem[specieid] = expr
+            else:
+                expr = self.expandFunctions(expr)
                 if expr == 0:
                     self.parametersspecies[specieid] = specie
                     print (f"{specieid} is constant and thus becomes a parameter.")
-                    substituted=True
-                elif expr.is_number:
-                    self.eqdiffsystem[specieid] = expr
                 else:
-                    expr = self.expandFunctions(expr)
-
-                    if expr == 0:
-                        self.parametersspecies[specieid] = specie
-                        print (f"{specieid} is constant and thus becomes a parameter.")
-                    else:
-                        newspecies[specieid] = specie
-                        self.eqdiffsystem[specieid] = expr
-            self.species = newspecies
+                    newspecies[specieid] = specie
+                    self.eqdiffsystem[specieid] = expr
+        self.species = newspecies
 
         for specieid, expr in self.eqdiffsystem.items():
             print (specieid,": ", expr)
