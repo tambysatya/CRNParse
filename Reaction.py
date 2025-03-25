@@ -20,11 +20,9 @@ class Reaction(libsbml.Reaction):
             self.localparameters[param.getId()] = parameter
             localsymbs[sp.Function(parameter.getId())()] = parameter.symbol
         for param in reaction.getKineticLaw().getListOfParameters():
-            print (param.getId())
             parameter = Parameter(param)
             self.localparameters[param.getId()] = parameter
             localsymbs[sp.Function(parameter.getId())()] = parameter.symbol
-        print (localsymbs)
         self.kineticformula = self.kineticformula.subs(localsymbs)
     def getStoichiometryMatrixCoeficient (self, specie):
         coef = 0

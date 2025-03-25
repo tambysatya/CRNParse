@@ -5,6 +5,7 @@ import sympy as sp
 import argparse
 
 from astread import TIME_SYMBOL
+from Compartment import *
 from Specie import *
 from Reaction import *
 from Parameter import *
@@ -16,6 +17,7 @@ class DiffEqSystem ():
 
     def __init__(self, sbml_mdl):
         self.mdl = sbml_mdl
+        self.compartments = {} # map compartmentid -> Compartment
         self.reactions = {} # map reactionid -> Reaction
         self.species = {}   # map specieid -> Specie : for the variables species
         self.parametersspecies = {} #map specieid -> Specie : for the constant specices that acts like parameters
@@ -24,6 +26,8 @@ class DiffEqSystem ():
         self.eqdiffsystem = {} #specieid -> expression: system of differential equations
         
 
+        for compartment in sbml_mdl.getListOfCompartments():
+            self.compartments[compartment.getId()] = Compartment(compartment)
         for function in sbml_mdl.getListOfFunctionDefinitions():
             self.functions[function.getId()] = Function(function)
 
@@ -90,11 +94,17 @@ class DiffEqSystem ():
 
        
     def rewriteSymbols(self):
+        """
+        Rewrites the ODEs with unique symbols, in order to avoid shadowing declarations.
+        Also converts the symbols (that are all constant functions) into time-dependent functions (for
+        species) and constant symbols (for parameters)
+        """
+        compartmentsDict = {sp.Function(sym.getId())():sym.symbol for sym in self.compartments.values()}
         speciesDict = {sp.Function(sym.getId())():sp.Function(sym.symbol)(TIME_SYMBOL) for sym in self.species.values()}
         paramspeciesDict = {sp.Function(sym.getId())():sp.Function(sym.symbol)(TIME_SYMBOL) for sym in self.parametersspecies.values()}
         parameters = {sp.Function(sym.getId())():sym.symbol for sym in self.parameters.values()}
         for expr in self.eqdiffsystem:
-            self.eqdiffsystem[expr] = (self.eqdiffsystem[expr].subs(speciesDict | paramspeciesDict |parameters))
+            self.eqdiffsystem[expr] = (self.eqdiffsystem[expr].subs(compartmentsDict | speciesDict | paramspeciesDict |parameters))
             print ("\t",self.eqdiffsystem[expr])
 
         
