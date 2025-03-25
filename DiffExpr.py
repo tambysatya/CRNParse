@@ -51,7 +51,6 @@ class DiffEqSystem ():
                 self.addReactionToSpecie(product.getSpecies(), reactionid)
             for modifier in reaction.getListOfModifiers():
                 self.addReactionToSpecie(modifier.getSpecies(), reactionid)
-        print (f"Found {len(self.species)} species, {len(self.reactions)} reactions, {len(self.parameters)} parameters, {len(self.parametersspecies)} species considered as parameters and {len(self.functions)} function definitions.")
     
     def addReactionToSpecie (self, specieid, reactionid):
         try:
@@ -82,8 +81,13 @@ class DiffEqSystem ():
                     self.eqdiffsystem[specieid] = expr
                 else:
                     expr = self.expandFunctions(expr)
-                    newspecies[specieid] = specie
-                    self.eqdiffsystem[specieid] = expr
+
+                    if expr == 0:
+                        self.parametersspecies[specieid] = specie
+                        print (f"{specieid} is constant and thus becomes a parameter.")
+                    else:
+                        newspecies[specieid] = specie
+                        self.eqdiffsystem[specieid] = expr
             self.species = newspecies
 
         for specieid, expr in self.eqdiffsystem.items():
@@ -91,6 +95,8 @@ class DiffEqSystem ():
         
         print ("rewriting:")
         self.rewriteSymbols()
+
+        print (f"Found {len(self.species)} species, {len(self.reactions)} reactions, {len(self.parameters)} parameters, {len(self.parametersspecies)} species considered as parameters and {len(self.functions)} function definitions.")
 
        
     def rewriteSymbols(self):
@@ -121,10 +127,40 @@ class DiffEqSystem ():
                 break
         return expression
     def writeDiffEqs (self, filename):
+        symbolmap = {}
+        count = 1
+        for param in self.listParameters():
+            symbolmap [param.symbol] = sp.symbols("k"+str(count))
+            count += 1
+        count =1
+        for specie in self.species.values():
+            symbolmap[sp.Function(specie.symbol)] = sp.Function("x"+str(count))
+            count += 1
+
         with open(filename, "w") as file:
             for var, eq in self.eqdiffsystem.items():
-                file.write(f"{var}: {eq}\n")
+                neq = eq.subs(symbolmap)
+                neq = neq.subs(TIME_SYMBOL, sp.symbols("t")) #rewrite the time _t -> t
+                file.write(f"{var}: {neq}\n")
             
+
+    def listParameters (self):
+        params = []
+        
+        for compartment in self.compartments.values():
+            params.append(compartment)
+        
+        for param in self.parameters.values():
+            params.append(param)
+
+        for param in self.parametersspecies.values():
+            params.append(param)
+
+        for reaction in self.reactions.values():
+            for param in reaction.localparameters.values():
+                params.append(param)
+
+        return params
 
 
 
