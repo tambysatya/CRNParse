@@ -257,3 +257,18 @@ def astToExpr(ast):
     else:
         raise ValueError (f"astToExpr() type {DBG.types[ast.getType()]} not processed")
 
+def parse_expr(expr):
+    try:
+        return astToExpr(expr) #, global_dict=global_dict, transformations=(auto_symbol,auto_number,factorial_notation))
+    except TypeError as err:
+        print ("parse error for expression: ", libsbml.formulaToL3String(expr))
+        print (err)
+        raise err
+    except ValueError as err:
+        print ("parse error for expression: ", libsbml.formulaToL3String(expr))
+        print (err)
+        raise err
+    except _ as err:
+        print ("parse error for expression: ", libsbml.formulaToL3String(expr))
+        print (err)
+        raise err

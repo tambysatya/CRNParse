@@ -1,6 +1,6 @@
 
 import libsbml
-from utils import parse_expr
+from astread import parse_expr
 import sympy as sp
 from sympy.utilities.lambdify import lambdastr
 import scipy
