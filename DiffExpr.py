@@ -3,6 +3,7 @@ import libsbml
 from utils import parse_expr
 import sympy as sp
 from sympy.utilities.lambdify import lambdastr
+import scipy
 import argparse
 
 from astread import TIME_SYMBOL
@@ -105,8 +106,8 @@ class DiffEqSystem ():
         species) and constant symbols (for parameters)
         """
         compartmentsDict = {sp.Function(sym.getId())():sym.symbol for sym in self.compartments.values()}
-        speciesDict = {sp.Function(sym.getId())():sp.Function(sym.symbol)(TIME_SYMBOL) for sym in self.species.values()}
-        paramspeciesDict = {sp.Function(sym.getId())():sp.Function(sym.symbol)(TIME_SYMBOL) for sym in self.parametersspecies.values()}
+        speciesDict = {sp.Function(sym.getId())():sym.symbol for sym in self.species.values()}
+        paramspeciesDict = {sp.Function(sym.getId())():sym.symbol for sym in self.parametersspecies.values()}
         parameters = {sp.Function(sym.getId())():sym.symbol for sym in self.parameters.values()}
         for expr in self.eqdiffsystem:
             self.eqdiffsystem[expr] = (self.eqdiffsystem[expr].subs(compartmentsDict | speciesDict | paramspeciesDict |parameters))
@@ -135,7 +136,7 @@ class DiffEqSystem ():
         count =1
         speciemap = {}
         for specie in self.species.values():
-            symbolmap[sp.Function(specie.symbol)(TIME_SYMBOL)] = sp.symbols("x"+str(count))
+            symbolmap[specie.symbol] = sp.symbols("x"+str(count))
             speciemap[specie.getId()] = sp.symbols("x"+str(count))
             count += 1
 
@@ -148,7 +149,10 @@ class DiffEqSystem ():
         
 
     def getODEs (self, usr_paramsvals={}, usr_speciesvals={}):
-        print ("Writing ODES:")
+        """
+            Generates a function f :: t -> x -> f(t,x)=dx/dt as well as the initial point
+            The user can modify the values of some parameters and the initial value of some species
+        """
         params = self.listParameters()
         paramsvals = {}
         speciesvals = {}
@@ -176,13 +180,11 @@ class DiffEqSystem ():
 
 
         initialpoint = speciesvals.values()
-        model = lambda pt: list(map (lambda f: f(*pt), system))
+        model = lambda t, pt: list(map (lambda f: f(*pt), system))
 
-        #ret = map (lambda f, x: f(*x), system, repeat(speciesvals.values()))
-        #print (list(ret))
-        print ("results=",model(initialpoint))
+        #print ("results=",model(initialpoint))
 
-        return model, initialpoint
+        return model, initialpoint, system
 
 
 
