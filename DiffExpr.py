@@ -27,7 +27,7 @@ class DiffEqSystem ():
         self.compartments = {} # map compartmentid -> Compartment
         self.reactions = {} # map reactionid -> Reaction
         self.species = {}   # map specieid -> Specie : for the variables species
-        self.parametersspecies = {} #map specieid -> Specie : for the constant specices that acts like parameters
+        self.parametersspecies = {} #map specieid -> Specie : for the constant species that acts like parameters
         self.parameters = {} #map identifier -> Parameter (global parameters)
         self.functions = {} # map functionID -> Function (for the functions defined in the sbml)
         self.eqdiffsystem = {} #specieid -> expression: system of differential equations

@@ -11,6 +11,7 @@ in pkgs.mkShell {
     pkgs.python312Packages.sympy
     pkgs.python312Packages.scipy
     pkgs.python312Packages.numpy
+    pkgs.python312Packages.networkx
 
 
     pkgs.python312Packages.pip
