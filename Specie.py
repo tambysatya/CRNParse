@@ -8,9 +8,9 @@ import math
 
 
 class Specie (libsbml.Species):
-    def __init__ (self, specie, reactionids = set()):
+    def __init__ (self, specie):
         super().__init__(specie)
-        self.reactions = reactionids #the reaction IDs where the considered specie is either a product or reactant
+        self.reactions = set() #the reaction IDs where the considered specie is either a product or reactant
         self.symbol = sympy.Dummy()
         
         value = specie.getInitialConcentration()

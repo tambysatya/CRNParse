@@ -16,6 +16,8 @@ from Function import *
 from types import FunctionType
 from itertools import repeat
 
+import math
+
 
 
 class DiffEqSystem ():
@@ -56,6 +58,7 @@ class DiffEqSystem ():
                 self.addReactionToSpecie(product.getSpecies(), reactionid)
             for modifier in reaction.getListOfModifiers():
                 self.addReactionToSpecie(modifier.getSpecies(), reactionid)
+        self.build()
     
     def addReactionToSpecie (self, specieid, reactionid):
         try:
@@ -148,7 +151,7 @@ class DiffEqSystem ():
                 file.write(f"{varsym}: {neq}\n")
         
 
-    def getODEs (self, usr_paramsvals={}, usr_speciesvals={}):
+    def getODEs (self, usr_paramsvals={}, usr_speciesvals={}, verbose=False):
         """
             Generates a function f :: t -> x -> f(t,x)=dx/dt as well as the initial point
             The user can modify the values of some parameters and the initial value of some species
@@ -174,8 +177,14 @@ class DiffEqSystem ():
                 speciesvals[specieid] = self.species[specieid].initialvalue
             nexpr = expr.subs(paramsvals)
             nexpr = nexpr.subs(speciessymb)
+
             function = sp.lambdify(x, nexpr)
-            print ("\t",specieid,": ", x, " => ", nexpr)
+            
+            if nexpr.is_number and math.isnan(nexpr):
+                print ("[WARNING] ",x ,": ", nexpr)
+
+            if verbose:
+                print ("\t",specieid,": ", x, " => ", nexpr)
             system.append(function)
 
 
