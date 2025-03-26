@@ -3,9 +3,8 @@
 import libsbml
 from utils import parse_expr
 import sympy
+import math
 
-
-t = sympy.symbols("t")
 
 
 class Specie (libsbml.Species):
@@ -13,6 +12,12 @@ class Specie (libsbml.Species):
         super().__init__(specie)
         self.reactions = reactionids #the reaction IDs where the considered specie is either a product or reactant
         self.symbol = sympy.Dummy()
+        
+        value = specie.getInitialConcentration()
+        if math.isnan(value):
+            self.initialvalue = specie.getInitialAmount()
+        else:
+            self.initialvalue = value
 
     def addReaction (self, reactionid):
         self.reactions.add(reactionid)

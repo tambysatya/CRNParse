@@ -9,6 +9,9 @@ class Parameter(libsbml.Parameter):
             self.symbol = sympy.symbol(name)
         else:
             self.symbol = sympy.Dummy()
+        
+        self.initialvalue = parameter.getValue()
+
     def label(self, idx):
         self.symbol = sympy.symbol("k"+str(idx))
 

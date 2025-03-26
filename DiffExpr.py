@@ -2,6 +2,8 @@
 import libsbml
 from utils import parse_expr
 import sympy as sp
+from sympy.utilities.lambdify import lambdastr
+import scipy
 import argparse
 
 from astread import TIME_SYMBOL
@@ -10,6 +12,9 @@ from Specie import *
 from Reaction import *
 from Parameter import *
 from Function import *
+
+from types import FunctionType
+from itertools import repeat
 
 
 
@@ -89,6 +94,7 @@ class DiffEqSystem ():
         
         print ("rewriting:")
         self.rewriteSymbols()
+        self.getODEs()
 
         print (f"Found {len(self.species)} specie(s), {len(self.reactions)} reaction(s), {len(self.parameters)} parameter(s), {len(self.parametersspecies)} specie(s) considered as parameter(s) and {len(self.functions)} function definition(s).")
 
@@ -100,8 +106,8 @@ class DiffEqSystem ():
         species) and constant symbols (for parameters)
         """
         compartmentsDict = {sp.Function(sym.getId())():sym.symbol for sym in self.compartments.values()}
-        speciesDict = {sp.Function(sym.getId())():sp.Function(sym.symbol)(TIME_SYMBOL) for sym in self.species.values()}
-        paramspeciesDict = {sp.Function(sym.getId())():sp.Function(sym.symbol)(TIME_SYMBOL) for sym in self.parametersspecies.values()}
+        speciesDict = {sp.Function(sym.getId())():sym.symbol for sym in self.species.values()}
+        paramspeciesDict = {sp.Function(sym.getId())():sym.symbol for sym in self.parametersspecies.values()}
         parameters = {sp.Function(sym.getId())():sym.symbol for sym in self.parameters.values()}
         for expr in self.eqdiffsystem:
             self.eqdiffsystem[expr] = (self.eqdiffsystem[expr].subs(compartmentsDict | speciesDict | paramspeciesDict |parameters))
@@ -120,6 +126,7 @@ class DiffEqSystem ():
             if recursive_call == False:
                 break
         return expression
+
     def writeDiffEqs (self, filename):
         symbolmap = {}
         count = 1
@@ -129,7 +136,7 @@ class DiffEqSystem ():
         count =1
         speciemap = {}
         for specie in self.species.values():
-            symbolmap[sp.Function(specie.symbol)(TIME_SYMBOL)] = sp.symbols("x"+str(count))
+            symbolmap[specie.symbol] = sp.symbols("x"+str(count))
             speciemap[specie.getId()] = sp.symbols("x"+str(count))
             count += 1
 
@@ -140,6 +147,48 @@ class DiffEqSystem ():
                 neq = eq.subs(symbolmap)
                 file.write(f"{varsym}: {neq}\n")
         
+
+    def getODEs (self, usr_paramsvals={}, usr_speciesvals={}):
+        """
+            Generates a function f :: t -> x -> f(t,x)=dx/dt as well as the initial point
+            The user can modify the values of some parameters and the initial value of some species
+        """
+        params = self.listParameters()
+        paramsvals = {}
+        speciesvals = {}
+        x = [specie.symbol for specie in self.species.values()]
+        speciessymb = {sp.Function(specie.symbol)(TIME_SYMBOL):specie.symbol for specie in self.species.values()}
+
+        for param in params:
+            if param.getId() in usr_paramsvals:
+                paramsvals[param.symbol] = usr_paramsvals[param.getId()]
+            else:
+                paramsvals[param.symbol] = param.initialvalue
+
+        # the differential system and the initial values
+        system = []
+        for specieid, expr in self.eqdiffsystem.items():
+            if specieid in usr_speciesvals:
+                speciesvals[specieid] = usr_speciesvals[specieid]
+            else:
+                speciesvals[specieid] = self.species[specieid].initialvalue
+            nexpr = expr.subs(paramsvals)
+            nexpr = nexpr.subs(speciessymb)
+            function = sp.lambdify(x, nexpr)
+            print ("\t",specieid,": ", x, " => ", nexpr)
+            system.append(function)
+
+
+        initialpoint = speciesvals.values()
+        model = lambda t, pt: list(map (lambda f: f(*pt), system))
+
+        #print ("results=",model(initialpoint))
+
+        return model, initialpoint, system
+
+
+
+
             
 
     def listParameters (self):

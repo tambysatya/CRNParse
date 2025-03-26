@@ -5,14 +5,16 @@ let
 in pkgs.mkShell {
   buildInputs = [
     pkgs.libsbml
-    pkgs.python311
+    pkgs.python312
     pkgs.stdenv.cc.cc.lib
-    pkgs.python311Packages.libsbml
-    pkgs.python311Packages.sympy
+    pkgs.python312Packages.libsbml
+    pkgs.python312Packages.sympy
+    pkgs.python312Packages.scipy
+    pkgs.python312Packages.numpy
 
 
-    pkgs.python311Packages.pip
-    pkgs.python311Packages.requests
+    pkgs.python312Packages.pip
+    pkgs.python312Packages.requests
 
 
 
