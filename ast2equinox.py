@@ -17,13 +17,10 @@ def evaluate_ast(ast, param_vals, x_vals):
             return lambda _, _: jnp.float32(ast.getValue())
         case l.AST_REAL:
             return lambda _, _: jnp.float32(ast.getValue())
-            #return ast.getReal()
         case l.AST_REAL_E:
             return lambda _, _: jnp.float32(ast.getValue())
-            #return ast.getReal()
         case l.AST_RATIONAL:
             return lambda _, _: jnp.float32(ast.getValue())
-            #return ast.getReal()
         case l.AST_NAME:
             name = ast.getName()
             if name in param_vals:
