@@ -12,8 +12,12 @@ in pkgs.mkShell {
     pkgs.python312Packages.scipy
     pkgs.python312Packages.numpy
     pkgs.python312Packages.networkx
-    pkgs.python312Packages.jax
-    pkgs.python312Packages.jaxlibWithCuda
+    #pkgs.python312Packages.jax
+    #pkgs.python312Packages.jaxlib
+    #pkgs.python312Packages.equinox
+
+    pkgs.python312Packages.torch
+    #pkgs.python312Packages.jaxlibWithCuda
 
 
     pkgs.python312Packages.pip
@@ -27,7 +31,7 @@ in pkgs.mkShell {
     # Tells pip to put packages into $PIP_PREFIX instead of the usual locations.
     # See https://pip.pypa.io/en/stable/user_guide/#environment-variables.
     export PIP_PREFIX=$(pwd)/_build/pip_packages
-    export PYTHONPATH="$PIP_PREFIX/${pkgs.python311.sitePackages}:$PYTHONPATH"
+    export PYTHONPATH="$PIP_PREFIX/${pkgs.python312.sitePackages}:$PYTHONPATH"
     export PATH="$PIP_PREFIX/bin:$PATH"
     unset SOURCE_DATE_EPOCH
   '';

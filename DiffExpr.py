@@ -16,6 +16,9 @@ from Function import *
 from types import FunctionType
 from itertools import repeat
 
+import jax
+import sympy2jax
+
 import math
 
 
@@ -170,11 +173,12 @@ class DiffEqSystem ():
 
         # the differential system and the initial values
         system = []
+        sysexprs = []
         for specieid, expr in self.eqdiffsystem.items():
             if specieid in usr_speciesvals:
-                speciesvals[specieid] = usr_speciesvals[specieid]
+                speciesvals[str(self.species[specieid].symbol)[1:]] = usr_speciesvals[specieid]
             else:
-                speciesvals[specieid] = self.species[specieid].initialvalue
+                speciesvals[str(self.species[specieid].symbol)[1:]] = self.species[specieid].initialvalue
             nexpr = expr.subs(paramsvals)
             nexpr = nexpr.subs(speciessymb)
 
@@ -186,14 +190,16 @@ class DiffEqSystem ():
             if verbose:
                 print ("\t",specieid,": ", x, " => ", nexpr)
             system.append(function)
+            sysexprs.append(nexpr)
+        
+        sysexprs = sympy2jax.SymbolicModule(sysexprs)
+        mod = lambda t, y, args: jax.numpy.stack(sysexprs(**dict(zip(speciesvals.keys(), y))))
+
+        self.mod = mod
+        self.initval = jax.numpy.array(list(speciesvals.values()))
 
 
-        initialpoint = speciesvals.values()
-        model = lambda t, pt: list(map (lambda f: f(*pt), system))
-
-        #print ("results=",model(initialpoint))
-
-        return model, initialpoint, system
+        return mod, speciesvals
 
 
 
