@@ -21,7 +21,7 @@ import jax.numpy as jnp
 import sympy2jax
 
 import math
-from diffrax import diffeqsolve, ODETerm, Dopri5
+from diffrax import diffeqsolve, ODETerm, Dopri5, SaveAt
 
 
 
@@ -107,7 +107,7 @@ class DiffEqSystem ():
         params = [str(param.symbol)[1:] for param in self.listParameters()]
         species = [str(specie.symbol)[1:] for specie in self.species.values()]
 
-        self.mod = lambda t,y,args : jnp.stack(odes(**dict(zip(species, y)), **args))
+        self.odes = ODETerm(lambda t,y,args : jnp.stack(odes(**dict(zip(species, y)), **args)))
 
         print (f"Found {len(self.species)} specie(s), {len(self.reactions)} reaction(s), {len(self.parameters)} parameter(s), {len(self.parametersspecies)} specie(s) considered as parameter(s) and {len(self.functions)} function definition(s).")
 
@@ -190,7 +190,14 @@ class DiffEqSystem ():
 
          
         
+    def getTrajectory (self, y0, params, ts, t0=0,dt0=0.1):
 
+        saveat = SaveAt (ts=ts)
+        solver = Dopri5()
+        t1 = ts[-1]
+
+        sol = diffeqsolve(self.odes, solver, t0=t0, t1=t1, dt0=dt0, saveat=saveat, y0=y0, args=params)
+        return sol.ys
 
 
 
