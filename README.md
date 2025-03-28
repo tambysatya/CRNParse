@@ -32,6 +32,7 @@ see `--help` for a list of options
 
 ## TODO
 
+- NEXT: CRN graph manipulation 
 - custom starting point
 - parameter optimization
 - JIT compilation 
