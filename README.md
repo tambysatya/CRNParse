@@ -25,7 +25,7 @@ example:
 python datagen.py -i example1.xml -o example1.pt -ts 1 2 5 7
 ```
 
-other options include `-t0 <initial time point>` and `-dt0 <initial time step`
+other options include `-t0 <initial time point>` and `-dt0 <initial time step>`
 
 see `--help` for a list of options
 
