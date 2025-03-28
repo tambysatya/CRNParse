@@ -161,7 +161,7 @@ class DiffEqSystem ():
                 file.write(f"{varsym}: {neq}\n")
         
 
-    def getInitPoint (self, usr_paramsvals={}, usr_speciesvals={}, verbose=False):
+    def getY0(self, usr_paramsvals={}, usr_speciesvals={}):
         """
             Generates a function f :: t -> x -> f(t,x)=dx/dt as well as the initial point
             The user can modify the values of some parameters and the initial value of some species
