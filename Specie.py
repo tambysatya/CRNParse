@@ -21,8 +21,9 @@ class Specie (libsbml.Species):
 
     def addReaction (self, reactionid):
         self.reactions.add(reactionid)
-    def buildDifferentialEquation (self, reactions_dict):
+    def buildDifferentialEquation (self, reactions_dict, species, compartments):
         expr = 0
+        vi = compartments[self.getCompartment()].symbol
         for reactionid in self.reactions:
             reaction = reactions_dict[reactionid]
             kinetic = reaction.kineticformula
@@ -33,5 +34,11 @@ class Specie (libsbml.Species):
                 expr -= kinetic
             else:
                 expr += coef*kinetic
-        return expr
+            
+            #TODO
+            #r0 = reaction.getReactant(0).getSpecies()
+            #vj = species[r0].getCompartment()
+            #vj = compartments[vj].symbol
+            expr = expr
+        return expr / vi
     

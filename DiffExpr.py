@@ -80,7 +80,7 @@ class DiffEqSystem ():
 
         newspecies = {}
         for specieid, specie in self.species.items():
-            expr = specie.buildDifferentialEquation(self.reactions)
+            expr = specie.buildDifferentialEquation(self.reactions, self.species|self.parametersspecies, self.compartments)
             if expr == 0:
                 self.parametersspecies[specieid] = specie
                 print (f"{specieid} is constant and thus becomes a parameter.")
@@ -223,16 +223,6 @@ class DiffEqSystem ():
 
 
 
-def run(filename, targetname):
-    mdl = libsbml.readSBML(filename).getModel()
-    system = DiffEqSystem(mdl)
-    system.build()
-    system.writeDiffEqs(targetname)
-
-def test():
-    system = DiffEqSystem(mdl)
-    system.build()
-    return system
 
 
 
