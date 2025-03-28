@@ -16,7 +16,12 @@ from Function import *
 from types import FunctionType
 from itertools import repeat
 
+import jax
+import jax.numpy as jnp
+import sympy2jax
+
 import math
+from diffrax import diffeqsolve, ODETerm, Dopri5, SaveAt
 
 
 
@@ -27,7 +32,7 @@ class DiffEqSystem ():
         self.compartments = {} # map compartmentid -> Compartment
         self.reactions = {} # map reactionid -> Reaction
         self.species = {}   # map specieid -> Specie : for the variables species
-        self.parametersspecies = {} #map specieid -> Specie : for the constant specices that acts like parameters
+        self.parametersspecies = {} #map specieid -> Specie : for the constant species that acts like parameters
         self.parameters = {} #map identifier -> Parameter (global parameters)
         self.functions = {} # map functionID -> Function (for the functions defined in the sbml)
         self.eqdiffsystem = {} #specieid -> expression: system of differential equations
@@ -97,7 +102,12 @@ class DiffEqSystem ():
         
         print ("rewriting:")
         self.rewriteSymbols()
-        self.getODEs()
+
+        odes = sympy2jax.SymbolicModule(list(self.eqdiffsystem.values()))
+        params = [str(param.symbol)[1:] for param in self.listParameters()]
+        species = [str(specie.symbol)[1:] for specie in self.species.values()]
+
+        self.odes = ODETerm(lambda t,y,args : jnp.stack(odes(**dict(zip(species, y)), **args)))
 
         print (f"Found {len(self.species)} specie(s), {len(self.reactions)} reaction(s), {len(self.parameters)} parameter(s), {len(self.parametersspecies)} specie(s) considered as parameter(s) and {len(self.functions)} function definition(s).")
 
@@ -151,50 +161,43 @@ class DiffEqSystem ():
                 file.write(f"{varsym}: {neq}\n")
         
 
-    def getODEs (self, usr_paramsvals={}, usr_speciesvals={}, verbose=False):
+    def getInitPoint (self, usr_paramsvals={}, usr_speciesvals={}, verbose=False):
         """
             Generates a function f :: t -> x -> f(t,x)=dx/dt as well as the initial point
             The user can modify the values of some parameters and the initial value of some species
+            returns the value of y0 and the values of the parameters
         """
         params = self.listParameters()
         paramsvals = {}
-        speciesvals = {}
+        speciesvals = []
         x = [specie.symbol for specie in self.species.values()]
         speciessymb = {sp.Function(specie.symbol)(TIME_SYMBOL):specie.symbol for specie in self.species.values()}
 
         for param in params:
+            name = str(param.symbol)[1:]
             if param.getId() in usr_paramsvals:
-                paramsvals[param.symbol] = usr_paramsvals[param.getId()]
+                paramsvals[name] = jnp.array(usr_paramsvals[param.getId()])
             else:
-                paramsvals[param.symbol] = param.initialvalue
+                paramsvals[name] = jnp.array(param.initialvalue)
 
-        # the differential system and the initial values
-        system = []
-        for specieid, expr in self.eqdiffsystem.items():
-            if specieid in usr_speciesvals:
-                speciesvals[specieid] = usr_speciesvals[specieid]
+        for specie in self.species.values():
+            if specie.getId() in usr_speciesvals:
+                speciesvals.append(usr_speciesvals[specie.getId()])
             else:
-                speciesvals[specieid] = self.species[specieid].initialvalue
-            nexpr = expr.subs(paramsvals)
-            nexpr = nexpr.subs(speciessymb)
+                speciesvals.append(specie.initialvalue)
 
-            function = sp.lambdify(x, nexpr)
-            
-            if nexpr.is_number and math.isnan(nexpr):
-                print ("[WARNING] ",x ,": ", nexpr)
+        return jnp.array(speciesvals), paramsvals
 
-            if verbose:
-                print ("\t",specieid,": ", x, " => ", nexpr)
-            system.append(function)
+         
+        
+    def getTrajectory (self, y0, params, ts, t0=0,dt0=0.1):
 
+        saveat = SaveAt (ts=ts)
+        solver = Dopri5()
+        t1 = ts[-1]
 
-        initialpoint = speciesvals.values()
-        model = lambda t, pt: list(map (lambda f: f(*pt), system))
-
-        #print ("results=",model(initialpoint))
-
-        return model, initialpoint, system
-
+        sol = diffeqsolve(self.odes, solver, t0=t0, t1=t1, dt0=dt0, saveat=saveat, y0=y0, args=params)
+        return sol.ys
 
 
 
