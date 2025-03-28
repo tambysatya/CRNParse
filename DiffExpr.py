@@ -17,9 +17,11 @@ from types import FunctionType
 from itertools import repeat
 
 import jax
+import jax.numpy as jnp
 import sympy2jax
 
 import math
+from diffrax import diffeqsolve, ODETerm, Dopri5
 
 
 
@@ -100,7 +102,12 @@ class DiffEqSystem ():
         
         print ("rewriting:")
         self.rewriteSymbols()
-        self.getODEs()
+
+        odes = sympy2jax.SymbolicModule(list(self.eqdiffsystem.values()))
+        params = [str(param.symbol)[1:] for param in self.listParameters()]
+        species = [str(specie.symbol)[1:] for specie in self.species.values()]
+
+        self.mod = lambda t,y,args : jnp.stack(odes(**dict(zip(species, y)), **args))
 
         print (f"Found {len(self.species)} specie(s), {len(self.reactions)} reaction(s), {len(self.parameters)} parameter(s), {len(self.parametersspecies)} specie(s) considered as parameter(s) and {len(self.functions)} function definition(s).")
 
@@ -154,52 +161,35 @@ class DiffEqSystem ():
                 file.write(f"{varsym}: {neq}\n")
         
 
-    def getODEs (self, usr_paramsvals={}, usr_speciesvals={}, verbose=False):
+    def getInitPoint (self, usr_paramsvals={}, usr_speciesvals={}, verbose=False):
         """
             Generates a function f :: t -> x -> f(t,x)=dx/dt as well as the initial point
             The user can modify the values of some parameters and the initial value of some species
+            returns the value of y0 and the values of the parameters
         """
         params = self.listParameters()
         paramsvals = {}
-        speciesvals = {}
+        speciesvals = []
         x = [specie.symbol for specie in self.species.values()]
         speciessymb = {sp.Function(specie.symbol)(TIME_SYMBOL):specie.symbol for specie in self.species.values()}
 
         for param in params:
+            name = str(param.symbol)[1:]
             if param.getId() in usr_paramsvals:
-                paramsvals[param.symbol] = usr_paramsvals[param.getId()]
+                paramsvals[name] = jnp.array(usr_paramsvals[param.getId()])
             else:
-                paramsvals[param.symbol] = param.initialvalue
+                paramsvals[name] = jnp.array(param.initialvalue)
 
-        # the differential system and the initial values
-        system = []
-        sysexprs = []
-        for specieid, expr in self.eqdiffsystem.items():
-            if specieid in usr_speciesvals:
-                speciesvals[str(self.species[specieid].symbol)[1:]] = usr_speciesvals[specieid]
+        for specie in self.species.values():
+            if specie.getId() in usr_speciesvals:
+                speciesvals.append(usr_speciesvals[specie.getId()])
             else:
-                speciesvals[str(self.species[specieid].symbol)[1:]] = self.species[specieid].initialvalue
-            nexpr = expr.subs(paramsvals)
-            nexpr = nexpr.subs(speciessymb)
+                speciesvals.append(specie.initialvalue)
 
-            function = sp.lambdify(x, nexpr)
-            
-            if nexpr.is_number and math.isnan(nexpr):
-                print ("[WARNING] ",x ,": ", nexpr)
+        return jnp.array(speciesvals), paramsvals
 
-            if verbose:
-                print ("\t",specieid,": ", x, " => ", nexpr)
-            system.append(function)
-            sysexprs.append(nexpr)
+         
         
-        sysexprs = sympy2jax.SymbolicModule(sysexprs)
-        mod = lambda t, y, args: jax.numpy.stack(sysexprs(**dict(zip(speciesvals.keys(), y))))
-
-        self.mod = mod
-        self.initval = jax.numpy.array(list(speciesvals.values()))
-
-
-        return mod, speciesvals
 
 
 
