@@ -22,6 +22,7 @@ import sympy2jax
 
 import math
 from diffrax import diffeqsolve, ODETerm, Dopri5, SaveAt
+import optax
 
 
 
@@ -198,6 +199,30 @@ class DiffEqSystem ():
 
         sol = diffeqsolve(self.odes, solver, t0=t0, t1=t1, dt0=dt0, saveat=saveat, y0=y0, args=params)
         return sol.ys
+
+
+    def adjust (self, y0, params0, ts, targets, t0=0, dt0=0.1, lr=0.2, iters=300):
+        optimizer = optax.adabelief(lr)
+        opt_state = optimizer.init(params0)
+
+        def loss_fn (params):
+            pred = self.getTrajectory(y0, params, ts, t0=t0, dt0=dt0)
+            return jnp.mean((pred - targets)**2)
+        @jax.jit
+        def step (params, opt_state):
+            loss, grads = jax.value_and_grad(loss_fn)(params)
+            updates, opt_state = optimizer.update(grads, opt_state)
+            params = optax.apply_updates(params, updates)
+            return params, opt_state, loss
+
+        params = params0
+        for i in range(iters):
+            params, opt_state, loss = step(params, opt_state)
+            if i % 10 == 0:
+                print (f"step={i}: {loss}")
+        return params
+        
+
 
 
 
