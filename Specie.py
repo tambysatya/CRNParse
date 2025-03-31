@@ -39,6 +39,10 @@ class Specie (libsbml.Species):
             #r0 = reaction.getReactant(0).getSpecies()
             #vj = species[r0].getCompartment()
             #vj = compartments[vj].symbol
-            expr = expr
+            if reaction.getNumReactants() > 0:
+                r0 = reaction.getReactant(0).getSpecies()
+                vj = species[r0].getCompartment()
+                vj = compartments[vj].symbol
+                expr = expr*vj
         return expr / vi
     

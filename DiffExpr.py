@@ -21,7 +21,7 @@ import jax.numpy as jnp
 import sympy2jax
 
 import math
-from diffrax import diffeqsolve, ODETerm, Kvaerno3, SaveAt, PIDController
+from diffrax import diffeqsolve, ODETerm, Kvaerno5, SaveAt, PIDController
 #import optax
 import jaxopt
 
@@ -132,7 +132,6 @@ class DiffEqSystem ():
 
     def expandFunctions(self, expression):
         while True: #because there is no infinite recursions in python (nor do-until syntax) -_-
-            print ("applying")
             recursive_call = False
             for func in expression.atoms(sp.Function):
                 name = func.func.__name__
@@ -195,11 +194,12 @@ class DiffEqSystem ():
         
     def getTrajectory (self, y0, params, ts, t0=0,dt0=0.1):
 
-        saveat = SaveAt (ts=ts, steps=True)
+        saveat = SaveAt (ts=ts)
         stepsize_controller = PIDController(rtol=1e-8,atol=1e-8)
-        solver = Kvaerno3()
+        solver = Kvaerno5()
         t1 = ts[-1]
 
+        #sol = diffeqsolve(self.odes, solver, t0=t0, t1=t1, dt0=dt0, saveat=saveat, y0=y0, args=params, stepsize_controller=stepsize_controller)
         sol = diffeqsolve(self.odes, solver, t0=t0, t1=t1, dt0=dt0, saveat=saveat, y0=y0, args=params, stepsize_controller=stepsize_controller, max_steps=5000, throw=False)
         return sol.ys
 
