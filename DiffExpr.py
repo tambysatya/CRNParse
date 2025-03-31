@@ -21,11 +21,11 @@ import jax.numpy as jnp
 import sympy2jax
 
 import math
-from diffrax import diffeqsolve, ODETerm, Dopri5, SaveAt
+from diffrax import diffeqsolve, ODETerm, Kvaerno3, SaveAt, PIDController
 #import optax
 import jaxopt
 
-
+jax.config.update("jax_enable_x64", True)
 
 class DiffEqSystem ():
 
@@ -58,7 +58,7 @@ class DiffEqSystem ():
 
         for reaction in sbml_mdl.getListOfReactions():
             reactionid=reaction.getId()
-            self.reactions[reactionid]=Reaction(reaction)
+            self.reactions[reactionid]=Reaction(reaction, self.functions)
             for reactant in reaction.getListOfReactants():
                 self.addReactionToSpecie(reactant.getSpecies(), reactionid)
             for product in reaction.getListOfProducts():
@@ -132,6 +132,7 @@ class DiffEqSystem ():
 
     def expandFunctions(self, expression):
         while True: #because there is no infinite recursions in python (nor do-until syntax) -_-
+            print ("applying")
             recursive_call = False
             for func in expression.atoms(sp.Function):
                 name = func.func.__name__
@@ -194,11 +195,12 @@ class DiffEqSystem ():
         
     def getTrajectory (self, y0, params, ts, t0=0,dt0=0.1):
 
-        saveat = SaveAt (ts=ts)
-        solver = Dopri5()
+        saveat = SaveAt (ts=ts, steps=True)
+        stepsize_controller = PIDController(rtol=1e-8,atol=1e-8)
+        solver = Kvaerno3()
         t1 = ts[-1]
 
-        sol = diffeqsolve(self.odes, solver, t0=t0, t1=t1, dt0=dt0, saveat=saveat, y0=y0, args=params)
+        sol = diffeqsolve(self.odes, solver, t0=t0, t1=t1, dt0=dt0, saveat=saveat, y0=y0, args=params, stepsize_controller=stepsize_controller, max_steps=5000, throw=False)
         return sol.ys
 
 
@@ -212,11 +214,11 @@ class DiffEqSystem ():
             return jnp.exp(-alpha*t**2)
         @jax.jit
         def loss_fn (params, alpha=1):
-            weights = weight_fun(times,alpha)[:,None]
+            #weights = weight_fun(times,alpha)[:,None]
             pred = self.getTrajectory(y0, params, ts, t0=t0, dt0=dt0)
-            return jnp.mean(weights*(pred - targets))
-            #return jnp.mean((pred - targets)**2)
-        solver = jaxopt.BFGS(loss_fn, implicit_diff=True, maxiter=iters)
+            #return jnp.mean(weights*(pred - targets))
+            return jnp.mean((pred - targets)**2)
+        solver = jaxopt.BFGS(loss_fn, implicit_diff=True, maxiter=iters, maxls=50)
         ret = solver.run(params0)
         return ret.params
         #@jax.jit
