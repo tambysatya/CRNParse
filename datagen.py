@@ -24,8 +24,6 @@ def run(filename, targetname, ts, t0=0, dt0=0.1):
 
 def getInfos(system):
     y0, params = system.getY0()
-    if args.parameters_names == True:
-       print("Parameters are: ", [param.getId() for param in system.listParameters()])
     if args.parameters_values == True:
         with np.printoptions(precision=3,suppress=True):
             #vals = list(np.array(jnp.stack(list(params.values()))))
@@ -63,7 +61,6 @@ if __name__ == '__main__':
 
 
     infos = subparsers.add_parser("infos")
-    infos.add_argument("-pl", "--parameters-names", help="list parameters [global, compartment volumes, local, constant species]).", action="store_true")
     infos.add_argument("-pv", "--parameters-values", help="list parameters values.", action="store_true")
 
     adjust = subparsers.add_parser("adjust")
