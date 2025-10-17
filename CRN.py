@@ -3,7 +3,7 @@ from utils import *
 import libsbml
 import tellurium as te
 
-class CRNModel (libsbml.Model):
+class CRN (libsbml.Model):
     def __init__(self, fname, verbose=False):
         sbml = libsbml.readSBML(fname).getModel() 
         if not sbml:
@@ -31,10 +31,8 @@ class CRNModel (libsbml.Model):
             all_symbols.add(term)
             all_symbols = all_symbols.union(eq.atoms(sp.Symbol))
 
-        print ("All symbols: ", all_symbols)
-
         for s in self.getListOfSpecies():
-            sym = sp.Symbol(s.getId())
+            sym = sp.Symbol(sanitize_expr(s.getId()))
             if sym in all_symbols:
                 symSpecies.append(sym)
                 all_symbols.remove(sym)
@@ -42,15 +40,13 @@ class CRNModel (libsbml.Model):
                 symConstantSpecies.append(sym)
 
         for c in self.tellurium.getCompartmentIds():
-            print ("Compartment: ", c)
-            sym = sp.Symbol(c)
+            sym = sp.Symbol(sanitize_expr(c))
             if sym in all_symbols:
                 symCompartments.append(sym)
                 all_symbols.remove(sym)
 
         for p in self.getListOfParameters():
-            print ("Params: ", p.getId())
-            sym = sp.Symbol(p.getId())
+            sym = sp.Symbol(sanitize_expr(p.getId()))
             if sym in all_symbols:
                 symParams.append(sym)
                 all_symbols.remove(sym)
@@ -59,13 +55,13 @@ class CRNModel (libsbml.Model):
             r_name = r.getId()
             l = r.getKineticLaw()
             for p in l.getListOfParameters():
-                sym = sp.Symbol(r_name + "_" + p.getId())
+                sym = sp.Symbol(sanitize_expr(r_name + "_" + p.getId()))
                 if sym in all_symbols:
                     symLocalParams.append(sym)
                     all_symbols.remove(sym)
             #required depending on the SBML version
             for p in l.getListOfLocalParameters():
-                sym = sp.Symbol(r_name + "_" + p.getId())
+                sym = sp.Symbol(sanitize_expr(r_name + "_" + p.getId()))
                 if sym in all_symbols:
                     symLocalParams.append(sym)
                     all_symbols.remove(sym)

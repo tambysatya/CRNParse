@@ -8,6 +8,14 @@ import libsbml
 
 
 forbidden_string = {"lambda":"λ"}
+greek_dict = {
+    'alpha': 'α', 'beta': 'β', 'gamma': 'γ', 'delta': 'δ',
+    'epsilon': 'ε', 'zeta': 'ζ', 'eta': 'η', 'theta': 'θ',
+    'iota': 'ι', 'kappa': 'κ', 'lambda': 'λ', 'mu': 'μ',
+    'nu': 'ν', 'xi': 'ξ', 'pi': 'π', 'rho': 'ρ', 'sigma': 'σ',
+    'tau': 'τ', 'upsilon': 'υ', 'phi': 'φ', 'chi': 'χ',
+    'psi': 'ψ', 'omega': 'ω'
+}
 
 
 def loadModel (fname):
@@ -24,7 +32,7 @@ def sanitize_expr (eq_string):
 
     fixed_string = fixed_string.replace("()", "0")
 
-    for s, fix in forbidden_string.items():
+    for s, fix in greek_dict.items():
         fixed_string = fixed_string.replace(s, fix)
     return fixed_string
         
@@ -45,7 +53,6 @@ def parseEquations (eq_string, verbose=False):
                 try:
                     term = term[1:-3]
                     diff_eqs[sp.Symbol(term)] = sp.parse_expr(eq)
-                    print ("EQ=",eq, " LINE=", line)
                     #diff_eqs[sp.Symbol(term)] = sp.parse_expr(eq, evaluate=False)
                 except IndexError as e:
                     if verbose:
