@@ -9,15 +9,8 @@ import types
 from sympy.functions.elementary.miscellaneous import Max, Min
 
 
-forbidden_keys = ["E1", "CC", "S", "O", "Q", "EX"]
-greek_dict = {
-    'alpha': 'α', 'beta': 'β', 'gamma': 'γ', 'delta': 'δ',
-    'epsilon': 'ε', 'zeta': 'ζ', 'eta': 'η', 'theta': 'θ',
-    'iota': 'ι', 'kappa': 'κ', 'lambda': 'λ', 'mu': 'μ',
-    'nu': 'ν', 'xi': 'ξ', 'rho': 'ρ', 'sigma': 'σ',
-    'tau': 'τ', 'upsilon': 'υ', 'phi': 'φ', 'chi': 'χ',
-    'psi': 'ψ', 'omega': 'ω'
-}
+forbidden_keys = ["E1", "CC", "S", "O", "Q", "EX", "N", "beta","gamma", "Lambda", "bin", "ff", "comp", "Product", "LC", "rad", "Gt", "Lt", "LT", "lcm"]
+
 
 def getGlobalDict():
     global_dict = {}
@@ -29,8 +22,6 @@ def getGlobalDict():
             global_dict[name] = obj
     global_dict['max'] = Max
     global_dict['min'] = Min
-
-    global_dict = global_dict | greek_dict
 
     for key in forbidden_keys:
         del global_dict[key]
@@ -56,9 +47,9 @@ def sanitize_expr (eq_string):
     fixed_string = fixed_string.replace("\t","")
 
     fixed_string = fixed_string.replace("()", "0")
+    fixed_string = fixed_string.replace("lambda", "Lambda")
+    fixed_string = fixed_string.replace("def", 'Def')
 
-    for s, fix in greek_dict.items():
-        fixed_string = fixed_string.replace(s, fix)
     return fixed_string
         
 
@@ -77,6 +68,10 @@ def parseEquations (eq_string, verbose=False):
                 print (line)
             term, eq = line.split("=")
             term, eq = sanitize_expr(term), sanitize_expr(eq)
+            if eq == '':
+                if verbose:
+                    print ("\t[!]:", term, "=",eq, " => defaultin to 0")
+                eq = "0"
             if term[0] == 'd' and term[-3:] == "/dt":
                 try:
                     term = term[1:-3]

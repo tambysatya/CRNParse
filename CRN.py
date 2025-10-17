@@ -26,11 +26,11 @@ class CRN (libsbml.Model):
         """
         symbols = []
         for e in self.getListOfSpecies():
-            symbols.append(e.getId())
+            symbols.append(sanitize_expr(e.getId()))
         for e in self.getListOfCompartments():
-            symbols.append(e.getId())
+            symbols.append(sanitize_expr(e.getId()))
         for e in self.getListOfParameters():
-            symbols.append(e.getId())
+            symbols.append(sanitize_expr(e.getId()))
         return symbols
 
     def classifySymbols (self):
