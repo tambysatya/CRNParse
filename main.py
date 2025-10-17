@@ -40,19 +40,14 @@ skip = ["utils/biomodels/BIOMD0000000013.xml" #works but slow
         ,"utils/biomodels/BIOMD0000000450.xml" # PIECEWISE INVOLVED
         ,"utils/biomodels/BIOMD0000000469.xml" # SLOW 
         ,"utils/biomodels/BIOMD0000000470.xml" # SLOW
+        ,"utils/biomodels/BIOMD0000000471.xml" # SLOW
+        ,"utils/biomodels/BIOMD0000000472.xml" # SLOW
+        ,"utils/biomodels/BIOMD0000000473.xml" # SLOW
+        ,"utils/biomodels/BIOMD0000000474.xml" # SLOW
         ]
 
         #469 and 470 hyper slow with tellurium
 
-def dropWhile(list_, skiplist):
-    skip = skiplist.copy()
-    l = list_.copy()
-    
-    while skip != []:
-        if l[0] in skip:
-            skip = skip[1:]
-        l = l[1:]
-    return l
 
 
 fails="fail.log"
@@ -67,7 +62,11 @@ with open(fails, "w") as f:
     total += 1
     f.write("Parsing failed on the following files\n------------------------\n")
 
-    files = dropWhile(files, skip)
+    if skip != []:
+        while files[0] != skip[-1]:
+            files.pop(0)
+        files.pop(0)
+
     print ("Starting from ", files[0])
     for file in tqdm.tqdm(files):
         try:
