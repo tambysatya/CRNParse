@@ -12,8 +12,26 @@ class CRN (libsbml.Model):
 
         self.tellurium = loadModel(fname)
         self.odes_expr = parseEquations(te.getODEsFromModel(self.tellurium), verbose=verbose)
+
+        # rewriting the symbols where tellurium appended a "_"
+        global_symbols = {sp.Symbol(s+'_'):sp.Symbol(s) for s in self.allGlobalSBMLSymbols()}
+        self.odes_expr = rewriteODEs(self.odes_expr, global_symbols)
+
         self.classifySymbols()
 
+    
+    def allGlobalSBMLSymbols(self):
+        """
+            List of global symbols (sometimes, tellurium appends a '_' at the end, inducing conflicts when comparing with the original name from the SBML
+        """
+        symbols = []
+        for e in self.getListOfSpecies():
+            symbols.append(e.getId())
+        for e in self.getListOfCompartments():
+            symbols.append(e.getId())
+        for e in self.getListOfParameters():
+            symbols.append(e.getId())
+        return symbols
 
     def classifySymbols (self):
         """
@@ -39,8 +57,8 @@ class CRN (libsbml.Model):
             else:
                 symConstantSpecies.append(sym)
 
-        for c in self.tellurium.getCompartmentIds():
-            sym = sp.Symbol(sanitize_expr(c))
+        for c in self.getListOfCompartments():
+            sym = sp.Symbol(sanitize_expr(c.getId()))
             if sym in all_symbols:
                 symCompartments.append(sym)
                 all_symbols.remove(sym)

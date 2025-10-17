@@ -4,18 +4,43 @@ import sympy as sp
 import sympy2jax
 
 import libsbml
+import builtins
+import types
+from sympy.functions.elementary.miscellaneous import Max, Min
 
 
-
-forbidden_string = {"lambda":"λ"}
+forbidden_keys = ["E1", "CC", "S", "O", "Q", "EX"]
 greek_dict = {
     'alpha': 'α', 'beta': 'β', 'gamma': 'γ', 'delta': 'δ',
     'epsilon': 'ε', 'zeta': 'ζ', 'eta': 'η', 'theta': 'θ',
     'iota': 'ι', 'kappa': 'κ', 'lambda': 'λ', 'mu': 'μ',
-    'nu': 'ν', 'xi': 'ξ', 'pi': 'π', 'rho': 'ρ', 'sigma': 'σ',
+    'nu': 'ν', 'xi': 'ξ', 'rho': 'ρ', 'sigma': 'σ',
     'tau': 'τ', 'upsilon': 'υ', 'phi': 'φ', 'chi': 'χ',
     'psi': 'ψ', 'omega': 'ω'
 }
+
+def getGlobalDict():
+    global_dict = {}
+    exec('from sympy import *', global_dict)
+
+    builtins_dict = vars(builtins)
+    for name, obj in builtins_dict.items():
+        if isinstance(obj, types.BuiltinFunctionType):
+            global_dict[name] = obj
+    global_dict['max'] = Max
+    global_dict['min'] = Min
+
+    global_dict = global_dict | greek_dict
+
+    for key in forbidden_keys:
+        del global_dict[key]
+
+
+
+    return global_dict
+
+
+global_dict = getGlobalDict()
 
 
 def loadModel (fname):
@@ -36,6 +61,9 @@ def sanitize_expr (eq_string):
         fixed_string = fixed_string.replace(s, fix)
     return fixed_string
         
+
+def parse_expr(expr):
+    return sp.parse_expr(expr, global_dict=global_dict)
     
 
 def parseEquations (eq_string, verbose=False):
@@ -52,15 +80,15 @@ def parseEquations (eq_string, verbose=False):
             if term[0] == 'd' and term[-3:] == "/dt":
                 try:
                     term = term[1:-3]
-                    diff_eqs[sp.Symbol(term)] = sp.parse_expr(eq)
-                    #diff_eqs[sp.Symbol(term)] = sp.parse_expr(eq, evaluate=False)
+                    diff_eqs[sp.Symbol(term)] = parse_expr(eq)
+                    #diff_eqs[sp.Symbol(term)] = parse_expr(eq, evaluate=False)
                 except IndexError as e:
                     if verbose:
                         print ("\t[!]:",e," =>  defaulting to 0")
-                    diff_eqs[sp.Symbol(term)] = sp.parse_expr("0")
+                    diff_eqs[sp.Symbol(term)] = parse_expr("0")
             else:
-                intermediary_terms[sp.Symbol(term)] = sp.parse_expr(eq)
-                #intermediary_terms[sp.Symbol(term)] = sp.parse_expr(eq, evaluate=False)
+                intermediary_terms[sp.Symbol(term)] = parse_expr(eq)
+                #intermediary_terms[sp.Symbol(term)] = parse_expr(eq, evaluate=False)
         except ValueError as e:
             if verbose: 
                 print ("\t[!] skipping line: ", str(e))
