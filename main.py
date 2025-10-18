@@ -44,6 +44,7 @@ skip = ["utils/biomodels/BIOMD0000000013.xml" #works but slow
         ,"utils/biomodels/BIOMD0000000472.xml" # SLOW
         ,"utils/biomodels/BIOMD0000000473.xml" # SLOW
         ,"utils/biomodels/BIOMD0000000474.xml" # SLOW
+        ,"utils/biomodels/BIOMD0000000562.xml" # TELLURIUM ERROR
         ]
 
         #469 and 470 hyper slow with tellurium
@@ -51,33 +52,42 @@ skip = ["utils/biomodels/BIOMD0000000013.xml" #works but slow
 
 
 fails="fail.log"
+fail_list_name ="fail_list.log"
+output_dir = "output"
 
-report = []
+
 success = 0
 total = 0
 
 
 
-with open(fails, "w") as f:
-    total += 1
-    f.write("Parsing failed on the following files\n------------------------\n")
+with open(fail_list_name, "w") as fail_list:
+    with open(fails, "w") as f:
+        f.write("Parsing failed on the following files\n------------------------\n")
 
-    if skip != []:
-        while files[0] != skip[-1]:
-            files.pop(0)
-        files.pop(0)
-
-    print ("Starting from ", files[0])
-    for file in tqdm.tqdm(files):
-        try:
-            crn = CRN(file)
-            success += 1
-        except ValueError as e:
-            print (file,":",str(e))
-            f.write(file + ":" + str(e) + "\n")
-        except Exception as e:
-            print ("[!]" + file,":",str(e))
-            f.write(file + ":" + str(e) + "\n")
+#        if skip != []:
+#            while files[0] != skip[-1]:
+#                files.pop(0)
+#            files.pop(0)
+#
+        print ("Starting from ", files[0])
+        for file in tqdm.tqdm(files):
+            total += 1
+            file_name = file.split("/")[-1]
+            file_name = file_name.split(".")[0]
+            try:
+                crn = CRN(file)
+                with open(output_dir + "/" + file_name + ".txt", "w") as output:
+                    output.write(crn.prettyODEs())
+                success += 1
+            except ValueError as e:
+                print (file,":",str(e))
+                f.write(file + ":" + str(e) + "\n")
+                fail_list.write(file + "\n")
+            except Exception as e:
+                print ("[!]" + file,":",str(e))
+                f.write(file + ":" + str(e) + "\n")
+                fail_list.write(file + "\n")
 
 
 print (f"{success/total*100}% success: success={success} fail={total-success} total={total}")

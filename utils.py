@@ -9,7 +9,7 @@ import types
 from sympy.functions.elementary.miscellaneous import Max, Min
 
 
-forbidden_keys = ["E1", "CC", "S", "O", "Q", "EX", "N", "beta","gamma", "Lambda", "bin", "ff", "comp", "Product", "LC", "rad", "Gt", "Lt", "LT", "lcm"]
+forbidden_keys = ["E1", "CC", "S", "O", "Q", "EX", "N", "beta","gamma", "Lambda", "bin", "ff", "comp", "Product", "LC", "rad", "Gt", "Lt", "LT", "lcm", "maximum", "GF", "zeta", "Le", "Li", "Si", "deg"]
 
 
 def getGlobalDict():
@@ -49,6 +49,8 @@ def sanitize_expr (eq_string):
     fixed_string = fixed_string.replace("()", "0")
     fixed_string = fixed_string.replace("lambda", "Lambda")
     fixed_string = fixed_string.replace("def", 'Def')
+    fixed_string = fixed_string.replace("input", 'Input')
+    fixed_string = fixed_string.replace("as", 'As')
 
     return fixed_string
         
