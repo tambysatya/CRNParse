@@ -85,7 +85,7 @@ class CRN (libsbml.Model):
                     all_symbols.remove(sym)
             
 
-        if all_symbols != set():
+        if all_symbols != set() and all_symbols != set([sp.Symbol("time")]):
             #print ("Not all symbols have been extracted: ", all_symbols)
             raise ValueError ("Not all symbols have been extracted: ", all_symbols)
         self.symSpecies, self.symParams, self.symCompartments = symSpecies, symParams, symCompartments

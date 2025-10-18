@@ -1,0 +1,4 @@
+x1=-k1*x1/k9 - k3*x1*x2 - k3*x1 + k4 - x1*log(2)/k7
+x2=k3*x1*x2 + k3*x1 + k5 - x2*log(2)/k8
+x3=k1*x1/k10 - k3*x3*x4 - k3*x3 - x3*log(2)/k7
+x4=k3*x3*x4 + k3*x3 + k6 - x4*log(2)/k8

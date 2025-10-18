@@ -7,7 +7,15 @@ from CRN import *
 path="utils/biomodels/BIOMD*"
 files = sorted(glob.glob(path))
 
-skip = ["utils/biomodels/BIOMD0000000013.xml" #works but slow
+skip = ["utils/biomodels/BIOMD0000000469.xml" # SLOW 
+        ,"utils/biomodels/BIOMD0000000470.xml" # SLOW
+        ,"utils/biomodels/BIOMD0000000471.xml" # SLOW
+        ,"utils/biomodels/BIOMD0000000472.xml" # SLOW
+        ,"utils/biomodels/BIOMD0000000473.xml" # SLOW
+        ,"utils/biomodels/BIOMD0000000474.xml" # SLOW
+        ]
+
+skip2 = ["utils/biomodels/BIOMD0000000013.xml" #works but slow
         ,"utils/biomodels/BIOMD0000000024.xml" #delay error
         ,"utils/biomodels/BIOMD0000000025.xml" #delay error
         ,"utils/biomodels/BIOMD0000000034.xml" #delay error
@@ -72,6 +80,9 @@ with open(fail_list_name, "w") as fail_list:
 #
         print ("Starting from ", files[0])
         for file in tqdm.tqdm(files):
+            if file in skip:
+                print ("Skipping ", file)
+                continue
             total += 1
             file_name = file.split("/")[-1]
             file_name = file_name.split(".")[0]
