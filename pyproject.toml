@@ -1,0 +1,11 @@
+[project]
+name = "crnparse"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "jax>=0.8.0",
+    "python-libsbml>=5.20.5",
+    "sympy>=1.14.0",
+]

@@ -2,7 +2,7 @@ import libsbml as l
 import sympy as sp
 import sympy.physics.units as u
 from sympy.functions.elementary.complexes import *
-import ast.debug as DBG #dictionary
+import sbml_expr_parse.debug as DBG #dictionary
 
 TIME_SYMBOL = sp.Dummy("t")
 DELAY_SYMBOL = sp.Function(sp.Dummy())
