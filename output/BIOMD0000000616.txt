@@ -1,4 +1,0 @@
-x1=-k1*x1 + x2
-x2=k2*x3**2/(k6**2 + x3**2) + k5*piecewise(1, lt(time, k8), 0)*piecewise(sin(time)**2, lt(time, pi*k7), 0) - x2
-x3=k1*x1 - k2*x3 - k3*x3*x4
-x4=-k4*x4 + x2
