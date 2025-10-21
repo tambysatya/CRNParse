@@ -70,13 +70,30 @@ class AssignmentRule (NamedExpression):
 
 class FunctionDefinition(NamedExpression):
     def __init__(self, fun):
-        name = sp.Symbol(fun.getId())
+        name = sp.Function(fun.getId())
         expr = fun.getMath()
         NamedExpression.__init__(self, name, expr)
+
+
     def __str__(self):
         return NamedExpression.__str__(self)
     def __repr__(self):
         return self.__str__()
+
+    def apply (self, expr):
+        """
+            Evaluates the occurences of the function inside the specified expression
+        """
+        ret = expr
+        for term in sp.preorder_traversal(expr):
+            name = term.func
+            if name == self.name:
+                print (f"\trewriting {name} in {term}")
+                args = term.args
+                ret = ret.subs(term,self.expr(*args))
+        return ret
+            
+
 
 
 

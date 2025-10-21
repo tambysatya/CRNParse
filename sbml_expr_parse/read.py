@@ -8,7 +8,14 @@ TIME_SYMBOL = sp.Dummy("t")
 DELAY_SYMBOL = sp.Function(sp.Dummy())
 
 def processLambda(ast):
-    raise ValueError ("AST_LAMBDA not implemented")
+    n_children = ast.getNumChildren()
+    args = []
+    for i in range(n_children-1):
+        args.append(astToExpr(ast.getChild(i)))
+    body = astToExpr(ast.getChild(n_children-1))
+    ret = sp.Lambda(tuple(args), body)
+    print ("ARGS=", tuple(args), " body=", body, " ret=", ret)
+    return ret
 
 def getConstantSymb (ast):
     match ast.getType():
@@ -134,15 +141,12 @@ def getFunctionSymb (ast):
                 return sp.Pow
             case l.AST_FUNCTION_RATE_OF:	
                 raise ValueError("AST_FUNCTION_RATE_OF not implemented")
-            case l.AST_LAMBDA:
-                return processLambda(ast)
             case l.AST_NAME:
                 if ast.isOperator() or ast.isNumber():
                     raise ValueError ("getFunctionSymb(): type is AST_NAME but ast.isOperator() or ast.isNumber()")
                 name = ast.getName()
                 #if ast.getNumChildren() == 0:
                 #    return sp.symbols(name)
-                #else:
                 return sp.Function(name)
 
             case _:
@@ -243,10 +247,14 @@ def astToExpr(ast):
     if ast.getType() == l.AST_UNKNOWN:
         raise ValueError("AST_UNKNOWN type")
     ast.canonicalize()
-    if ast.isConstant() or ast.isNumber() or ast.getType() == l.AST_NAME_TIME:
+    if ast.isName():
+        return sp.Symbol(ast.getName())
+    elif ast.isConstant() or ast.isNumber() or ast.getType() == l.AST_NAME_TIME:
         return getConstantSymb(ast)
     elif ast.isOperator():
         return processOperator(ast)
+    elif ast.isLambda():
+        return processLambda(ast)
     elif(
          ast.isFunction() or 
          ast.getType() == l.AST_NAME or
@@ -261,14 +269,14 @@ def parse_expr(expr):
     try:
         return astToExpr(expr) 
     except TypeError as err:
-        print ("parse error for expression: ", libsbml.formulaToL3String(expr))
+        print ("parse error for expression: ", l.formulaToL3String(expr))
         print (err)
         raise err
     except ValueError as err:
-        print ("parse error for expression: ", libsbml.formulaToL3String(expr))
+        print ("parse error for expression: ", l.formulaToL3String(expr))
         print (err)
         raise err
     except _ as err:
-        print ("parse error for expression: ", libsbml.formulaToL3String(expr))
+        print ("parse error for expression: ", l.formulaToL3String(expr))
         print (err)
         raise err
