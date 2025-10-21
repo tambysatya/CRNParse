@@ -14,7 +14,6 @@ def processLambda(ast):
         args.append(astToExpr(ast.getChild(i)))
     body = astToExpr(ast.getChild(n_children-1))
     ret = sp.Lambda(tuple(args), body)
-    print ("ARGS=", tuple(args), " body=", body, " ret=", ret)
     return ret
 
 def getConstantSymb (ast):

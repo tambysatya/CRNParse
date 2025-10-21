@@ -26,7 +26,7 @@ class NamedExpression (Expression):
         self.name = name
 
     def __str__ (self):
-        return self.name.__str__() + "=" + Expression.__str__(self)
+        return str(self.name) + "=" + Expression.__str__(self)
     def __repr__(self):
         return self.__str__()
     def dict(self):
@@ -35,41 +35,34 @@ class NamedExpression (Expression):
 
 
 
-class KineticLaw (sbml.KineticLaw, Expression):
-    def __init__ (self, reaction_id, kinetic_law):
-        sbml.KineticLaw.__init__(self, kinetic_law)
-        Expression.__init__(self, kinetic_law.getMath())
-
-        #renames local parameter param as reaction_param
-        local_params = {}
-        for p in self.getListOfLocalParameters():
-            name = p.getIdAttribute()
-            new_name = reaction_id + "_" + name
-            local_params[sp.Symbol(name)] = new_name
-        
-        self.rewrite(local_params)
-
-    def __str__ (self):
-        return Expression.__str__(self)
-    def __repr__(self):
-        return self.__str__()
-
 
 class AssignmentRule (NamedExpression):
-    def __init__(self, rule):
+    def __init__(self, rule, funcs=[]):
         name = sp.Symbol(rule.getVariable())
         expr = rule.getMath()
 
         NamedExpression.__init__(self, name, expr)
 
+        self.applyFunctions(funcs)
+
     def __str__(self):
         return NamedExpression.__str__(self)
     def __repr__(self):
         return self.__str__()
+    def applyFunctions (self, funcs):
+        for f in funcs:
+            self.expr = f.apply(self.expr)
+
+
+
 
 
 class FunctionDefinition(NamedExpression):
     def __init__(self, fun):
+        """
+        Note that there is no closure in SBML functions, so there is no need to apply other expressions
+        "A further restriction on the content of 'math' is that it cannot contain references to variables other than the variables declared to the 'lambda' itself."
+        """
         name = sp.Function(fun.getId())
         expr = fun.getMath()
         NamedExpression.__init__(self, name, expr)
