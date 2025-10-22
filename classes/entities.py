@@ -7,15 +7,19 @@ from utils import *
 
 
 
-class Species(sbml.Species):
+class Specie(sbml.Species):
     def __init__(self, s):
         super().__init__(s)
         self.sym = sp.Symbol(s.getId())
-        self.compartment = sp.Symbol(s.getCompartment())
+        self.sym_compartment = sp.Symbol(s.getCompartment())
 
     def isConcentration(self):
         hasOnlySubstanceUnits = self.getHasOnlySubstanceUnits()
         return not hasOnlySubstanceUnits
+    def isConstant(self):
+        constant = self.isSetConstant() and self.getConstant()
+        boundary = self.isSetBoundaryCondition and self.getBoundaryCondition()
+        return constant or boundary
 
 
 
@@ -42,13 +46,24 @@ class Reaction (sbml.Reaction, Expression):
         self.rewrite(local_params)
         self.local_params = local_params
 
+        self.applyAssignments(assignment_rules)
         self.applyFunctions(funcs)
-        self.expr = self.expr.subs(assignment_rules)
 
     def __str__ (self):
         return Expression.__str__(self)
     def __repr__(self):
         return self.__str__()
+
+    def applyAssignments(self, assignment_rules): #TODO can it be done better (maybe the comparison, or processing the expressions of the assignments) ?
+        """
+            Applies the assignement multiple times
+            Can be avoided if an assignment rule cannot involve others assignment rules
+        """
+        expr = self.expr.subs(assignment_rules)
+        while expr != self.expr:
+            self.expr = expr
+            expr = self.expr.subs(assignment_rules)
+
     def applyFunctions(self, funcs):
         for f in funcs:
             self.expr = f.apply(self.expr)
@@ -63,6 +78,19 @@ class CRN():
         self.crn = nx.DiGraph()
         self.species = {} #correspondance id => specie object
         self.reactions = {}#correspondance id => reaction object
+        self.functions = []
+        self.assignment_rules = {} #assignments rules are substitutions
+
+        for f in mdl.getListOfFunctionDefinitions():
+            fun = FunctionDefinition(f)
+            self.functions.append(fun)
+            print ("\t",fun)
+
+        for r in mdl.getListOfRules():
+            if r.isAssignment():
+                rule = AssignmentRule(r, self.functions)
+                self.assignment_rules[rule.name] = rule.expr
+     
 
         for s in mdl.getListOfSpecies():
             self.addSpecie(s)
@@ -71,12 +99,14 @@ class CRN():
 
     def addSpecie(self, specie):
         specie_id = specie.getId()
-        self.species[specie_id] = specie
+        self.species[specie_id] = Specie(specie)
         self.crn.add_node(specie_id)
 
     def addReaction(self,r):
         reaction_id = r.getId()
-        self.reactions[reaction_id] = r
+        self.reactions[reaction_id] = Reaction(r,
+                                               funcs=self.functions,
+                                               assignment_rules=self.assignment_rules)
         self.crn.add_node(reaction_id)
         for s in r.getListOfReactants():
             self.crn.add_edge(s.getSpecies(),reaction_id, stoichiometry=getStoichiometry(s))
@@ -95,20 +125,50 @@ class CRN():
         return [self.reactions[r] for r in self.crn.successors(s.getId())]
     def isProductOf(self, s):
         """ List of reactions where s is a product """
-        return [self.reactions[r] for r in self.crn.successors(s.getId())]
         return [self.reactions[r] for r in self.crn.predecessors(s.getId())]
 
     def stoichio (self, nodeA, nodeB):
         return self.crn[nodeA.getId()][nodeB.getId()]["stoichiometry"]
 
-    def getSpecieODE(self, s, reactions_laws):
+    def getSpecieODE(self, s):
         rCons = self.isReactantOf(s) 
         rProd = self.isProductOf(s)
         expr = 0
         for r in rCons:
-            expr += reactions_laws[r.getId]*self.stoichio(s,r)
+            expr += r.expr*self.stoichio(s,r)
         for r in rProd:
-            expr += reactions_laws[r.getId]*self.stoichio(r,s)
+            expr += r.expr*self.stoichio(r,s)
+        return expr
+
+    def getODEs(self, relabel=False):
+        odes = [self.getSpecieODE(s) for s in self.species.values()
+                                     if not s.isConstant()]
+        if not relabel:
+            return odes
+
+        const_species = [s for s in self.species.values() if s.isConstant()]
+        species = [s for s in self.species.values() if not s.isConstant()]
+        
+        subs = {}
+        for i,s in enumerate(species):
+            subs[s.sym] = sp.Symbol(f"x_{i}")
+        k = 0
+        for e in self.mdl.getListOfParameters():
+            subs[sp.Symbol(e.getId())] = sp.Symbol(f"k_{k}")
+            k+= 1
+        for e in const_species:
+            subs[sp.Symbol(e.getId())] = sp.Symbol(f"k_{k}")
+            k+= 1
+        for e in self.mdl.getListOfCompartments():
+            subs[sp.Symbol(e.getId())] = sp.Symbol(f"k_{k}")
+            k+= 1
+        for e in [param for r in self.reactions.values() for param in r.local_params.values()]:
+            subs[sp.Symbol(e.getId())] = sp.Symbol(f"k_{k}")
+            k+= 1
+
+        return [ode.subs(subs) for ode in odes]
+
+
 
 
 

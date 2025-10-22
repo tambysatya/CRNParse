@@ -4,18 +4,50 @@ from classes.entities import *
 
 import libsbml as sbml
 import glob
+from tqdm import tqdm
 
 
 path2= "/home/tamby/git/biomodels/biomodels/BIOMD0000000169.xml" #has functions
 path= "/home/tamby/git/biomodels/biomodels/BIOMD0000000586.xml" #has functions and assignment rules
 glob_path = "/home/tamby/git/biomodels/biomodels/BIOMD*.xml"
 
-filenames = [file for file in glob.glob(glob_path)]
+filenames = sorted([file for file in glob.glob(glob_path)])
+
+fail="fail.log"
+total = len(filenames)
+
+
+def test():
+    success = 0
+    with open(fail,"w") as log:
+        for file  in tqdm(filenames):
+            try:
+                mdl = sbml.readSBML(file).getModel()
+                crn = CRN(mdl)
+            except Exception as e:
+                log.write(file + ": " + " cannot create CRN")
+                print(file + ": " + " cannot create CRN: " + str(e))
+                continue
+            try:
+                exprs = crn.getODEs(relabel=True)
+                fname = file.split("/")[-1].split(".")[0] 
+                out = "output/" + fname + ".txt"
+                with open(out, "w") as output:
+                    for e in exprs:
+                        output.write(str(e) + "\n")
+                success += 1
+            except Exception as e:
+                log.write(file + ": " + " cannot generate ODEs")
+                print(file + ": " + " cannot generate ODEs: " + str(e))
+
+        print (f"success={success}/{total} ({success/total * 100}%)")
 
 
 
-def getModel():
-    return sbml.readSBML(path).getModel()
+
+
+def getModel(name=path):
+    return sbml.readSBML(name).getModel()
 
 
 def readKineticLaws(name=None):
