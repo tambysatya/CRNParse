@@ -25,19 +25,20 @@ def getConstantSymb (ast):
         case l.AST_CONSTANT_E:
             return sp.exp(1)
         case l.AST_CONSTANT_PI:	
+            print ("PARSING PI:", ast.getName())
             return sp.pi
         case l.AST_NAME_AVOGADRO:
             return u.avogadro_number
         case l.AST_INTEGER:	
-            return ast.getValue()
+            return sp.Integer(ast.getValue())
         case l.AST_REAL:
-            return ast.getValue()
+            return sp.Number(ast.getValue())
             #return ast.getReal()
         case l.AST_REAL_E:
-            return ast.getValue()
+            return sp.Number(ast.getValue())
             #return ast.getReal()
         case l.AST_RATIONAL:
-            return ast.getValue()
+            return sp.Number(ast.getValue())
             #return ast.getReal()
         case l.AST_NAME_TIME:
             return TIME_SYMBOL

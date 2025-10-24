@@ -13,7 +13,7 @@ def getStoichiometry(specie_ref):
     if specie_ref.isSetStoichiometry():
         return specie_ref.getStoichiometry()
     elif specie_ref.isSetStoichiometryMath():
-        return parse_expr(specie_ref.getStoichiometryMath())
+        return parse_expr(specie_ref.getStoichiometryMath().getMath())
     else:
         return 1
 

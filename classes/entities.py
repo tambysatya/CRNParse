@@ -141,13 +141,12 @@ class CRN():
         return expr
 
     def getODEs(self, relabel=False):
-        odes = [self.getSpecieODE(s) for s in self.species.values()
-                                     if not s.isConstant()]
+        odes = {s.sym:self.getSpecieODE(s) for s in self.species.values()}
         if not relabel:
-            return odes
+            return {k:v for k,v in odes.items() if v != 0}
 
-        const_species = [s for s in self.species.values() if s.isConstant()]
-        species = [s for s in self.species.values() if not s.isConstant()]
+        const_species = [s for s in self.species.values() if s.isConstant() or odes[s.sym] == 0]
+        species = [s for s in self.species.values() if not (s.isConstant() or odes[s.sym] == 0)]
         
         subs = {}
         for i,s in enumerate(species):
@@ -163,10 +162,21 @@ class CRN():
             subs[sp.Symbol(e.getId())] = sp.Symbol(f"k_{k}")
             k+= 1
         for e in [param for r in self.reactions.values() for param in r.local_params.values()]:
-            subs[sp.Symbol(e.getId())] = sp.Symbol(f"k_{k}")
+            subs[sp.Symbol(e)] = sp.Symbol(f"k_{k}")
             k+= 1
 
-        return [ode.subs(subs) for ode in odes]
+#        for specie_id, ode in odes.items():
+#            if ode == 0:
+#                continue
+#            if ode.is_real:
+#                ret[subs[specie_id]] = ode
+#            else:
+#                ret[subs[specie_id]] = ode.subs(subs)
+#        return ret
+
+
+        species_id = [s.sym for s in species]
+        return {subs[specie_id]:odes[specie_id].subs(subs) for specie_id in species_id if odes[specie_id] != 0}
 
 
 

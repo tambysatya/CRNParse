@@ -25,7 +25,7 @@ def test():
                 mdl = sbml.readSBML(file).getModel()
                 crn = CRN(mdl)
             except Exception as e:
-                log.write(file + ": " + " cannot create CRN")
+                log.write(file + ": " + " cannot create CRN\n")
                 print(file + ": " + " cannot create CRN: " + str(e))
                 continue
             try:
@@ -33,11 +33,12 @@ def test():
                 fname = file.split("/")[-1].split(".")[0] 
                 out = "output/" + fname + ".txt"
                 with open(out, "w") as output:
-                    for e in exprs:
-                        output.write(str(e) + "\n")
+                    for specie_id, e in exprs.items():
+                        name = "d(" + str(specie_id) + ")/dt"
+                        output.write(name + "=" + str(e) + "\n")
                 success += 1
             except Exception as e:
-                log.write(file + ": " + " cannot generate ODEs")
+                log.write(file + ": " + " cannot generate ODEs" + "\n")
                 print(file + ": " + " cannot generate ODEs: " + str(e))
 
         print (f"success={success}/{total} ({success/total * 100}%)")
