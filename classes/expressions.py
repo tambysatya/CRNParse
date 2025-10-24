@@ -4,6 +4,10 @@ import sympy as sp
 from sympy.core.expr import Expr
 from sbml_expr_parse.read import parse_expr
 
+import logging
+logger = logging.getLogger(__name__)
+
+
 
 
 class Expression (sbml.ASTNode):
@@ -81,7 +85,7 @@ class FunctionDefinition(NamedExpression):
         for term in sp.preorder_traversal(expr):
             name = term.func
             if name == self.name:
-                print (f"\trewriting {name} in {term}")
+                logger.debug(f"\trewriting {name} in {term}")
                 args = term.args
                 ret = ret.subs(term,self.expr(*args))
         return ret

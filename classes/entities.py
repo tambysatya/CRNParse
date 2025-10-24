@@ -4,6 +4,9 @@ from classes.expressions import *
 import networkx as nx
 from utils import *
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 
 
@@ -24,7 +27,7 @@ class Specie(sbml.Species):
 
 
 class Reaction (sbml.Reaction, Expression):
-    def __init__ (self, reaction, funcs=[], assignment_rules={}):
+    def __init__ (self, reaction, funcs=[], assignment_rules={}, species={}):
         """
             Instanciates a reactions and simplifies the kinetic law depending according to the set of functions and rules that are specified
         """
@@ -42,6 +45,12 @@ class Reaction (sbml.Reaction, Expression):
             name = p.getIdAttribute()
             new_name = reaction_id + "_" + name
             local_params[sp.Symbol(name)] = new_name
+        for p in kinetic_law.getListOfParameters(): #for old versions
+            name = p.getIdAttribute()
+            new_name = reaction_id + "_" + name
+            local_params[sp.Symbol(name)] = new_name
+        
+
         
         self.rewrite(local_params)
         self.local_params = local_params
@@ -49,10 +58,23 @@ class Reaction (sbml.Reaction, Expression):
         self.applyAssignments(assignment_rules)
         self.applyFunctions(funcs)
 
+        self.rewriteSubstanceInputs(species)
+
     def __str__ (self):
         return Expression.__str__(self)
     def __repr__(self):
         return self.__str__()
+
+    def rewriteSubstanceInputs(self, species):
+        """
+            If described as f(...,Xj,...), rewrites it as f(...,xjVj,...)
+        """
+        subs = {s.sym:s.sym*s.sym_compartment for s in species.values() if not s.isConcentration() }
+        if subs != {}:
+            logger.info(f"Conversion between quantity to concentration for species {subs.keys()} in {self.expr}")
+            self.rewrite(subs)
+
+
 
     def applyAssignments(self, assignment_rules): #TODO can it be done better (maybe the comparison, or processing the expressions of the assignments) ?
         """
@@ -81,17 +103,17 @@ class CRN():
         self.functions = []
         self.assignment_rules = {} #assignments rules are substitutions
 
-        print ("Functions:")
+        logger.debug("Functions:")
         for f in mdl.getListOfFunctionDefinitions():
             fun = FunctionDefinition(f)
             self.functions.append(fun)
-            print ("\t",fun)
+            logger.debug ("\t",fun)
 
-        print ("Rules:")
+        logger.debug("Rules:")
         for r in mdl.getListOfRules():
             if r.isAssignment():
                 rule = AssignmentRule(r, self.functions)
-                print ("\tAssignment:",rule.name,"=",rule.expr)
+                logger.debug("\tAssignment:",rule.name,"=",rule.expr)
                 self.assignment_rules[rule.name] = rule.expr
      
 
@@ -109,7 +131,8 @@ class CRN():
         reaction_id = r.getId()
         self.reactions[reaction_id] = Reaction(r,
                                                funcs=self.functions,
-                                               assignment_rules=self.assignment_rules)
+                                               assignment_rules=self.assignment_rules,
+                                               species=self.species)
         self.crn.add_node(reaction_id)
         for s in r.getListOfReactants():
             self.crn.add_edge(s.getSpecies(),reaction_id, stoichiometry=getStoichiometry(s))
@@ -141,7 +164,7 @@ class CRN():
             expr += r.expr*self.stoichio(s,r)
         for r in rProd:
             expr += r.expr*self.stoichio(r,s)
-        return expr
+        return expr/s.sym_compartment
 
     def getODEs(self, relabel=False):
         odes = {s.sym:self.getSpecieODE(s) for s in self.species.values()}

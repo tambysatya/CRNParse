@@ -5,6 +5,8 @@ from classes.entities import *
 import libsbml as sbml
 import glob
 from tqdm import tqdm
+import logging
+logger = logging.getLogger(__name__)
 
 
 path2= "/home/tamby/git/biomodels/biomodels/BIOMD0000000169.xml" #has functions
@@ -15,6 +17,8 @@ filenames = sorted([file for file in glob.glob(glob_path)])
 
 fail="fail.log"
 total = len(filenames)
+
+logging.basicConfig(filename="main.log", level=logging.INFO)
 
 
 def test():
