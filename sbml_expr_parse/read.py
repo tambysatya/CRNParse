@@ -6,28 +6,37 @@ import sbml_expr_parse.debug as DBG #dictionary
 
 TIME_SYMBOL = sp.Dummy("t")
 DELAY_SYMBOL = sp.Function(sp.Dummy())
+SYMBOL_PI = sp.Dummy("Pi")
+SYMBOL_E = sp.Dummy("e")
+SYMBOL_AVOGADRO = sp.Dummy("N")
 
 def processLambda(ast):
     n_children = ast.getNumChildren()
     args = []
     for i in range(n_children-1):
-        args.append(astToExpr(ast.getChild(i)))
-    body = astToExpr(ast.getChild(n_children-1))
+        args.append(getConstantSymb(ast.getChild(i), read_closure=True))
+        #args.append(astToExpr(ast.getChild(i)))
+    body = astToExpr(ast.getChild(n_children-1), read_closure=True)
     ret = sp.Lambda(tuple(args), body)
     return ret
 
-def getConstantSymb (ast):
+def getConstantSymb (ast, read_closure):
     match ast.getType():
         case l.AST_CONSTANT_FALSE:	
             return sp.false
         case l.AST_CONSTANT_TRUE:	
             return sp.true
         case l.AST_CONSTANT_E:
+            if read_closure:
+                return SYMBOL_E
             return sp.exp(1)
         case l.AST_CONSTANT_PI:	
-            print ("PARSING PI:", ast.getName())
+            if read_closure:
+                return SYMBOL_PI
             return sp.pi
         case l.AST_NAME_AVOGADRO:
+            if read_closure:
+                return SYMBOL_AVOGADRO
             return u.avogadro_number
         case l.AST_INTEGER:	
             return sp.Integer(ast.getValue())
@@ -191,24 +200,24 @@ def getOperatorSymb (ast):
         case _:
             raise ValueError ("getOperatorSymb(): invalid type")
 
-def getArguments (ast):
+def getArguments (ast, read_closure):
     children = []
     if ast.getType() == l.AST_FUNCTION_PIECEWISE:
         i=0
         while (i+1 < ast.getNumChildren()):
             x = ast.getChild(i)
             y = ast.getChild(i+1)
-            children.append((astToExpr(x),astToExpr(y)))
+            children.append((astToExpr(x, read_closure),astToExpr(y, read_closure)))
             i+=2
         return children
 
     for i in range(ast.getNumChildren()):
         child = ast.getChild(i)
-        expr = astToExpr(child)
+        expr = astToExpr(child, read_closure)
         children.append(expr)
     return children
 
-def processOperator (ast):
+def processOperator (ast, read_closure):
     match ast.getType():
         case l.AST_MINUS: 
             if ast.getNumChildren() > 2:
@@ -216,32 +225,32 @@ def processOperator (ast):
             left = ast.getLeftChild()
             right = ast.getRightChild()
             if right == None:
-                return - astToExpr(left)
+                return - astToExpr(left, read_closure)
             else:
-                return astToExpr(left) - astToExpr(right)
+                return astToExpr(left, read_closure) - astToExpr(right, read_closure)
         case l.AST_DIVIDE:	
             if ast.getNumChildren() > 2:
                 raise ValueError (f"processOperator(): AST_DIVIDE with NumChildren() {ast.getNumChildren()}> 1")
-            left = astToExpr(ast.getLeftChild())
-            right = astToExpr(ast.getRightChild())
+            left = astToExpr(ast.getLeftChild(), read_closure)
+            right = astToExpr(ast.getRightChild(), read_closure)
             return left / right
         case _:
             symb = getOperatorSymb(ast)
-            children = getArguments(ast)
+            children = getArguments(ast, read_closure)
             return symb(*children)
 
-def processCallable(ast):
+def processCallable(ast, read_closure):
     if ast.isLogical():
         symb = getLogicalSymb(ast)
     elif ast.isRelational():
         symb = getRelationalSymb(ast)
     else:
         symb = getFunctionSymb(ast)
-    args = getArguments(ast)
+    args = getArguments(ast, read_closure)
     return symb(*args)
 
 
-def astToExpr(ast):    
+def astToExpr(ast, read_closure):    
     #if ast.getType() == l.AST_ORIGINATES_IN_PACKAGE2:
     #    raise ValueError("AST_ORIGINATES_IN_PACKAGE2 not implemented")
     if ast.getType() == l.AST_UNKNOWN:
@@ -250,9 +259,9 @@ def astToExpr(ast):
     if ast.isName():
         return sp.Symbol(ast.getName())
     elif ast.isConstant() or ast.isNumber() or ast.getType() == l.AST_NAME_TIME:
-        return getConstantSymb(ast)
+        return getConstantSymb(ast, read_closure)
     elif ast.isOperator():
-        return processOperator(ast)
+        return processOperator(ast, read_closure)
     elif ast.isLambda():
         return processLambda(ast)
     elif(
@@ -261,13 +270,13 @@ def astToExpr(ast):
          ast.isRelational() or
          ast.isLogical()
         ):
-        return processCallable(ast)
+        return processCallable(ast, read_closure)
     else:
         raise ValueError (f"astToExpr() type {DBG.types[ast.getType()]} not processed")
 
 def parse_expr(expr):
     try:
-        return astToExpr(expr) 
+        return astToExpr(expr, read_closure=False) 
     except TypeError as err:
         print ("parse error for expression: ", l.formulaToL3String(expr))
         print (err)
