@@ -9,6 +9,9 @@ DELAY_SYMBOL = sp.Function(sp.Dummy())
 SYMBOL_PI = sp.Dummy("Pi")
 SYMBOL_E = sp.Dummy("e")
 SYMBOL_AVOGADRO = sp.Dummy("N")
+SYMBOL_NAN = sp.Dummy("NaN")
+SYMBOL_NEG_INFINITY = sp.Dummy("NegativeInfinity")
+SYMBOL_INFINITY = sp.Dummy ("Infinity")
 
 def processLambda(ast):
     n_children = ast.getNumChildren()
@@ -250,13 +253,28 @@ def processCallable(ast, read_closure):
     return symb(*args)
 
 
+def isSpecial(ast):
+    return (ast.isNaN() or 
+            ast.isNegInfinity() or 
+            ast.isInfinity())
+def processSpecial(ast):
+    if ast.isNaN():
+        raise ValueError ("NaN in the expression")
+        #return SYMBOL_NAN
+    elif ast.isNegInfinity():
+        return SYMBOL_NEG_INFINITY
+    elif ast.isInfinity():
+        return SYMBOL_INFINITY
+
 def astToExpr(ast, read_closure):    
     #if ast.getType() == l.AST_ORIGINATES_IN_PACKAGE2:
     #    raise ValueError("AST_ORIGINATES_IN_PACKAGE2 not implemented")
     if ast.getType() == l.AST_UNKNOWN:
         raise ValueError("AST_UNKNOWN type")
     ast.canonicalize()
-    if ast.isName():
+    if isSpecial(ast):
+        return processSpecial(ast)
+    elif ast.isName():
         return sp.Symbol(ast.getName())
     elif ast.isConstant() or ast.isNumber() or ast.getType() == l.AST_NAME_TIME:
         return getConstantSymb(ast, read_closure)

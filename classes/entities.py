@@ -81,14 +81,17 @@ class CRN():
         self.functions = []
         self.assignment_rules = {} #assignments rules are substitutions
 
+        print ("Functions:")
         for f in mdl.getListOfFunctionDefinitions():
             fun = FunctionDefinition(f)
             self.functions.append(fun)
             print ("\t",fun)
 
+        print ("Rules:")
         for r in mdl.getListOfRules():
             if r.isAssignment():
                 rule = AssignmentRule(r, self.functions)
+                print ("\tAssignment:",rule.name,"=",rule.expr)
                 self.assignment_rules[rule.name] = rule.expr
      
 
@@ -149,9 +152,9 @@ class CRN():
         species = [s for s in self.species.values() if not (s.isConstant() or odes[s.sym] == 0)]
         
         subs = {}
-        for i,s in enumerate(species):
+        for i,s in enumerate(species,1):
             subs[s.sym] = sp.Symbol(f"x_{i}")
-        k = 0
+        k = 1
         for e in self.mdl.getListOfParameters():
             subs[sp.Symbol(e.getId())] = sp.Symbol(f"k_{k}")
             k+= 1
