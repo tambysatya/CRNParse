@@ -18,13 +18,15 @@ filenames = sorted([file for file in glob.glob(glob_path)])
 fail="fail.log"
 total = len(filenames)
 
-logging.basicConfig(filename="main.log", level=logging.INFO)
+logging.basicConfig(filename="main.log",
+                    level=logging.INFO)
 
 
 def test():
     success = 0
     with open(fail,"w") as log:
         for file  in tqdm(filenames):
+            logger.info(f"processing {file}")
             try:
                 mdl = sbml.readSBML(file).getModel()
                 crn = CRN(mdl)
@@ -44,6 +46,8 @@ def test():
             except Exception as e:
                 log.write(file + ": " + " cannot generate ODEs" + "\n")
                 print(file + ": " + " cannot generate ODEs: " + str(e))
+
+
 
         print (f"success={success}/{total} ({success/total * 100}%)")
 
