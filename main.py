@@ -4,7 +4,7 @@ import os
 import tqdm
 from CRN import *
 
-path="utils/biomodels/BIOMD*"
+path="/home/tamby/git/biomodels/biomodels/BIOMD*"
 files = sorted(glob.glob(path))
 
 skip = ["utils/biomodels/BIOMD0000000469.xml" # SLOW 
@@ -88,8 +88,14 @@ with open(fail_list_name, "w") as fail_list:
             file_name = file_name.split(".")[0]
             try:
                 crn = CRN(file)
+                odes, vars_mappings, params_mappings = crn.prettyODEs()
                 with open(output_dir + "/" + file_name + ".txt", "w") as output:
-                    output.write(crn.prettyODEs())
+                    output.write(odes)
+                with open(output_dir + "/" + file_name + "_mapping.txt", "w") as output:
+                    for xi, sym in vars_mappings.items():
+                        output.write(str(xi)+ "="+ str(sym)+"\n")
+                    for xi, sym in params_mappings.items():
+                        output.write(str(xi)+ "="+ str(sym)+"\n")
                 success += 1
             except ValueError as e:
                 print (file,":",str(e))

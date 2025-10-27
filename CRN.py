@@ -97,7 +97,8 @@ class CRN (libsbml.Model):
         """
             Display the ODEs nicely, where species and parameters are referred to as x1..xN and k1...kP respectively
         """
-        return pprintEqs(self.rewriteODEs())
+        odes, vars_mapping, params_mapping = self.rewriteODEs()
+        return pprintEqs(odes), vars_mapping, params_mapping
 
 
     def rewriteODEs (self):
@@ -106,31 +107,39 @@ class CRN (libsbml.Model):
         """
 
         subs_dict = {}
+        vars_subs = {}
+        params_subs = {}
         for i,sym in enumerate(self.symSpecies, 1):
             subs_dict[sym] = sp.Symbol("x"+str(i))
+            vars_subs[sym] = subs_dict[sym]
         
         k = 1
 
-            
-        for sym in self.symParams:
+        for c in self.getListOfCompartments():
+            sym = sp.Symbol(c.getId())
             subs_dict[sym] = sp.Symbol("k"+str(k))
-            k+= 1
-        for sym in self.symCompartments:
-            subs_dict[sym] = sp.Symbol("k"+str(k))
+            params_subs[sym] = subs_dict[sym]
             k+= 1
 
+           
+        for sym in self.symParams:
+            subs_dict[sym] = sp.Symbol("k"+str(k))
+            params_subs[sym] = subs_dict[sym]
+            k+= 1
         for sym in self.symLocalParams:
             subs_dict[sym] = sp.Symbol("k"+str(k))
+            params_subs[sym] = subs_dict[sym]
             k+= 1
 
         for sym in self.symConstantSpecies:
             subs_dict[sym] = sp.Symbol("k"+str(k))
+            params_subs[sym] = subs_dict[sym]
             k+= 1
 
         odes = self.odes_expr.copy()
         odes = rewriteODEs(odes, subs_dict)
 
-        return odes
+        return odes, vars_subs, params_subs
 
 
 
