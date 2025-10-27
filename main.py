@@ -22,33 +22,44 @@ logging.basicConfig(filename="main.log",
                     level=logging.INFO)
 
 
+def genODEs(file, log=None):
+    logger.info(f"processing {file}")
+    try:
+        mdl = sbml.readSBML(file).getModel()
+        crn = CRN(mdl)
+    except Exception as e:
+        if log:
+            log.write(file + ": " + " cannot create CRN\n")
+        print(file + ": " + " cannot create CRN: " + str(e))
+    try:
+        exprs, mappings = crn.getODEs(relabel=True, mappings = True)
+        fname = file.split("/")[-1].split(".")[0] 
+        out = "output/" + fname + ".txt"
+        with open(out, "w") as output:
+            for specie_id, e in exprs.items():
+                name = "d(" + str(specie_id) + ")/dt"
+                output.write(name + "=" + str(e) + "\n")
+        with open("output/"+fname + "_mappings.txt", "w") as output:
+            for v, s in mappings.items():
+                output.write(f"{v}\t{s}\n")
+    except Exception as e:
+        if log:
+            log.write(file + ": " + " cannot generate ODEs" + "\n")
+        print(file + ": cannot generate ODEs: " + str(e))
+
+
+
+
+
 def test():
     success = 0
     with open(fail,"w") as log:
         for file  in tqdm(filenames):
-            logger.info(f"processing {file}")
             try:
-                mdl = sbml.readSBML(file).getModel()
-                crn = CRN(mdl)
-            except Exception as e:
-                log.write(file + ": " + " cannot create CRN\n")
-                print(file + ": " + " cannot create CRN: " + str(e))
-                continue
-            try:
-                exprs = crn.getODEs(relabel=True)
-                fname = file.split("/")[-1].split(".")[0] 
-                out = "output/" + fname + ".txt"
-                with open(out, "w") as output:
-                    for specie_id, e in exprs.items():
-                        name = "d(" + str(specie_id) + ")/dt"
-                        output.write(name + "=" + str(e) + "\n")
+                genODEs(file, log)
                 success += 1
-            except Exception as e:
-                log.write(file + ": " + " cannot generate ODEs" + "\n")
-                print(file + ": " + " cannot generate ODEs: " + str(e))
-
-
-
+            except Exception:
+                continue
         print (f"success={success}/{total} ({success/total * 100}%)")
 
 

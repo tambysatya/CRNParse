@@ -18,7 +18,11 @@ class Specie(sbml.Species):
 
     def isConcentration(self):
         hasOnlySubstanceUnits = self.getHasOnlySubstanceUnits()
-        return not hasOnlySubstanceUnits
+        if self.isSetHasOnlySubstanceUnits():
+            return not hasOnlySubstanceUnits
+        else:
+            logger.warning(f"{self.sym}: hasOnlySubstanceUnits() not set TODO")
+            return True
     def isConstant(self):
         constant = self.isSetConstant() and self.getConstant()
         boundary = self.isSetBoundaryCondition and self.getBoundaryCondition()
@@ -71,7 +75,7 @@ class Reaction (sbml.Reaction, Expression):
         """
         subs = {s.sym:s.sym*s.sym_compartment for s in species.values() if not s.isConcentration() }
         if subs != {}:
-            logger.info(f"Conversion between quantity to concentration for species {subs.keys()} in {self.expr}")
+            logger.info(f"{self.getId()}: Conversion between quantity to concentration for species {subs.keys()} in {self.expr}")
             self.rewrite(subs)
 
 
@@ -160,13 +164,13 @@ class CRN():
         rCons = self.isReactantOf(s) 
         rProd = self.isProductOf(s)
         expr = 0
-        for r in rCons:
-            expr += r.expr*self.stoichio(s,r)
-        for r in rProd:
-            expr += r.expr*self.stoichio(r,s)
-        return expr/s.sym_compartment
+        for r in rCons: #s is a reactant
+            expr -= r.expr*self.stoichio(s,r)/s.sym_compartment
+        for r in rProd: #s is a product
+            expr += r.expr*self.stoichio(r,s)/s.sym_compartment
+        return expr
 
-    def getODEs(self, relabel=False):
+    def getODEs(self, relabel=False,mappings=False):
         odes = {s.sym:self.getSpecieODE(s) for s in self.species.values()}
         if not relabel:
             return {k:v for k,v in odes.items() if v != 0}
@@ -202,7 +206,12 @@ class CRN():
 
 
         species_id = [s.sym for s in species]
-        return {subs[specie_id]:odes[specie_id].subs(subs) for specie_id in species_id if odes[specie_id] != 0}
+        ret = {subs[specie_id]:odes[specie_id].subs(subs) for specie_id in species_id if odes[specie_id] != 0}
+        if not mappings:
+            return ret
+        else:
+            return ret, subs
+        
 
 
 
