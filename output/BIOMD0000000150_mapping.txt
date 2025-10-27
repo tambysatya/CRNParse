@@ -1,0 +1,9 @@
+CDK2cycA=x1
+CyclinA=x2
+Cdk2=x3
+CDK2cycA_star_=x4
+geometry=k1
+Binding_kf=k2
+Binding_kb=k3
+Activation_kf=k4
+Activation_kb=k5

@@ -1,7 +1,7 @@
-x1=(k1*k20 - k20*k3*x1)/k20
-x2=(k19*k8*x3 + k20*k4*x1**k5 - k20*k6*x2 - k20*k7*x2)/k20
-x3=(-k19*k8*x3 - k19*k9*x3 + k20*k7*x2)/k19
-x4=(-k10*k20*x4 + k2*k20)/k20
-x5=(k11*k20*x4 - k12*k20*x5 - k13*k20*x5 + k14*k19*x6)/k20
-x6=(k13*k20*x5 - k14*k19*x6 - k15*k19*x6 - k16*k19*x6 + k17*k19*x7)/k19
-x7=(k16*k19*x6 - k17*k19*x7 - k18*k19*x7)/k19
+x1=(CytoplAsm*k3 - CytoplAsm*k5*x1)/CytoplAsm
+x2=(CytoplAsm*k6*x1**k7 - CytoplAsm*k8*x2 - CytoplAsm*k9*x2 + k1*k10*x3)/CytoplAsm
+x3=(CytoplAsm*k9*x2 - k1*k10*x3 - k1*k11*x3)/k1
+x4=(-CytoplAsm*k12*x4 + CytoplAsm*k4)/CytoplAsm
+x5=(CytoplAsm*k13*x4 - CytoplAsm*k14*x5 - CytoplAsm*k15*x5 + k1*k16*x6)/CytoplAsm
+x6=(CytoplAsm*k15*x5 - k1*k16*x6 - k1*k17*x6 - k1*k18*x6 + k1*k19*x7)/k1
+x7=(k1*k18*x6 - k1*k19*x7 - k1*k20*x7)/k1

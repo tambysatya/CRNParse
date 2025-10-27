@@ -1,0 +1,16 @@
+Phser=x1
+Phi=x2
+Cys=x3
+AdoMet=x4
+CGS=x5
+TS=x6
+compartment=k1
+v1_V0=k2
+vCys_kcat2=k3
+vCys_KmCYS=k4
+vCys_KmPHSER=k5
+vCys_Ki2=k6
+vThr_Ki3=k7
+Thr=k8
+Cystathionine=k9
+Hser=k10

@@ -1,9 +1,0 @@
-x8=(-(k15 + (1 - exp((k11 - piecewise(k12, leq(time, k25), k12 + (1 - exp((k25 - time)/piecewise(k34, eq(k37, 1), piecewise(k35, eq(k37, 2), k36))))*piecewise(k31, eq(k37, 1), piecewise(k32, eq(k37, 2), k33))))/k14))*(-k15 + k16))*(x8 - x9) + (k26 - x6)*piecewise(k12, leq(time, k25), k12 + (1 - exp((k25 - time)/piecewise(k34, eq(k37, 1), piecewise(k35, eq(k37, 2), k36))))*piecewise(k31, eq(k37, 1), piecewise(k32, eq(k37, 2), k33))))/(k38*(4*k18*k19*k22*k24*x8**(k18 - 1)/(k24*x8**k18 + 1)**2 + 1))
-x9=(-x3*x9*piecewise(k28, eq(k37, 1), piecewise(k29, eq(k37, 2), k30))/((k2 + x3)*(k8 + x9)) + (k15 + (1 - exp((k11 - piecewise(k12, leq(time, k25), k12 + (1 - exp((k25 - time)/piecewise(k34, eq(k37, 1), piecewise(k35, eq(k37, 2), k36))))*piecewise(k31, eq(k37, 1), piecewise(k32, eq(k37, 2), k33))))/k14))*(-k15 + k16))*(x8 - x9)/k39)/(k20*k21*k23/(k23*x9 + 1)**2 + 1)
-x1=(-k1*k39*x1 + 6.0*k27*k39*x3*x9/((k2 + x3)*(k8 + x9)) + k39*(-k10*x1*x4/(k4*k6) + k9*x2*x3/(k3*k7))/(x2/k5 + x1/k4 + x1*x4/(k4*k6) + (k3 + x3)/k3 + x2*x3/(k3*k7)))/k39
-x2=-(-k10*x1*x4/(k4*k6) + k9*x2*x3/(k3*k7))/(x2/k5 + x1/k4 + x1*x4/(k4*k6) + (k3 + x3)/k3 + x2*x3/(k3*k7))
-x3=(k1*k39*x1 - 6.0*k27*k39*x3*x9/((k2 + x3)*(k8 + x9)) - k39*(-k10*x1*x4/(k4*k6) + k9*x2*x3/(k3*k7))/(x2/k5 + x1/k4 + x1*x4/(k4*k6) + (k3 + x3)/k3 + x2*x3/(k3*k7)))/k39
-x4=(-k10*x1*x4/(k4*k6) + k9*x2*x3/(k3*k7))/(x2/k5 + x1/k4 + x1*x4/(k4*k6) + (k3 + x3)/k3 + x2*x3/(k3*k7))
-x5=0
-x6=(k13*(k26 - x6) - k17*(x8 - x9))/k38
-x7=(k17*(x8 - x9) - k27*k39*x3*x9/((k2 + x3)*(k8 + x9)))/k39

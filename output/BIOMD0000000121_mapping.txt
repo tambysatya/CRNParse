@@ -1,0 +1,16 @@
+c3=x1
+c2=x2
+c1=x3
+o=x4
+i=x5
+cell=k1
+a=k2
+b=k3
+ain=k4
+bin=k5
+aa=k6
+bb=k7
+ai=k8
+bi=k9
+u=k10
+ik=k11

@@ -1,0 +1,15 @@
+P=x1
+Q=x2
+R=x3
+body=k1
+reaction_0_a=k2
+reaction_1_V=k3
+reaction_1_Km=k4
+reaction_2_V1=k5
+reaction_2_K1=k6
+reaction_3_V2=k7
+reaction_3_K2=k8
+reaction_4_V3=k9
+reaction_4_k3=k10
+reaction_5_V=k11
+reaction_5_Km=k12

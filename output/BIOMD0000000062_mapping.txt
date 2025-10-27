@@ -1,0 +1,15 @@
+Enz=x1
+Ts=x2
+Tt=x3
+compartment=k1
+Enzyme_synthesis_k1=k2
+Enzyme_synthesis_ki1=k3
+Enzyme_synthesis_nH=k4
+Enzyme_synthesis_Ot=k5
+Enzyme_dilution_mu=k6
+tryptophan_synthesis_k2=k7
+tryptophan_synthesis_Ki2=k8
+tryptophan_consumption_g=k9
+tryptophan_consumption_Kg=k10
+tryptophan_dilution_mu=k11
+To=k12

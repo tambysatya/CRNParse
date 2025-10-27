@@ -1,0 +1,9 @@
+S=x1
+X=x2
+Y=x3
+batch=k1
+r1_k1=k2
+r2_k2=k3
+r3_k3=k4
+r4_k4=k5
+P=k6

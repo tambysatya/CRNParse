@@ -1,0 +1,11 @@
+x=x1
+y=x2
+y0=x3
+compartment=k1
+psi=k2
+alpha_x=k3
+alpha_xy=k4
+beta_y=k5
+alpha_y=k6
+alpha_0=k7
+fx=k8

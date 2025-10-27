@@ -1,0 +1,15 @@
+Pc1=x1
+Po2=x2
+Po1=x3
+Pc2=x4
+compartment=k1
+Closed_state_1_ka_minus=k2
+Closed_state_1_ka_plus=k3
+Closed_state_1_Ca=k4
+Closed_state_1_n=k5
+Open_state_2_kb_plus=k6
+Open_state_2_Ca=k7
+Open_state_2_m=k8
+Open_state_2_kb_minus=k9
+Closed_State_2_kc_plus=k10
+Closed_State_2_kc_minus=k11

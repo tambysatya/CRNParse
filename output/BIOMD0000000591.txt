@@ -1,8 +1,0 @@
-x1=(k2*x7 + 2.0*k3*x6 - 2.5e-7*k6*x1**2*exp(-k1*time) - 1.25e-7*k6*x1*x2*exp(-k1*time))/k7
-x2=(k2*x7 + 2.0*k3*x8 - 1.25e-7*k6*x1*x2*exp(-k1*time) - 2.5e-7*k6*x2**2*exp(-k1*time))/k7
-x3=(-k4*x3 + 1.25e-7*k6*x1*x2*exp(-k1*time))/k7
-x4=(-k5*x4 + 1.25e-7*k6*x1**2*exp(-k1*time))/k7
-x5=(-k5*x5 + 1.25e-7*k6*x2**2*exp(-k1*time))/k7
-x6=(-k3*x6 + k5*x4)/k8
-x7=(-k2*x7 + k4*x3)/k8
-x8=(-k3*x8 + k5*x5)/k8

@@ -1,0 +1,9 @@
+z=x1
+e=x2
+w=x3
+ez=x4
+compartment=k1
+v1_k1=k2
+v2_k21=k3
+v2_k22=k4
+v3_k3=k5

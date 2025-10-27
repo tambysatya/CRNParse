@@ -1,0 +1,8 @@
+COMpartment=k1
+AE50=k2
+Ce=k3
+Kover=k4
+T_Turnover=k5
+Teq=k6
+TumorSize=k7
+TumorSize_0=k8

@@ -1,0 +1,16 @@
+ATP=x1
+AMP=x2
+ADP=x3
+Pyr=x4
+NADH=x5
+compartment=k1
+Vmapp1=k2
+Kmapp1=k3
+Vm2=k4
+Km2ATP=k5
+Km2AMP=k6
+K=k7
+Vmapp3=k8
+Kmapp3=k9
+k4=k10
+Lac=k11

@@ -1,0 +1,17 @@
+Z=x1
+Y=x2
+cytosol=k1
+store=k2
+v0=k3
+v1=k4
+beta=k5
+Vm2=k6
+n=k7
+K2=k8
+Vm3=k9
+m=k10
+Kr=k11
+Ka=k12
+kf=k13
+k=k14
+p=k15

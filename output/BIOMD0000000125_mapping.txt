@@ -1,0 +1,13 @@
+x1=x1
+x2=x2
+y2=x3
+x0=x4
+y0=x5
+compartment_0000001=k1
+a1=k2
+a2=k3
+b1=k4
+b2=k5
+d1=k6
+d2x=k7
+d2y=k8

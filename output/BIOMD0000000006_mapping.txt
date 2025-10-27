@@ -1,0 +1,9 @@
+u=x1
+v=x2
+cell=k1
+kappa=k2
+k6=k3
+k4=k4
+k4prime=k5
+EmptySet=k6
+z=k7

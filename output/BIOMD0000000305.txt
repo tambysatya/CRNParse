@@ -1,6 +1,0 @@
-x1=-k1*x1*x2*exp(-k2*k3*k4/k5) + k10*x3*exp(k11*k3*k4/k5) + k6*x3*exp(-k3*k4*k7/k5) - k8*x1*x2*exp(k3*k4*k9/k5)
-x3=k1*x1*x2*exp(-k2*k3*k4/k5) - k10*x3*exp(k11*k3*k4/k5) - k6*x3*exp(-k3*k4*k7/k5) + k8*x1*x2*exp(k3*k4*k9/k5)
-x4=k1*x1*x2*exp(-k2*k3*k4/k5)
-x5=k6*x3*exp(-k3*k4*k7/k5)
-x6=k8*x1*x2*exp(k3*k4*k9/k5)
-x7=k10*x3*exp(k11*k3*k4/k5)

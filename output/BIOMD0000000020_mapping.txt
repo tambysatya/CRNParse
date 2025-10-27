@@ -1,0 +1,12 @@
+unit_compartment=k1
+V=k2
+m=k3
+h=k4
+n=k5
+Cm=k6
+g_Na=k7
+g_K=k8
+g_L=k9
+V_Na=k10
+V_K=k11
+V_L=k12

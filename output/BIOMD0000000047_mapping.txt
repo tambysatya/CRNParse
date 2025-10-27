@@ -1,0 +1,13 @@
+CaER=x1
+Ca_Cyt=x2
+Cytosol=k1
+Endoplasmic_Reticulum=k2
+p1=k3
+p2=k4
+p3=k5
+k31=k6
+K3=k7
+Jch_Fch_0=k8
+Jleak_Fleak=k9
+Jpump_Fpump_0=k10
+Jpump_Kpump=k11

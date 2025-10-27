@@ -1,0 +1,15 @@
+M=x1
+P=x2
+default=k1
+CYTOPLASM=k2
+TC_Vm=k3
+TC_Pcrit=k4
+TC_Keq=k5
+TL_V=k6
+mRNAD_D=k7
+ProteinD_D=k8
+DBT_k1=k9
+DBT_k2=k10
+DBT_J=k11
+DBT_Keq=k12
+EmptySet=k13

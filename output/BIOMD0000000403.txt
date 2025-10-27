@@ -1,4 +1,0 @@
-x1=k3*x1**(k9*(1 + k15*x4/k14))*x2**(k10*(1 + k16*x4/k14)) - k4*x1
-x4=x4*(k13 - piecewise(k20, geq(time, 600), 0))*log(k14/x4)
-x2=k5*x1**(k11/(1 + k17*x4/k14))*x2**(k12 - k18*x4/k14) - x2*(k6 - piecewise(k19, geq(time, 600), 0))
-x3=-k7*piecewise(-k7 + x1, gt(x1, k7), 0) + k8*piecewise(-k8 + x2, gt(x2, k8), 0)

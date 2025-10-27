@@ -1,3 +1,0 @@
-x1=k3*x1**k9*x2**k10 - k4*x1
-x2=k5*x1**k11*x2**k12 - k6*x2
-x3=-k7*piecewise(-k7 + x1, gt(x1, k7), 0) + k8*piecewise(-k8 + x2, gt(x2, k8), 0)

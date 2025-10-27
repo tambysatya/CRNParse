@@ -1,0 +1,14 @@
+PX=x1
+PY=x2
+PZ=x3
+X=x4
+Y=x5
+Z=x6
+cell=k1
+n=k2
+KM=k3
+kd_mRNA=k4
+kd_prot=k5
+k_tl=k6
+a_tr=k7
+a0_tr=k8

@@ -1,0 +1,11 @@
+x=x1
+y=x2
+Cytosol=k1
+ER=k2
+Extracellular=k3
+k=k4
+alpha=k5
+k1=k6
+beta=k7
+fy=k8
+gamma=k9

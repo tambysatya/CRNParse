@@ -1,0 +1,10 @@
+x=x1
+y=x2
+y0=x3
+compartment=k1
+psi=k2
+alpha_xy=k3
+beta_y=k4
+alpha_y=k5
+alpha_0=k6
+Theta=k7

@@ -1,0 +1,17 @@
+lck_inactive=x1
+lck_active=x2
+phosphatAse_inactive=x3
+phosphatAse_active=x4
+compartment=k1
+n1=k2
+k1=k3
+m1=k4
+d0=k5
+d1=k6
+k2=k7
+m2=k8
+n2=k9
+d2=k10
+n=k11
+r_l=k12
+lck_total=k13

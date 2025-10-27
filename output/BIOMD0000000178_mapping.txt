@@ -1,0 +1,13 @@
+bulk=x1
+free=x2
+bound=x3
+translocate=x4
+lytic=x5
+extracellular=k1
+endosome=k2
+neuroplasm=k3
+endocytosis_kT=k4
+translocation_kL=k5
+binding_kB=k6
+bulk_movement_kS=k7
+BoNT=k8
