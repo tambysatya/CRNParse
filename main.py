@@ -31,6 +31,7 @@ def genODEs(file, log=None):
         if log:
             log.write(file + ": " + " cannot create CRN\n")
         print(file + ": " + " cannot create CRN: " + str(e))
+        raise e
     try:
         exprs, mappings = crn.getODEs(relabel=True, mappings = True)
         fname = file.split("/")[-1].split(".")[0] 
@@ -46,6 +47,7 @@ def genODEs(file, log=None):
         if log:
             log.write(file + ": " + " cannot generate ODEs" + "\n")
         print(file + ": cannot generate ODEs: " + str(e))
+        raise e
 
 
 
