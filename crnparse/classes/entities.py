@@ -1,8 +1,8 @@
 
 import libsbml as sbml
-from classes.expressions import *
+from crnparse.classes.expressions import *
 import networkx as nx
-from utils import *
+from crnparse.utils import *
 
 import logging
 logger = logging.getLogger(__name__)

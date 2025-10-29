@@ -2,7 +2,7 @@
 import libsbml as sbml
 import sympy as sp
 from sympy.core.expr import Expr
-from sbml_expr_parse.read import parse_expr
+from crnparse.sbml_expr_parse.read import parse_expr
 
 import logging
 logger = logging.getLogger(__name__)

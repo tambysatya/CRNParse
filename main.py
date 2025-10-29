@@ -1,6 +1,6 @@
 
-from classes.expressions import *
-from classes.entities import * 
+from crnparse.classes.expressions import *
+from crnparse.classes.entities import * 
 
 import libsbml as sbml
 import glob

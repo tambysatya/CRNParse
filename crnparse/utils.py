@@ -2,7 +2,7 @@
 #utilities functions
 
 import sympy as sp
-from sbml_expr_parse.read import *
+from crnparse.sbml_expr_parse.read import *
 
 
 def getStoichiometry(specie_ref):
