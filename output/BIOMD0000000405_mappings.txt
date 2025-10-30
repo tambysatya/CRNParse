@@ -1,0 +1,12 @@
+species_1	x_1
+species_2	x_2
+species_3	x_3
+species_4	x_4
+species_5	x_5
+parameter_1	k_1
+parameter_2	k_2
+parameter_3	k_3
+parameter_4	k_4
+parameter_5	k_5
+species_6	k_6
+compartment_1	k_7

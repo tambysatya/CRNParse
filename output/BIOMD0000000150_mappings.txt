@@ -1,0 +1,11 @@
+CDK2cycA	x_1
+CyclinA	x_2
+Cdk2	x_3
+CDK2cycA_star_	x_4
+basal_fluorescence	k_1
+total_fluorescence	k_2
+geometry	k_3
+Binding_kf	k_4
+Binding_kb	k_5
+Activation_kf	k_6
+Activation_kb	k_7

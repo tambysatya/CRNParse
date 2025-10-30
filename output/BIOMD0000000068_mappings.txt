@@ -1,0 +1,16 @@
+Phser	x_1
+Thr	k_1
+Cystathionine	k_2
+Hser	k_3
+Phi	k_4
+Cys	k_5
+AdoMet	k_6
+CGS	k_7
+TS	k_8
+compartment	k_9
+v1_V0	k_10
+vCys_kcat2	k_11
+vCys_KmCYS	k_12
+vCys_KmPHSER	k_13
+vCys_Ki2	k_14
+vThr_Ki3	k_15

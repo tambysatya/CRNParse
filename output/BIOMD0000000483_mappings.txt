@@ -1,0 +1,17 @@
+Pa	x_1
+Pb	x_2
+Da	x_3
+Db	x_4
+BDa	x_5
+BDb	x_6
+ESA	x_7
+ESB	x_8
+da	k_1
+db	k_2
+sa	k_3
+sb	k_4
+ba	k_5
+bb	k_6
+ua	k_7
+ub	k_8
+default	k_9

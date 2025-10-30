@@ -1,0 +1,13 @@
+Gp	x_1
+Ai	x_2
+Am	x_3
+Ap	x_4
+Gm	x_5
+Gi	x_6
+k1	k_1
+k2	k_2
+k3	k_3
+k4	k_4
+k5	k_5
+Ge	k_6
+Biofilm	k_7

@@ -1,0 +1,11 @@
+e	x_1
+x	x_2
+p	x_3
+p1	x_4
+p2	x_5
+k1	k_1
+k2	k_2
+k4_prime	k_3
+k4	k_4
+a	k_5
+cell	k_6

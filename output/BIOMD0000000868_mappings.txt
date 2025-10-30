@@ -1,0 +1,13 @@
+p100	x_1
+p52	x_2
+NIK	x_3
+p100_NIK	x_4
+p52_uM	k_1
+p100t	k_2
+compartment	k_3
+p100_mRNA_Expressions_k1	k_4
+p100_processing_k1	k_5
+p52_degradation_k1	k_6
+p100_degradation_k1	k_7
+p100_NIK_binding_k1	k_8
+p100_NIK_binding_k2	k_9

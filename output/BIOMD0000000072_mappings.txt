@@ -1,0 +1,16 @@
+L	x_1
+R	x_2
+G	x_3
+Gbg	x_4
+Gd	x_5
+Ga	x_6
+RL	x_7
+cell	k_1
+reaction_0_k1	k_2
+reaction_0_k2	k_3
+reaction_1_v	k_4
+reaction_2_k1	k_5
+reaction_3_k1	k_6
+reaction_4_k1	k_7
+reaction_5_k1	k_8
+reaction_6_k1	k_9

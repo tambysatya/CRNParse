@@ -1,0 +1,14 @@
+S	k_1
+alpha	k_2
+k_t	k_3
+k_tl	k_4
+k_b	k_5
+k_f	k_6
+beta	k_7
+gamma	k_8
+delta	k_9
+p	k_10
+mm	k_11
+m	k_12
+pm	k_13
+compartment_1	k_14

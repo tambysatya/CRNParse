@@ -1,0 +1,9 @@
+CAR_T_cells	x_1
+Leukaemic_B_cells	x_2
+B_cells_healthy	x_3
+tao_B	k_1
+rho_L	k_2
+tao_C	k_3
+rho_C	k_4
+alpha	k_5
+compartment	k_6

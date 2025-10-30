@@ -1,0 +1,13 @@
+Mad1_CMad2	x_1
+OMad2	x_2
+Mad1_CMad2_OMad2	x_3
+Cdc20	x_4
+Cdc20_CMad2	x_5
+eta_T	k_1
+gamma_T	k_2
+alpha_T	k_3
+beta_T	k_4
+u	k_5
+const_val_0	k_6
+const_val_1	k_7
+Cytoplasm	k_8

@@ -1,0 +1,11 @@
+P	x_1
+N	x_2
+k1	k_1
+k2	k_2
+k_1	k_3
+k_2	k_4
+k3	k_5
+s	k_6
+p0	k_7
+ModelValue_6	k_8
+Cell	k_9

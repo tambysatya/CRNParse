@@ -1,0 +1,16 @@
+Abeta	x_1
+AbDim	x_2
+AbP	x_3
+Nep	x_4
+kprod	k_1
+kdeg	k_2
+kdimer	k_3
+kdedimer	k_4
+kdisagg	k_5
+kpf	k_6
+kpg	k_7
+kpghalf	k_8
+kdegNep	k_9
+Source	k_10
+Sink	k_11
+cell	k_12

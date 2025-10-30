@@ -1,0 +1,7 @@
+M	x_1
+C	x_2
+e	k_1
+f	k_2
+g	k_3
+i	k_4
+cell	k_5

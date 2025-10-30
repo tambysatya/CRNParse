@@ -1,0 +1,17 @@
+C	x_1
+E	x_2
+B	x_3
+P	x_4
+r	k_1
+alpha1	k_2
+k	k_3
+a1	k_4
+a2	k_5
+delta	k_6
+alpha2	k_7
+u1	k_8
+u2	k_9
+b	k_10
+alpha3	k_11
+u3	k_12
+bladder_cancer_tme	k_13

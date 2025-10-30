@@ -1,0 +1,9 @@
+Munr	k_1
+Mupcd	k_2
+Rrom	k_3
+ONLrom_0	k_4
+Murom	k_5
+ONLnr	k_6
+ONLpcd	k_7
+ONLrom	k_8
+Brain	k_9

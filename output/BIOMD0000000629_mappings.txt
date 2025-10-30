@@ -1,0 +1,10 @@
+L	x_1
+LR	x_2
+R	x_3
+CA	x_4
+LRCA	x_5
+RAR_retinoids	k_1
+LR_complx_k1	k_2
+LR_complx_k2	k_3
+LRCA_complx_k1	k_4
+LRCA_complx_k2	k_5

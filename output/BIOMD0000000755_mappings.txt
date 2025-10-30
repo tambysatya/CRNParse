@@ -1,0 +1,17 @@
+TF	x_1
+X	x_2
+Xa_Va	x_3
+II	x_4
+IIa	x_5
+Xa_Va_II	x_6
+mIIa	x_7
+mIIa_ATIII	x_8
+IIa_ATIII	x_9
+compartment	k_1
+reaction_1_k1	k_2
+reaction_2_k1	k_3
+reaction_3_k1	k_4
+reaction_4_k1	k_5
+reaction_5_k1	k_6
+reaction_6_k1	k_7
+reaction_7_k1	k_8

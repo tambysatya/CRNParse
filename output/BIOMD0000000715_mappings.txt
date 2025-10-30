@@ -1,0 +1,17 @@
+S	x_1
+E	x_2
+I	x_3
+M	x_4
+A	k_1
+beta	k_2
+alpha	k_3
+rho	k_4
+mu1	k_5
+mu2	k_6
+mu3	k_7
+alpha1	k_8
+alpha2	k_9
+tau	k_10
+gamma	k_11
+N	k_12
+compartment	k_13

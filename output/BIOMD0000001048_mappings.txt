@@ -1,0 +1,15 @@
+Ttum	x_1
+Tplas	x_2
+Tnew	x_3
+a	k_1
+b	k_2
+c	k_3
+d	k_4
+kf1	k_5
+kf2	k_6
+kr1	k_7
+kr2	k_8
+T0	k_9
+n	k_10
+r	k_11
+Tumor	k_12

@@ -1,0 +1,11 @@
+alpha	x_1
+beta	x_2
+gamma	x_3
+cell	k_1
+r1_v_Km1	k_2
+r2_L1	k_3
+r2_sigma1	k_4
+r3_L2	k_5
+r3_d	k_6
+r3_sigma2	k_7
+r4_ks	k_8

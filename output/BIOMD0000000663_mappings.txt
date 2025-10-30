@@ -1,0 +1,11 @@
+x	x_1
+y	x_2
+v	x_3
+r	k_1
+k	k_2
+d	k_3
+Beta	k_4
+a	k_5
+eta	k_6
+u	k_7
+compartment	k_8

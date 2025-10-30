@@ -1,0 +1,17 @@
+STAT5A	x_1
+STAT5B	x_2
+pApB	x_3
+pApA	x_4
+pBpB	x_5
+nucpApA	x_6
+nucpApB	x_7
+nucpBpB	x_8
+Epo_degradation_BaF3	k_1
+k_exp_hetero	k_2
+k_exp_homo	k_3
+k_imp_hetero	k_4
+k_imp_homo	k_5
+k_phos	k_6
+ratio	k_7
+cyt	k_8
+nuc	k_9

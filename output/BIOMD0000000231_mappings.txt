@@ -1,0 +1,16 @@
+ATP	x_1
+AMP	x_2
+ADP	x_3
+Pyr	x_4
+NADH	x_5
+Vmapp1	k_1
+Kmapp1	k_2
+Vm2	k_3
+Km2ATP	k_4
+Km2AMP	k_5
+K	k_6
+Vmapp3	k_7
+Kmapp3	k_8
+k4	k_9
+Lac	k_10
+compartment	k_11

@@ -1,0 +1,16 @@
+a	x_1
+b	x_2
+c	x_3
+compartment	k_1
+R1_v	k_2
+R2_constant	k_3
+R3_V	k_4
+R3_Km	k_5
+R4_V	k_6
+R4_Km	k_7
+R5_constant	k_8
+R6_Km	k_9
+R6_V	k_10
+R7_constant	k_11
+R8_Km	k_12
+R8_V	k_13

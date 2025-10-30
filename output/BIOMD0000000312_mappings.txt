@@ -1,0 +1,9 @@
+R	x_1
+X	x_2
+k1	k_1
+k2	k_2
+k3	k_3
+k4	k_4
+tau	k_5
+S	k_6
+env	k_7

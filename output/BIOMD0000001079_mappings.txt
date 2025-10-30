@@ -1,0 +1,10 @@
+CycCdk	x_1
+ks	k_1
+bdeg	k_2
+APC	k_3
+epsilon	k_4
+n	k_5
+K	k_6
+alpha	k_7
+r	k_8
+default_compartment	k_9

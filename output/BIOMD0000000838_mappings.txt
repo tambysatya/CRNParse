@@ -1,0 +1,12 @@
+A	x_1
+T	x_2
+M	x_3
+alpha_A	k_1
+b	k_2
+mu_a	k_3
+alpha_e	k_4
+mu_e	k_5
+gamma_mel	k_6
+nu_mel	k_7
+g	k_8
+compartment	k_9

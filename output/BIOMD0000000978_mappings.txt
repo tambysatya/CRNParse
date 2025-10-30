@@ -1,0 +1,12 @@
+Susceptible	x_1
+Exposed	x_2
+Infected	x_3
+Recovered	x_4
+beta	k_1
+epsilon	k_2
+sigma	k_3
+gamma	k_4
+N	k_5
+Event_trigger	k_6
+Cumulative_cases	k_7
+South_Africa	k_8

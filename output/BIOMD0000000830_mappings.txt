@@ -1,0 +1,15 @@
+s1	x_1
+s2	x_2
+s3	x_3
+s4	x_4
+release	x_5
+shedding	x_6
+s6	k_1
+default	k_2
+k_golgi_k3	k_3
+k_endo_k1	k_4
+k_exo_k2	k_5
+k_le_k6	k_6
+k_lys_k7	k_7
+k_deg_k8	k_8
+k_shed_k4	k_9

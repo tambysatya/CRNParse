@@ -1,0 +1,12 @@
+V_in	k_1
+k1	k_2
+kp	k_3
+km	k_4
+epsilon	k_5
+Tsum	k_6
+Tdiff	k_7
+G1	k_8
+T1	k_9
+G2	k_10
+T2	k_11
+compartment	k_12

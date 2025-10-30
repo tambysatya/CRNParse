@@ -1,0 +1,15 @@
+T	x_1
+T_1	x_2
+T_2	x_3
+V	x_4
+s	k_1
+r	k_2
+T_max	k_3
+mu_T	k_4
+k_1	k_5
+k_2	k_6
+mu_b	k_7
+mu_V	k_8
+N	k_9
+T_tot	k_10
+COMpartment	k_11

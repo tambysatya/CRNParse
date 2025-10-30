@@ -1,0 +1,14 @@
+d(x_1)/dt=-k_4*x_1 + k_4*light(time)
+d(x_2)/dt=-k_9*x_2 + ((k_7 + k_8*x_1)*copies_toc1(time)/(k_7 + k_8*x_1 + (k_5*tf_output(k_28, k_23, x_7))**k_6 + 1.0) + ox_toc1(time))*transcription(time)
+d(x_3)/dt=k_10*x_2*translation(time) - x_3*(k_11*light(time) + k_12*(1.0 - light(time)))
+d(x_4)/dt=x_3*(k_11*light(time) + k_12*(1.0 - light(time))) - x_4*(k_13*light(time) + k_14*(1.0 - light(time)))*proteasome(time)
+d(x_5)/dt=-k_18*x_5 + (((k_16*light(time) + k_17*(1.0 - light(time)))*tf_output(k_26, k_24, x_4))**k_15*copies_cca1(time)/(((k_16*light(time) + k_17*(1.0 - light(time)))*tf_output(k_26, k_24, x_4))**k_15 + 1.0) + ox_cca1(time))*transcription(time)
+d(x_6)/dt=k_19*x_5*translation(time) - k_20*x_6 - x_6*(k_21*light(time) + k_22*(1.0 - light(time)))*proteasome(time)
+d(x_7)/dt=k_20*x_6 - x_7*(k_21*light(time) + k_22*(1.0 - light(time)))*proteasome(time)
+d(x_8)/dt=k_26*(k_7 + k_8*x_1)*copies_toc1(time)*transcription(time)/(k_7 + k_8*x_1 + (k_5*x_7)**k_6 + 1.0) - k_9*x_8
+d(x_9)/dt=k_10*x_8*translation(time) - k_2*x_9 - x_9*(k_11*light(time) + k_12*(1.0 - light(time)))
+d(x_10)/dt=-k_2*x_10 - x_10*(k_13*light(time) + k_14*(1.0 - light(time)))*proteasome(time) + x_9*(k_11*light(time) + k_12*(1.0 - light(time)))
+d(x_11)/dt=-k_18*x_11 + k_28*(x_4*(k_16*light(time) + k_17*(1.0 - light(time))))**k_15*copies_cca1(time)*transcription(time)/((x_4*(k_16*light(time) + k_17*(1.0 - light(time))))**k_15 + 1.0)
+d(x_12)/dt=k_19*x_11*translation(time) - k_2*x_12 - x_12*(k_21*light(time) + k_22*(1.0 - light(time)))*proteasome(time)
+d(x_13)/dt=k_27*(k_7 + k_8*x_1)*transcription(time)/(k_7 + k_8*x_1 + (k_5*x_7)**k_6 + 1.0) + k_29*(x_4*(k_16*light(time) + k_17*(1.0 - light(time))))**k_15*transcription(time)/((x_4*(k_16*light(time) + k_17*(1.0 - light(time))))**k_15 + 1.0) - k_3*x_13
+d(x_14)/dt=-k_2*x_14 + k_25*x_13*translation(time)

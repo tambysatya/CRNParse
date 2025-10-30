@@ -1,0 +1,11 @@
+X	x_1
+ES	x_2
+k1	k_1
+k2	k_2
+k3	k_3
+k4	k_4
+A	k_5
+B	k_6
+V	k_7
+value	k_8
+default	k_9

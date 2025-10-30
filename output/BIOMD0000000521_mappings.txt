@@ -1,0 +1,16 @@
+Pstar	k_1
+P0	k_2
+Q0	k_3
+lambda_P	k_4
+k_PQ	k_5
+k_Qp_P	k_6
+delta_QP	k_7
+gamma	k_8
+KDE	k_9
+K	k_10
+C	k_11
+P	k_12
+Q	k_13
+Qp	k_14
+plama	k_15
+tissue	k_16

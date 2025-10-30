@@ -1,0 +1,14 @@
+uninfected_tumor_cells	x_1
+infected_tumor_cells	x_2
+virus_specific_CTLs	x_3
+r	k_1
+k	k_2
+d	k_3
+beta	k_4
+s	k_5
+a	k_6
+p_v	k_7
+c_v	k_8
+b	k_9
+overall_tumor_size	k_10
+Tumor_microenvironment	k_11

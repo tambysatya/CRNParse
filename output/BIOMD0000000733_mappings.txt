@@ -1,0 +1,16 @@
+naive_Tcells	x_1
+eff_Tcells	x_2
+tumor_cells	x_3
+Sn	k_1
+n	k_2
+Kn	k_3
+De	k_4
+gamma_E	k_5
+An	k_6
+Ae	k_7
+Dn	k_8
+Rc	k_9
+Cmax	k_10
+Dc	k_11
+gamma_C	k_12
+TumorMicroenvr	k_13

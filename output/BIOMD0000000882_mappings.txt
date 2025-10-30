@@ -1,0 +1,9 @@
+Susceptible	x_1
+Zombie	x_2
+Removal	x_3
+alpha	k_1
+beta	k_2
+delta	k_3
+zeta	k_4
+p	k_5
+compartment	k_6

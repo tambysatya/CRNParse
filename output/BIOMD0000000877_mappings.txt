@@ -1,0 +1,17 @@
+U	x_1
+I	x_2
+V	x_3
+C	x_4
+r	k_1
+K	k_2
+beta	k_3
+alpha	k_4
+delta_u	k_5
+K_c	k_6
+delta	k_7
+delta_i	k_8
+b	k_9
+gamma	k_10
+mu	k_11
+psi	k_12
+compartment	k_13

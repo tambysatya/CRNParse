@@ -1,0 +1,11 @@
+L_ce	k_1
+L_se	k_2
+L	k_3
+P	k_4
+alpha	k_5
+a	k_6
+b	k_7
+v_ce	k_8
+P_0	k_9
+ModelValue_1	k_10
+Compartment	k_11

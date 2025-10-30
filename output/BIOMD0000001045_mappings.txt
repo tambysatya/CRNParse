@@ -1,0 +1,6 @@
+Infected	x_1
+Recovered	x_2
+Susceptible	x_3
+beta	k_1
+k	k_2
+New_York_1968_69	k_3

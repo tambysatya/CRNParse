@@ -1,0 +1,10 @@
+kappa	k_1
+k6	k_2
+k4	k_3
+k4prime	k_4
+alpha	k_5
+EmptySet	k_6
+u	k_7
+z	k_8
+v	k_9
+cell	k_10

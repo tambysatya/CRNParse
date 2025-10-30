@@ -1,0 +1,13 @@
+P	x_1
+Kd	k_1
+Ksp	k_2
+dspksp	k_3
+dspspkd	k_4
+h	k_5
+k0	k_6
+ka	k_7
+ks	k_8
+ku	k_9
+s	k_10
+univ	k_11
+___r2___RATE__	k_12

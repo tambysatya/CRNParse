@@ -1,0 +1,14 @@
+S	x_1
+N	x_2
+T	x_3
+a	k_1
+d	k_2
+u1	k_3
+u2	k_4
+r1	k_5
+e1	k_6
+r2	k_7
+e2	k_8
+Q1	k_9
+Q2	k_10
+tme	k_11

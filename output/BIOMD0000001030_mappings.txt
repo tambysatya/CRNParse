@@ -1,0 +1,10 @@
+Regulatory_cells	x_1
+Effector_cells	x_2
+lambda	k_1
+kappa	k_2
+delta_x	k_3
+beta	k_4
+mu	k_5
+detla_y	k_6
+Antigen_expressing_cells	k_7
+Whole_organism	k_8

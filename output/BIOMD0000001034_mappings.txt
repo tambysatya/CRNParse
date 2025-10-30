@@ -1,0 +1,17 @@
+BCG	x_1
+Effector_cells	x_2
+Tumor_infected_cells	x_3
+Tumor_uninfected_cells	x_4
+mu1	k_1
+mu2	k_2
+p1	k_3
+p2	k_4
+p3	k_5
+p4	k_6
+p5	k_7
+alpha	k_8
+beta	k_9
+r	k_10
+b	k_11
+mu	k_12
+Bladder	k_13

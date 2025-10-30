@@ -1,0 +1,15 @@
+x	x_1
+u	x_2
+y	x_3
+z	x_4
+lambda	k_1
+beta	k_2
+r	k_3
+tau	k_4
+gamma	k_5
+nu	k_6
+mu_1	k_7
+mu_2	k_8
+mu_3	k_9
+mu_4	k_10
+compartment	k_11

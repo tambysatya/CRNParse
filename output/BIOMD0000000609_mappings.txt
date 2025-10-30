@@ -1,0 +1,17 @@
+Sulphate__PAPS	x_1
+GSH	x_2
+NAPQI	x_3
+Paracetamol_APAP	x_4
+Protein_adducts	x_5
+P0	k_1
+dG	k_2
+bG	k_3
+kGSH	k_4
+kG	k_5
+kS	k_6
+bS	k_7
+dS	k_8
+k450	k_9
+kN	k_10
+kPSH	k_11
+compartment	k_12

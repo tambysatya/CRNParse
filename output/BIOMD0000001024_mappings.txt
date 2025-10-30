@@ -1,0 +1,7 @@
+Expanding_CAR_T_cells	x_1
+Tumor_cells	x_2
+rho	k_1
+k_E	k_2
+g	k_3
+d	k_4
+Whole_organism_blood	k_5

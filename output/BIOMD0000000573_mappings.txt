@@ -1,0 +1,11 @@
+V	x_1
+C	x_2
+compartment	k_1
+Kb_v	k_2
+Kv_Km	k_3
+Kv_Vmax	k_4
+Kcv_k1	k_5
+Kdv_k1	k_6
+Kc_v	k_7
+Kvc_k1	k_8
+Kdc_k1	k_9

@@ -1,0 +1,11 @@
+p___Ratio	k_1
+alpha	k_2
+rho_F	k_3
+rho_L	k_4
+Intake_Rate	k_5
+Energy_Expenditure_Rate	k_6
+Psy	k_7
+Fat_Mass	k_8
+Lean_Mass	k_9
+Body_Mass	k_10
+Body	k_11

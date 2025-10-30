@@ -1,0 +1,11 @@
+Susceptible	x_1
+Exposed	x_2
+Infected	x_3
+Recovered	x_4
+beta_o	k_1
+k	k_2
+gamma	k_3
+omega	k_4
+beta	k_5
+Total_population	k_6
+Wuhan	k_7

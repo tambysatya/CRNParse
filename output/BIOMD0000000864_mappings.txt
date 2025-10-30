@@ -1,0 +1,17 @@
+miR	x_1
+miR_gene	x_2
+miR_gene_TF1	x_3
+TF1	x_4
+TF1_mRNA	x_5
+kbinTF1miRgene	k_1
+kdegMiR	k_2
+kdegTF1	k_3
+kdegTF1mRNA	k_4
+kdegTF1mRNAbyMiR	k_5
+krelTF1miRgene	k_6
+ksynMiR	k_7
+ksynTF1	k_8
+ksynTF1mRNA	k_9
+Signal	k_10
+Sink	k_11
+cell	k_12

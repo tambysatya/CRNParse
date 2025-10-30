@@ -1,0 +1,17 @@
+As	x_1
+Bs	x_2
+Asyn	x_3
+Bsyn	x_4
+nA	k_1
+k1	k_2
+k2	k_3
+qA	k_4
+QBs	k_5
+QBsyn	k_6
+TAh1	k_7
+TBh1	k_8
+Vs	k_9
+Vsyn	k_10
+t1	k_11
+t2	k_12
+default_compartment	k_13

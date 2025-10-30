@@ -1,0 +1,13 @@
+V	x_1
+S	x_2
+I	x_3
+V0	k_1
+dv	k_2
+a	k_3
+di	k_4
+r	k_5
+L	k_6
+b	k_7
+S0	k_8
+T	k_9
+tme	k_10

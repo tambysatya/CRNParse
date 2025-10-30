@@ -1,0 +1,15 @@
+E	x_1
+R	x_2
+B	k_1
+lm	k_2
+la	k_3
+ld	k_4
+c	k_5
+k	k_6
+d1	k_7
+d0	k_8
+sigma	k_9
+r	k_10
+f	k_11
+E_0	k_12
+tumor_microenvironment	k_13

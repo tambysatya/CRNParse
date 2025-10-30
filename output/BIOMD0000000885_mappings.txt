@@ -1,0 +1,16 @@
+B	x_1
+P	x_2
+A	x_3
+T	x_4
+a	k_1
+b	k_2
+mu_1	k_3
+k_1	k_4
+u	k_5
+r_1	k_6
+r_2	k_7
+mu_2	k_8
+r	k_9
+k_2	k_10
+beta_1	k_11
+compartment	k_12

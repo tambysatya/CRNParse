@@ -1,0 +1,13 @@
+alpha	x_1
+beta	x_2
+gamma	x_3
+r31	k_1
+r24	k_2
+Chi14	k_3
+Ks1	k_4
+Ks2	k_5
+Ks3	k_6
+Ks4	k_7
+Vm1	k_8
+p	k_9
+cell	k_10

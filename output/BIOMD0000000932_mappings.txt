@@ -1,0 +1,12 @@
+Gp	x_1
+Gi	x_2
+A	x_3
+B	x_4
+k1	k_1
+k2	k_2
+k3	k_3
+k4	k_4
+k5	k_5
+GE	k_6
+b	k_7
+compartment	k_8

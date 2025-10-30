@@ -1,0 +1,16 @@
+T	x_1
+I	x_2
+VI	x_3
+VNI	x_4
+s	k_1
+r	k_2
+k	k_3
+d1	k_4
+alpha	k_5
+d2	k_6
+beta	k_7
+d3	k_8
+nr	k_9
+c	k_10
+n1	k_11
+compartment	k_12

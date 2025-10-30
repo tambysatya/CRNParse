@@ -1,0 +1,6 @@
+VENUS	x_1
+p1_star	k_1
+p2	k_2
+lambda_star	k_3
+qj_star	k_4
+cell	k_5

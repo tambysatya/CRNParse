@@ -1,0 +1,9 @@
+T	x_1
+E	x_2
+a	k_1
+b	k_2
+k	k_3
+s	k_4
+m	k_5
+d	k_6
+Tumor	k_7

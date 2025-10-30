@@ -1,0 +1,9 @@
+x_Normal_Hematopoietic_Stem_Cell	x_1
+y_Leukemic_Cell	x_2
+a	k_1
+b	k_2
+c	k_3
+A	k_4
+B	k_5
+C	k_6
+compartment	k_7

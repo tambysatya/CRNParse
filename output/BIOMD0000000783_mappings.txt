@@ -1,0 +1,12 @@
+x_Tumor_Cells	x_1
+y_Effector_Cells	x_2
+z_Helper_T_Cells	x_3
+alpha	k_1
+beta	k_2
+delta_1	k_3
+omega_1	k_4
+sigma_2	k_5
+delta_2	k_6
+rho	k_7
+omega_2	k_8
+compartment	k_9

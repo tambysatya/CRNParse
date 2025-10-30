@@ -1,0 +1,9 @@
+z	x_1
+e	x_2
+w	x_3
+ez	x_4
+compartment	k_1
+v1_k1	k_2
+v2_k21	k_3
+v2_k22	k_4
+v3_k3	k_5

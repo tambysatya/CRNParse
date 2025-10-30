@@ -1,0 +1,9 @@
+Y	x_1
+Z	x_2
+X	k_1
+cell	k_2
+r1_Ty	k_3
+r2_a	k_4
+r3_Ty	k_5
+r3_Tz	k_6
+r4_a	k_7

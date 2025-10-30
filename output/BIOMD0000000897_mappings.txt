@@ -1,0 +1,13 @@
+E	x_1
+T	x_2
+s	k_1
+p	k_2
+g	k_3
+m	k_4
+d	k_5
+a	k_6
+b	k_7
+n	k_8
+e1	k_9
+e2	k_10
+compartment	k_11

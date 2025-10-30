@@ -1,0 +1,8 @@
+Susceptible	x_1
+Infected	x_2
+Recovered	x_3
+Confirmed	x_4
+beta	k_1
+rho	k_2
+mu	k_3
+Wuhan	k_4

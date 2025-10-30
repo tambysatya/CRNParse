@@ -1,0 +1,13 @@
+T	x_1
+T_i	x_2
+V_I	x_3
+V_NI	x_4
+k	k_1
+delta	k_2
+N	k_3
+c	k_4
+np	k_5
+HIV	k_6
+lambda	k_7
+delta1	k_8
+plasma	k_9

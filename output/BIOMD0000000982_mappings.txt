@@ -1,0 +1,14 @@
+Susceptible	x_1
+Infected	x_2
+Removed	x_3
+z	k_1
+beta_0	k_2
+delta	k_3
+p	k_4
+beta	k_5
+I_total	k_6
+N	k_7
+Trigger_Stage_1	k_8
+Trigger_Stage_2	k_9
+Trigger_Stage_3	k_10
+Malayasia	k_11

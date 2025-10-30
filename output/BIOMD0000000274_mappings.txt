@@ -1,0 +1,17 @@
+epsilon	k_1
+delta	k_2
+a1	k_3
+a2	k_4
+a3	k_5
+a4	k_6
+a5	k_7
+b1	k_8
+b2	k_9
+b3	k_10
+k1	k_11
+k2	k_12
+k3	k_13
+x	k_14
+y	k_15
+z	k_16
+Compartment	k_17

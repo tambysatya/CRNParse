@@ -1,0 +1,16 @@
+C_Uninfected_CD4	x_1
+I_Infected_CD4	x_2
+F_CTL	x_3
+V_Virus	x_4
+C_ast	k_1
+N	k_2
+beta	k_3
+lambda	k_4
+a	k_5
+k	k_6
+d_0	k_7
+a_L	k_8
+rho	k_9
+b	k_10
+e	k_11
+compartment	k_12

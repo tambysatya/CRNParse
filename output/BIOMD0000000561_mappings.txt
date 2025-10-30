@@ -1,0 +1,10 @@
+kb	k_1
+ka	k_2
+sigmao	k_3
+V	k_4
+C	k_5
+gamma	k_6
+deltamt	k_7
+C_0	k_8
+Amyloid	k_9
+Brain	k_10

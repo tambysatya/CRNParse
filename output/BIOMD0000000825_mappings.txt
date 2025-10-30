@@ -1,0 +1,16 @@
+Resistant_tumor_R	x_1
+Sensitive_tumor_S	x_2
+S_0	k_1
+R_0	k_2
+V_d	k_3
+V_c	k_4
+epsilon	k_5
+d	k_6
+p_r	k_7
+u_on	k_8
+delta_ton	k_9
+delta_toff	k_10
+u	k_11
+alpha	k_12
+Tumor_Volume_V	k_13
+compartment	k_14

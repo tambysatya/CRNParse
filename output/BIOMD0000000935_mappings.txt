@@ -1,0 +1,11 @@
+CDK1_active	x_1
+APC_active	x_2
+a1	k_1
+b1	k_2
+k1	k_3
+n1	k_4
+a2	k_5
+b2	k_6
+k2	k_7
+n2	k_8
+nuclear	k_9

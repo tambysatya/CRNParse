@@ -1,0 +1,11 @@
+sigb	x_1
+lacz	x_2
+x	x_3
+kbd	k_1
+kbs	k_2
+kxd	k_3
+kxs	k_4
+kzd	k_5
+kzs	k_6
+IPTG	k_7
+compartment	k_8

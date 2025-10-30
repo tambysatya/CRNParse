@@ -1,0 +1,16 @@
+uninfected_cancer_cells	x_1
+infected_cancer_cells	x_2
+free_virus	x_3
+immune_cells	x_4
+r_1	k_1
+a	k_2
+h_1	k_3
+d_1	k_4
+c	k_5
+h_2	k_6
+e	k_7
+m_1	k_8
+m_2	k_9
+n	k_10
+b	k_11
+Whole_organism	k_12

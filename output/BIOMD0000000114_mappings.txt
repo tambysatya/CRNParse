@@ -1,0 +1,13 @@
+x	x_1
+y	x_2
+k	k_1
+alpha	k_2
+n	k_3
+a	k_4
+k1	k_5
+beta	k_6
+fy	k_7
+gamma	k_8
+cytoplasm	k_9
+ER	k_10
+extracellular	k_11

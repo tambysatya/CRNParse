@@ -1,0 +1,17 @@
+x	x_1
+y	x_2
+z	x_3
+time_environment	k_1
+r_1	k_2
+r_2	k_3
+c_1	k_4
+r_3	k_5
+r_4	k_6
+c_2	k_7
+r_5	k_8
+r_6	k_9
+r_7	k_10
+z_hat	k_11
+y_hat	k_12
+epsilon	k_13
+COMpartment	k_14

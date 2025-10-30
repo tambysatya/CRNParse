@@ -1,0 +1,9 @@
+V_Tumor_Volume	x_1
+C_Cytotoxic_T_Lymphocytes_Coverage	x_2
+r_t	k_1
+k	k_2
+d_c	k_3
+r_c	k_4
+rho	k_5
+min_C	k_6
+compartment	k_7

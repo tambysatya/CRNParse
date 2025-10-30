@@ -1,0 +1,17 @@
+A	k_1
+N	k_2
+I	k_3
+K_l	k_4
+delta_l	k_5
+K_m	k_6
+sigma	k_7
+xi	k_8
+S	k_9
+F	k_10
+treatment_start	k_11
+treatment_end	k_12
+sink	k_13
+l	k_14
+m	k_15
+n	k_16
+cell	k_17

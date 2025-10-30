@@ -1,0 +1,15 @@
+Normal_T_cells	x_1
+CAR_T_cells	x_2
+Antigen_presenting_tumour_cells	x_3
+K_N	k_1
+K_C	k_2
+r_N	k_3
+rho_C	k_4
+a	k_5
+b	k_6
+r_B	k_7
+gamma_B	k_8
+k_B	k_9
+r_C	k_10
+Total_lymphocyte_count	k_11
+compartment	k_12

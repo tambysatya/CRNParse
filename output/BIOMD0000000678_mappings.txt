@@ -1,0 +1,16 @@
+NFAT_phosphorylated	x_1
+NFAT_dephosphorylated	x_2
+k1	k_1
+k2	k_2
+k3	k_3
+k4	k_4
+stim_frequency	k_5
+dNFAT	k_6
+pNFAT	k_7
+tNFAT	k_8
+stim_duration	k_9
+ModelValue_17	k_10
+ModelValue_13	k_11
+NFAT_transported	k_12
+stimulus	k_13
+Jurkat_cell	k_14

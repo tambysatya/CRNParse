@@ -1,0 +1,11 @@
+free	x_1
+bound	x_2
+translocate	x_3
+lytic	x_4
+tension	k_1
+extracellular	k_2
+endosome	k_3
+neuroplasm	k_4
+endocytosis_kT	k_5
+translocation_kL	k_6
+binding_kB	k_7

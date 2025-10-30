@@ -1,0 +1,16 @@
+VAC	x_1
+TRAN	x_2
+SVAC	x_3
+Ts	x_4
+REG	x_5
+lamda	k_1
+k1	k_2
+P	k_3
+k2_pop1	k_4
+k3	k_5
+k4	k_6
+REG_50	k_7
+gamma	k_8
+Residual_error	k_9
+k2_pop2	k_10
+compartment	k_11

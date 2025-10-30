@@ -1,0 +1,6 @@
+CDK1_active	x_1
+a1	k_1
+b1	k_2
+k1	k_3
+n1	k_4
+compartment	k_5

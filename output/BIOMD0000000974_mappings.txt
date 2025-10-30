@@ -1,0 +1,13 @@
+Susceptible	x_1
+Exposed	x_2
+Infected	x_3
+Recovered	x_4
+Deceased	x_5
+lambda	k_1
+mu	k_2
+beta	k_3
+epsilon	k_4
+gamma	k_5
+alpha	k_6
+Total_population	k_7
+City	k_8

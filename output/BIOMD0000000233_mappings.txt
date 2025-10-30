@@ -1,0 +1,9 @@
+X	x_1
+Y	x_2
+S	k_1
+P	k_2
+batch	k_3
+r1_k1	k_4
+r2_k2	k_5
+r3_k3	k_6
+r4_k4	k_7

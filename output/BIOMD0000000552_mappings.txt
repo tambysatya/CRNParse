@@ -1,0 +1,8 @@
+b	x_1
+k1	k_1
+k2	k_2
+k3	k_3
+k4	k_4
+a	k_5
+aRel	k_6
+Brain	k_7

@@ -1,0 +1,6 @@
+x_Malignant_Cells	x_1
+y_Lymphocytes	x_2
+alpha	k_1
+k	k_2
+sigma	k_3
+compartment	k_4

@@ -1,0 +1,2 @@
+d(x_1)/dt=k_5*Piecewise((0.0, Dummy_35(x_1, k_3) - Dummy_35(x_2, k_3) > 0))/(k_6 + Piecewise((0.0, Dummy_35(x_1, k_3) - Dummy_35(x_2, k_3) > 0))) - k_9*x_1
+d(x_2)/dt=-k_10*x_2 + k_7*k_8/(k_8 + Piecewise((0.0, Dummy_35(x_1, k_4) - Dummy_35(x_2, k_4) > 0)))

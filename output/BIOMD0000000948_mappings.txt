@@ -1,0 +1,16 @@
+AR_A1	x_1
+AR_A2	x_2
+AR_Central	x_3
+AR_Dose	x_4
+Lag_time_1	k_1
+Lag_time_2	k_2
+k_a_1	k_3
+k_a_2	k_4
+base	k_5
+CL_V	k_6
+F1	k_7
+F2	k_8
+compartment	k_9
+A1	k_10
+A2	k_11
+Central	k_12

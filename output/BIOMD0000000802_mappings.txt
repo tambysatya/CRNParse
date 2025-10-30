@@ -1,0 +1,16 @@
+A	x_1
+R	x_2
+S	x_3
+C	x_4
+a1	k_1
+a2	k_2
+y	k_3
+f	k_4
+v1	k_5
+u	k_6
+v2	k_7
+fk	k_8
+rk	k_9
+e	k_10
+n	k_11
+tme	k_12

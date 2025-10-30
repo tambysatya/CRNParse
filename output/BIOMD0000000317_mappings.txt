@@ -1,0 +1,12 @@
+Z1	x_1
+Z2	x_2
+Z3	x_3
+FX	k_1
+X	k_2
+cell	k_3
+r1_T1	k_4
+r2_a	k_5
+r3_T2	k_6
+r4_a	k_7
+r5_T3	k_8
+r6_a	k_9

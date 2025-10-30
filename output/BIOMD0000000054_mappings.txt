@@ -1,0 +1,14 @@
+I	x_1
+E	x_2
+A	x_3
+T	k_1
+M	k_2
+P	k_3
+J	k_4
+W2	k_5
+W3	k_6
+U	k_7
+W	k_8
+n	k_9
+k	k_10
+cell	k_11

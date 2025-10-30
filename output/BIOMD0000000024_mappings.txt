@@ -1,0 +1,12 @@
+M	x_1
+P	x_2
+EmptySet	k_1
+compartment_0000004	k_2
+TC_rM	k_3
+TC_k	k_4
+TC_n	k_5
+TL_rP	k_6
+TL_m	k_7
+TL_parameter_0000009	k_8
+Md_qM	k_9
+Pd_qP	k_10

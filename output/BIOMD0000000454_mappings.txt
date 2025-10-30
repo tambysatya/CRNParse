@@ -1,0 +1,17 @@
+x1	x_1
+x2	x_2
+x3	x_3
+y1	k_1
+y2	k_2
+y3	k_3
+y4	k_4
+y5	k_5
+cell	k_6
+v1_e1	k_7
+v1_p1	k_8
+v2_e2	k_9
+v2_p2	k_10
+v3_e3	k_11
+v3_p3	k_12
+v4_e4	k_13
+v4_p4	k_14

@@ -1,0 +1,17 @@
+Z	x_1
+Y	x_2
+v0	k_1
+v1	k_2
+beta	k_3
+Vm2	k_4
+n	k_5
+K2	k_6
+Vm3	k_7
+m	k_8
+Kr	k_9
+Ka	k_10
+kf	k_11
+k	k_12
+p	k_13
+cytosol	k_14
+store	k_15

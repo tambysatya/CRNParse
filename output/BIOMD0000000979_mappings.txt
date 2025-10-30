@@ -1,0 +1,12 @@
+Susceptible	x_1
+Exposed	x_2
+Infected	x_3
+Recovered	x_4
+beta	k_1
+omega	k_2
+sigma	k_3
+gamma	k_4
+R_fixed	k_5
+Fraction_infected	k_6
+Total_population	k_7
+USA	k_8

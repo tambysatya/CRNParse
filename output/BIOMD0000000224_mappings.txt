@@ -1,0 +1,17 @@
+CaI	x_1
+IP3	x_2
+CaS	x_3
+g	x_4
+A	k_1
+B	k_2
+C	k_3
+D	k_4
+E	k_5
+F	k_6
+k1	k_7
+k2	k_8
+k3	k_9
+L	k_10
+R	k_11
+cytosol	k_12
+ER_store	k_13

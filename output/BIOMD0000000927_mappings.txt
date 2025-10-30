@@ -1,0 +1,13 @@
+auxin	x_1
+IAA	x_2
+ARF	x_3
+Tauxin	k_1
+TIAA	k_2
+TARF	k_3
+alpha_no_reg	k_4
+alpha_reg	k_5
+SIAA	k_6
+SARF	k_7
+beta	k_8
+Sauxin	k_9
+compartment	k_10

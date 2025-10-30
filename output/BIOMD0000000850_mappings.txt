@@ -1,0 +1,8 @@
+U	x_1
+I	x_2
+V	x_3
+m	k_1
+K	k_2
+xi	k_3
+gamma	k_4
+compartment	k_5

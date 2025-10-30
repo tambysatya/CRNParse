@@ -1,0 +1,16 @@
+AE50	k_1
+Ce	k_2
+Cycle_Int	k_3
+Dose	k_4
+Dose_Int1	k_5
+Dose_Int2	k_6
+Effect	k_7
+Keq	k_8
+Kover	k_9
+N_Cycle	k_10
+RateIn	k_11
+T_Turnover	k_12
+Teq	k_13
+TumorSize	k_14
+TumorSize_0	k_15
+COMpartment	k_16

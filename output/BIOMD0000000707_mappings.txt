@@ -1,0 +1,16 @@
+Normal_Th_cells	x_1
+Pathogen_Virus	x_2
+Single_Infected_Th_Cells	x_3
+Recombinant_Virus	x_4
+Double_Infected_Th_Cells	x_5
+d	k_1
+lamda	k_2
+beta	k_3
+a	k_4
+alpha	k_5
+b	k_6
+k	k_7
+u	k_8
+c	k_9
+q	k_10
+Plasma	k_11

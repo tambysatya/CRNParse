@@ -1,0 +1,12 @@
+x	x_1
+y	x_2
+z	x_3
+t	k_1
+tau	k_2
+R	k_3
+Dx	k_4
+Dy	k_5
+Dz	k_6
+p	k_7
+mu	k_8
+compartment	k_9

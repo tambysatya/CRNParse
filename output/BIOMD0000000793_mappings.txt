@@ -1,0 +1,7 @@
+H	x_1
+T	x_2
+b1	k_1
+u1	k_2
+b2	k_3
+u2	k_4
+bone_marrow	k_5

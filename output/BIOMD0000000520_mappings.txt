@@ -1,0 +1,16 @@
+N0	x_1
+N1	x_2
+N2	x_3
+d0	k_1
+b0	k_2
+c0	k_3
+m0	k_4
+a0	k_5
+d1	k_6
+b1	k_7
+c1	k_8
+m1	k_9
+a1	k_10
+d2	k_11
+T	k_12
+compartment	k_13

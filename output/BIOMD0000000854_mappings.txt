@@ -1,0 +1,14 @@
+Ac	x_1
+Pc	x_2
+Ap	x_3
+Pp	x_4
+kin	k_1
+koff	k_2
+alpha1	k_3
+alpha100	k_4
+beta1	k_5
+P_Perc	k_6
+Akt_Total	k_7
+Pp_Perc	k_8
+Pc_Perc	k_9
+compartment	k_10

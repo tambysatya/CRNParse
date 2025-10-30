@@ -1,0 +1,6 @@
+Ka	k_1
+kb	k_2
+kat50	k_3
+v50t50	k_4
+alpha	k_5
+Cell	k_6

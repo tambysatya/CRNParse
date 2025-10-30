@@ -1,0 +1,12 @@
+r	k_1
+mu_x	k_2
+zeta	k_3
+b	k_4
+mu_z	k_5
+epsilon	k_6
+k	k_7
+mu_z_star	k_8
+x	k_9
+y	k_10
+z	k_11
+compartment_1	k_12

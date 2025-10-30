@@ -1,0 +1,13 @@
+S1	x_1
+S2	x_2
+S3	x_3
+S4	x_4
+S5	x_5
+S6	x_6
+k1	k_1
+k2	k_2
+k3	k_3
+k4	k_4
+k5	k_5
+k6	k_6
+default	k_7

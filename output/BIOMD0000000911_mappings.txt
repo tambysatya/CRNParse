@@ -1,0 +1,13 @@
+M	x_1
+N	x_2
+Z	x_3
+q	k_1
+r	k_2
+alpha	k_3
+k1	k_4
+beta	k_5
+d1	k_6
+s	k_7
+k2	k_8
+d2	k_9
+compartment	k_10

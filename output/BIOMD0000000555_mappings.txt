@@ -1,0 +1,10 @@
+omega	k_1
+n	k_2
+a	k_3
+e	k_4
+k	k_5
+ka	k_6
+C	k_7
+t1	k_8
+Amyloid	k_9
+Brain	k_10

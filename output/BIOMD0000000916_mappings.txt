@@ -1,0 +1,11 @@
+The_FOD_in_the_circulation__X1	x_1
+The_FOD_in_the_metabolizing_tissues__X4	x_2
+The_cumulative_FOD_excreted_in_the_non_urinary_pool__X3	x_3
+The_FOD_in_the_gallbladder___intestinal_lumen__X5	x_4
+The_cumulative_FOD_excreted_in_the_urine__X2	x_5
+K1	k_1
+K2	k_2
+K3	k_3
+K4	k_4
+K5	k_5
+compartment	k_6

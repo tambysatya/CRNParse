@@ -1,0 +1,10 @@
+CAR_T_cells	x_1
+Tumour_cells	x_2
+rho_C	k_1
+g_T	k_2
+alpha_1	k_3
+g_C	k_4
+tao_C	k_5
+rho_T	k_6
+alpha_2	k_7
+Solid_tumour	k_8

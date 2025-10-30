@@ -1,0 +1,10 @@
+TFp53	x_1
+miR34a	x_2
+k1	k_1
+k2	k_2
+k3	k_3
+k4	k_4
+k5	k_5
+K	k_6
+g	k_7
+cell	k_8

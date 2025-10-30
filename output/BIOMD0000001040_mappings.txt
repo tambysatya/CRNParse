@@ -1,0 +1,13 @@
+Mrbc	x_1
+Mpl	k_1
+A	k_2
+B	k_3
+d	k_4
+Kin	k_5
+c	k_6
+Summary_flux_to_RBC	k_7
+ModelValue_1	k_8
+ModelValue_2	k_9
+ModelValue_5	k_10
+ModelValue_3	k_11
+RBC	k_12

@@ -1,0 +1,15 @@
+CAR_T_cells	x_1
+Leukaemic_B_cells	x_2
+B_cells_healthy	x_3
+B_cell_progenitors	x_4
+tao_B	k_1
+rho_L	k_2
+tao_C	k_3
+rho_C	k_4
+alpha	k_5
+k	k_6
+tao_I	k_7
+beta	k_8
+C_50	k_9
+I_0	k_10
+Whole_organism_blood	k_11

@@ -1,0 +1,14 @@
+Normal_cells	x_1
+Tumor_cells	x_2
+Vitamins	x_3
+r	k_1
+beta1	k_2
+gamma	k_3
+alpha1	k_4
+alpha2	k_5
+beta2	k_6
+k1	k_7
+k2	k_8
+c1	k_9
+c2	k_10
+Whole_organism	k_11

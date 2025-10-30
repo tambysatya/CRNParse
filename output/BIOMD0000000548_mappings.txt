@@ -1,0 +1,8 @@
+m	k_1
+gamma	k_2
+nu	k_3
+sigma	k_4
+F	k_5
+P	k_6
+C	k_7
+Brain	k_8

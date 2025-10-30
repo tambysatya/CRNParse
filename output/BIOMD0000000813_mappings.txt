@@ -1,0 +1,16 @@
+x_Tumor_Cells	x_1
+y_CD4_T_Cells	x_2
+z_Cytokine	x_3
+r	k_1
+K	k_2
+delta	k_3
+m	k_4
+beta	k_5
+k	k_6
+a	k_7
+alpha	k_8
+b	k_9
+mu	k_10
+I_1	k_11
+I_2	k_12
+compartment	k_13

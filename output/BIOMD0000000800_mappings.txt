@@ -1,0 +1,14 @@
+x	x_1
+y	x_2
+z	x_3
+a	k_1
+A	k_2
+b	k_3
+B	k_4
+c	k_5
+C	k_6
+epsilon	k_7
+g	k_8
+G	k_9
+h	k_10
+compartment	k_11

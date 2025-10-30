@@ -1,0 +1,13 @@
+R	x_1
+k0	k_1
+k1	k_2
+k2	k_3
+k3	k_4
+J3	k_5
+k4	k_6
+J4	k_7
+Et	k_8
+S	k_9
+Ep	k_10
+E	k_11
+env	k_12

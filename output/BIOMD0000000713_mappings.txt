@@ -1,0 +1,12 @@
+T	x_1
+I	x_2
+V	x_3
+s	k_1
+r_T_Tmax	k_2
+r_T_d	k_3
+R	k_4
+D	k_5
+beta	k_6
+pstar	k_7
+c	k_8
+compartment	k_9

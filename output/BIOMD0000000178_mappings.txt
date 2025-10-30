@@ -1,0 +1,14 @@
+bulk	x_1
+free	x_2
+bound	x_3
+translocate	x_4
+lytic	x_5
+tension	k_1
+BoNT	k_2
+extracellular	k_3
+endosome	k_4
+neuroplasm	k_5
+endocytosis_kT	k_6
+translocation_kL	k_7
+binding_kB	k_8
+bulk_movement_kS	k_9

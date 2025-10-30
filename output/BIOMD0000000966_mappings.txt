@@ -1,0 +1,15 @@
+Py	x_1
+Py1	x_2
+Dw	x_3
+Rw	x_4
+Qw1	x_5
+Qw2	x_6
+Zn_2	x_7
+r3	k_1
+r4	k_2
+k_1	k_3
+k2	k_4
+k_2	k_5
+Zn	k_6
+k1a	k_7
+Cell	k_8

@@ -1,0 +1,14 @@
+L	x_1
+T	x_2
+I2	x_3
+alpha_T	k_1
+beta_T	k_2
+gama_prime_L	k_3
+VL	k_4
+alpha_L	k_5
+beta_L	k_6
+alpha_I2	k_7
+alpha_bar_L	k_8
+gama_T	k_9
+K_T	k_10
+compartment	k_11

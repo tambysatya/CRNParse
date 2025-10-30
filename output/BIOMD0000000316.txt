@@ -1,0 +1,2 @@
+d(x_1)/dt=-k_4*x_1/k_2 + Piecewise((1, k_1 >= k_3))/k_2
+d(x_2)/dt=-k_7*x_2/k_2 + Piecewise((1, k_1 >= k_5))*Piecewise((1, k_6 <= x_1))/k_2

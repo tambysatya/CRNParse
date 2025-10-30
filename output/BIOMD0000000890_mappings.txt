@@ -1,0 +1,15 @@
+m	x_1
+h	x_2
+c	x_3
+mu_c	k_1
+mu_m	k_2
+delta_m	k_3
+delta_h	k_4
+delta_c	k_5
+kappa_m	k_6
+kappa_c	k_7
+x	k_8
+y	k_9
+HMGCR_Rescaled	k_10
+mRNA_Rescaled	k_11
+compartment	k_12

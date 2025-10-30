@@ -1,0 +1,13 @@
+P	x_1
+I	x_2
+M	x_3
+beta	k_1
+gamma	k_2
+beta0	k_3
+mu	k_4
+a	k_5
+b	k_6
+n	k_7
+alpha	k_8
+alpha0	k_9
+compartment	k_10

@@ -1,0 +1,17 @@
+RI	x_1
+RII	x_2
+lRIRII	x_3
+lRIRII_endo	x_4
+RI_endo	x_5
+RII_endo	x_6
+ka	k_1
+ligand	k_2
+kcd	k_3
+klid	k_4
+ki	k_5
+pRI	k_6
+kr	k_7
+alpha	k_8
+pRII	k_9
+PM	k_10
+Endosome	k_11

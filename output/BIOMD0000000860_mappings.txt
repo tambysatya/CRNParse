@@ -1,0 +1,10 @@
+miR	x_1
+TF1target_mRNA	x_2
+kdegMiR	k_1
+kdegTF1targetmRNA	k_2
+kdegTF1targetmRNAbyMiR	k_3
+ksynTF1targetmRNA	k_4
+ksynMiR	k_5
+TF1	k_6
+Sink	k_7
+cell	k_8

@@ -1,0 +1,13 @@
+NADPH	x_1
+ATP	x_2
+X	x_3
+k1	k_1
+k2	k_2
+k3	k_3
+k4	k_4
+N0	k_5
+A0	k_6
+ADP	k_7
+Y	k_8
+NADP	k_9
+c	k_10

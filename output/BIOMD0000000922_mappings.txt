@@ -1,0 +1,13 @@
+Population_of_Eggs	x_1
+Population_of_Larvae	x_2
+Population_of_Pupae	x_3
+Ar	k_1
+ep	k_2
+Te	k_3
+Me	k_4
+K0	k_5
+Tl	k_6
+Tp	k_7
+Mp	k_8
+Ml	k_9
+compartment	k_10

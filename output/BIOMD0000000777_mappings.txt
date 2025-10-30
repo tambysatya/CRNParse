@@ -1,0 +1,13 @@
+M_Tumor_Cells	x_1
+N_CTL	x_2
+Z_THL	x_3
+r_1	k_1
+k_1	k_2
+alpha_1	k_3
+d_1	k_4
+alpha_2	k_5
+r_2	k_6
+k_2	k_7
+mu_1	k_8
+mu_2	k_9
+compartment	k_10

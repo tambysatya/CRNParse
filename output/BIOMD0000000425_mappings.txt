@@ -1,0 +1,8 @@
+c	x_1
+cell	k_1
+reaction_1_alpha	k_2
+reaction_3_kd	k_3
+reaction_2_kappa	k_4
+reaction_4_phi	k_5
+reaction_4_delta	k_6
+reaction_4_gamma	k_7

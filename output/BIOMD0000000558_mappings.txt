@@ -1,0 +1,11 @@
+ROS	x_1
+alpha_syn	x_2
+k1	k_1
+k2	k_2
+k3	k_3
+k4	k_4
+dalphasyn	k_5
+kalphasyn	k_6
+S1	k_7
+S2_4	k_8
+Neuron	k_9

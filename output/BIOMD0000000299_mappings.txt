@@ -1,0 +1,16 @@
+vs	k_1
+vm	k_2
+Km	k_3
+KI	k_4
+n	k_5
+Ft	k_6
+ks	k_7
+vd	k_8
+Kd	k_9
+k1	k_10
+k2	k_11
+M	k_12
+FC	k_13
+FN	k_14
+Cytoplasm	k_15
+Nucleus	k_16

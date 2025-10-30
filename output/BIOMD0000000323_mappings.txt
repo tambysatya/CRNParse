@@ -1,0 +1,10 @@
+species_1	x_1
+species_2	x_2
+species_3	x_3
+parameter_1	k_1
+parameter_2	k_2
+parameter_3	k_3
+compartment_1	k_4
+reaction_1_Shalve	k_5
+reaction_2_Shalve	k_6
+reaction_3_Shalve	k_7

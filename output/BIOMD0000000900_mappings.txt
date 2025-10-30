@@ -1,0 +1,14 @@
+C	x_1
+B	x_2
+T	x_3
+alpha_1	k_1
+alpha_2	k_2
+alpha_3	k_3
+gamma_1	k_4
+gamma_2	k_5
+delta_1	k_6
+delta_2	k_7
+beta_1	k_8
+beta_2	k_9
+beta_3	k_10
+compartment	k_11

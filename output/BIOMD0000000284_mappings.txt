@@ -1,0 +1,10 @@
+A	x_1
+B	x_2
+C	x_3
+D	x_4
+E	x_5
+F	x_6
+X	k_1
+Y	k_2
+Z	k_3
+cell	k_4

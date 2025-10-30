@@ -1,0 +1,13 @@
+n	x_1
+c	x_2
+a	x_3
+m	x_4
+vt	k_1
+Gat	k_2
+Tt	k_3
+Gmt	k_4
+alt	k_5
+Bat	k_6
+A	k_7
+t1	k_8
+default_compartment	k_9

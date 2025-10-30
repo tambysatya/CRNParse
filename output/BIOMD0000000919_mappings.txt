@@ -1,0 +1,12 @@
+y	x_1
+x	x_2
+alpha	k_1
+beta	k_2
+gamma	k_3
+delta	k_4
+mu_C	k_5
+mu_I	k_6
+x_inf	k_7
+kappa	k_8
+v	k_9
+compartment	k_10

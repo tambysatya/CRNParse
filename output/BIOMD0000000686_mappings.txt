@@ -1,0 +1,17 @@
+x	k_1
+y0	k_2
+y1	k_3
+L	k_4
+v	k_5
+R0	k_6
+a0	k_7
+a1	k_8
+k	k_9
+u	k_10
+lambda	k_11
+d	k_12
+beta	k_13
+gamma	k_14
+phi	k_15
+eta	k_16
+COMpartment	k_17

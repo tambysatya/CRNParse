@@ -1,0 +1,16 @@
+Pc1	x_1
+Po2	x_2
+Pc2	x_3
+Open_probability	k_1
+Po1	k_2
+compartment	k_3
+Closed_state_1_ka_minus	k_4
+Closed_state_1_ka_plus	k_5
+Closed_state_1_Ca	k_6
+Closed_state_1_n	k_7
+Open_state_2_kb_plus	k_8
+Open_state_2_Ca	k_9
+Open_state_2_m	k_10
+Open_state_2_kb_minus	k_11
+Closed_State_2_kc_plus	k_12
+Closed_State_2_kc_minus	k_13

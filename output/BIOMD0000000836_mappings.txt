@@ -1,0 +1,8 @@
+alpha	k_1
+beta	k_2
+gamma	k_3
+delta	k_4
+C	k_5
+S	k_6
+P	k_7
+compartment	k_8

@@ -1,0 +1,7 @@
+a	k_1
+b	k_2
+c	k_3
+z	k_4
+x	k_5
+y	k_6
+compartment	k_7

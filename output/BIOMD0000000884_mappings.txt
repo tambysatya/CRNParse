@@ -1,0 +1,13 @@
+L	x_1
+U	x_2
+V	x_3
+r	k_1
+delta	k_2
+p	k_3
+alpha	k_4
+phi	k_5
+g	k_6
+b	k_7
+gamma	k_8
+K	k_9
+compartment	k_10

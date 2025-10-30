@@ -1,0 +1,7 @@
+k1	k_1
+k2	k_2
+A0	k_3
+k2A0	k_4
+B	k_5
+A	k_6
+Brain	k_7

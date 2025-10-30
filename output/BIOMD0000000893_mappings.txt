@@ -1,0 +1,10 @@
+x	x_1
+y	x_2
+z	x_3
+A	k_1
+B	k_2
+C	k_3
+epsilon	k_4
+delta	k_5
+compartment	k_6
+y_Consumption_k1	k_7

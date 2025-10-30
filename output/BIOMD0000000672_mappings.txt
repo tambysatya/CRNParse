@@ -1,0 +1,15 @@
+H1	k_1
+H2	k_2
+A	k_3
+t_on	k_4
+t_off	k_5
+A_max	k_6
+beta_I	k_7
+beta_C	k_8
+alpha	k_9
+lamda	k_10
+tau_I	k_11
+tau_C	k_12
+tau_alpha	k_13
+tau_lamda	k_14
+COMpartment	k_15

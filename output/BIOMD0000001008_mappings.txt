@@ -1,0 +1,16 @@
+m1	k_1
+K1	k_2
+n1	k_3
+m2	k_4
+K2	k_5
+n2	k_6
+M_tot	k_7
+Em	k_8
+K	k_9
+n3	k_10
+Mediator_A1	k_11
+Mediator_A2	k_12
+Agonist_1	k_13
+Agonist_2	k_14
+Effect	k_15
+Cell	k_16

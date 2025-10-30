@@ -1,0 +1,11 @@
+x	x_1
+y	x_2
+y0	x_3
+psi	k_1
+alpha_x	k_2
+alpha_xy	k_3
+beta_y	k_4
+alpha_y	k_5
+alpha_0	k_6
+Theta	k_7
+compartment	k_8

@@ -1,0 +1,15 @@
+R	x_1
+L	x_2
+E	x_3
+V	x_4
+u	k_1
+T	k_2
+delta	k_3
+pi	k_4
+p	k_5
+alpha	k_6
+k	k_7
+beta	k_8
+sigma	k_9
+z	k_10
+Blood	k_11

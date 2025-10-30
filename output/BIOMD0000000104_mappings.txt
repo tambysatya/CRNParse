@@ -1,0 +1,9 @@
+species_0	x_1
+species_1	x_2
+species_4	x_3
+species_2	k_1
+species_3	k_2
+species_5	k_3
+compartment_0	k_4
+reaction_0_k1	k_5
+reaction_1_k2	k_6

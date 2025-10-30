@@ -1,0 +1,10 @@
+N	x_1
+gamma	k_1
+p	k_2
+gamma_0	k_3
+a	k_4
+myu_0	k_5
+myu_1	k_6
+K	k_7
+myu	k_8
+compartment	k_9

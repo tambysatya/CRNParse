@@ -1,0 +1,12 @@
+A	k_1
+N	k_2
+I	k_3
+K_l	k_4
+delta_l	k_5
+K_m	k_6
+xi	k_7
+S	k_8
+l	k_9
+n	k_10
+m	k_11
+cell	k_12

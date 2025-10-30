@@ -1,0 +1,9 @@
+s1	x_1
+s2	x_2
+s3	x_3
+rho_E	k_1
+beta_a	k_2
+delta_Es	k_3
+pi_a	k_4
+c_V	k_5
+default	k_6

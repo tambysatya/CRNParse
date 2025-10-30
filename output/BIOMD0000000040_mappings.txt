@@ -1,0 +1,12 @@
+Br	x_1
+Ce	x_2
+HBrO2	x_3
+f	k_1
+BrO3	k_2
+HOBr	k_3
+BZ	k_4
+Reaction1_k1	k_5
+Reaction2_k2	k_6
+Reaction3_k3	k_7
+Reaction4_k4	k_8
+Reaction5_k5	k_9

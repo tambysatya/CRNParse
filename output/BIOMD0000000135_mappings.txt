@@ -1,0 +1,9 @@
+a	k_1
+b	k_2
+c	k_3
+d	k_4
+Vthresh	k_5
+i	k_6
+v	k_7
+u	k_8
+cell	k_9

@@ -1,0 +1,12 @@
+uninfected_cancer_cells	x_1
+infected_cancer_cells	x_2
+free_virus	x_3
+damaged_cancer_cells	x_4
+f	k_1
+h	k_2
+m	k_3
+alpha_1	k_4
+alpha_2	k_5
+alpha_3	k_6
+Whole_organism	k_7
+infected_cancer_cell_lysis_k1	k_8

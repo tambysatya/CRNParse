@@ -1,0 +1,13 @@
+T	x_1
+I	x_2
+S	x_3
+N	x_4
+rho	k_1
+xi	k_2
+h	k_3
+delta	k_4
+alpha	k_5
+p_s	k_6
+m_s	k_7
+Tumor	k_8
+Lymph_node	k_9

@@ -1,0 +1,17 @@
+w	x_1
+x	x_2
+y	x_3
+z	x_4
+lamda	k_1
+d	k_2
+a	k_3
+log_y	k_4
+b	k_5
+log_w	k_6
+h	k_7
+beta	k_8
+p	k_9
+q	k_10
+c	k_11
+s	k_12
+COMpartment	k_13

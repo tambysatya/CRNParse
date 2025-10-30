@@ -1,0 +1,16 @@
+S	x_1
+C	x_2
+V_C	x_3
+r	k_1
+K	k_2
+d	k_3
+phi	k_4
+beta	k_5
+eta	k_6
+mu	k_7
+r_tilde	k_8
+phi_tilde	k_9
+alpha	k_10
+d_tilde	k_11
+N	k_12
+compartment	k_13

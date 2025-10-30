@@ -1,0 +1,13 @@
+R	x_1
+L	x_2
+T	x_3
+h	k_1
+c	k_2
+b1	k_3
+g1	k_4
+b2	k_5
+g2	k_6
+b3	k_7
+x	k_8
+H	k_9
+Compartment	k_10

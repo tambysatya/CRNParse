@@ -1,0 +1,5 @@
+f	x_1
+k1	k_1
+k2	k_2
+a	k_3
+compartment_	k_4

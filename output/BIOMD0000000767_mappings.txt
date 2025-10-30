@@ -1,0 +1,12 @@
+U	x_1
+E	x_2
+r	k_1
+K	k_2
+du	k_3
+he	k_4
+hv	k_5
+pe	k_6
+de	k_7
+dt	k_8
+M	k_9
+tme	k_10

@@ -1,0 +1,13 @@
+Cm	x_1
+Ct	x_2
+T	x_3
+phi	k_1
+pi	k_2
+epsilon	k_3
+theta	k_4
+alpha	k_5
+mu	k_6
+rho	k_7
+beta	k_8
+gamma	k_9
+compartment	k_10

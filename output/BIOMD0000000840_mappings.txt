@@ -1,0 +1,16 @@
+M	x_1
+C1	x_2
+C2	x_3
+A	x_4
+T	x_5
+lambda	k_1
+rho	k_2
+alpha_1	k_3
+alpha_2	k_4
+beta	k_5
+delta	k_6
+epsilon	k_7
+gamma_1	k_8
+gamma_2	k_9
+gamma_3	k_10
+compartment	k_11

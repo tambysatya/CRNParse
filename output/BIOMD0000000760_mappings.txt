@@ -1,0 +1,12 @@
+T	x_1
+N	x_2
+rt	k_1
+kt	k_2
+b	k_3
+r0	k_4
+r1	k_5
+rn	k_6
+kn	k_7
+k	k_8
+t	k_9
+tumor_microenvironment	k_10

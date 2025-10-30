@@ -1,0 +1,16 @@
+CDK1_active	x_1
+APC_active	x_2
+Plk1_active	x_3
+a1	k_1
+a2	k_2
+a3	k_3
+b1	k_4
+b2	k_5
+b3	k_6
+k1	k_7
+k2	k_8
+k3	k_9
+n1	k_10
+n2	k_11
+n3	k_12
+compartment	k_13

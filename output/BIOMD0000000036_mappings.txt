@@ -1,0 +1,16 @@
+M	x_1
+P	x_2
+N_A	k_1
+EmptySet	k_2
+default	k_3
+CYTOPLASM	k_4
+TC_Vm	k_5
+TC_Pcrit	k_6
+TC_Keq	k_7
+TL_V	k_8
+mRNAD_D	k_9
+ProteinD_D	k_10
+DBT_k1	k_11
+DBT_k2	k_12
+DBT_J	k_13
+DBT_Keq	k_14

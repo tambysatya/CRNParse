@@ -1,0 +1,12 @@
+N_Tumour	x_1
+T_H	x_2
+T_C	x_3
+gamma	k_1
+p	k_2
+k	k_3
+sigma_H	k_4
+alpha	k_5
+Ntilde	k_6
+delta_H	k_7
+sigma_C	k_8
+compartment	k_9

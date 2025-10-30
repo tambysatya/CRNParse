@@ -1,0 +1,12 @@
+Susceptible	x_1
+Infected_strong_immune_system	x_2
+Infected_weak_immune_system	x_3
+Recovered	x_4
+alpha	k_1
+gamma_1	k_2
+gamma_2	k_3
+tau	k_4
+mu	k_5
+Lockdown_start	k_6
+Lockdown_end	k_7
+Iran	k_8

@@ -1,0 +1,9 @@
+S	x_1
+N	x_2
+a	k_1
+d	k_2
+u1	k_3
+r1	k_4
+e1	k_5
+Q1	k_6
+tme	k_7

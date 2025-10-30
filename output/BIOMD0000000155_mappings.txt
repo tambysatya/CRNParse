@@ -1,0 +1,13 @@
+x	x_1
+y	x_2
+beta_x	k_1
+psi	k_2
+alpha_xy	k_3
+beta_y	k_4
+alpha_y	k_5
+tau	k_6
+S	k_7
+beta_S	k_8
+alpha_S	k_9
+n	k_10
+compartment	k_11

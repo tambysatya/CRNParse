@@ -1,0 +1,17 @@
+APAP	x_1
+NAPQI	x_2
+GSH	x_3
+NAPQIGSH	x_4
+APAPconj_Glu	x_5
+APAPconj_Sul	x_6
+Vmax_2E1_APAP	k_1
+Km_2E1_APAP	k_2
+kNapqiGsh	k_3
+kGsh	k_4
+GSHmax	k_5
+Vmax_PhaseIIEnzGlu_APAP	k_6
+Km_PhaseIIEnzGlu_APAP	k_7
+Vmax_PhaseIIEnzSul_APAP	k_8
+Km_PhaseIIEnzSul_APAP	k_9
+X1	k_10
+compartment	k_11

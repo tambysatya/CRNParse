@@ -1,0 +1,10 @@
+Susceptible	x_1
+Infected	x_2
+Recovered	x_3
+alpha	k_1
+beta	k_2
+gamma	k_3
+Epidemic_size	k_4
+Uninfected	k_5
+Country	k_6
+Infected_to_Recovered_k1	k_7

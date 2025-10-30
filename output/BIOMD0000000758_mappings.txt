@@ -1,0 +1,7 @@
+T	x_1
+I	x_2
+g	k_1
+k	k_2
+l	k_3
+u	k_4
+tumor_microenvironment	k_5

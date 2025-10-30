@@ -1,0 +1,10 @@
+S	x_1
+R	x_2
+b	k_1
+N	k_2
+C0	k_3
+t1	k_4
+t2	k_5
+Ninf	k_6
+Ncrit	k_7
+tme	k_8

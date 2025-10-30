@@ -1,0 +1,9 @@
+x_Cancer	x_1
+y_Immune_System	x_2
+a	k_1
+b	k_2
+c	k_3
+d	k_4
+e	k_5
+f	k_6
+compartment	k_7

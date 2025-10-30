@@ -1,0 +1,16 @@
+M	x_1
+Mp	x_2
+Mpp	x_3
+k1cat	k_1
+Km1	k_2
+k2cat	k_3
+Km2	k_4
+k3cat	k_5
+Km3	k_6
+k4cat	k_7
+Km4	k_8
+Km5	k_9
+MAPKK1	k_10
+MAPKK2	k_11
+MKP3	k_12
+uVol	k_13

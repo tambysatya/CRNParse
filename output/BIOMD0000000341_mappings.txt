@@ -1,0 +1,13 @@
+si	k_1
+Eg0	k_2
+R0	k_3
+sigma	k_4
+alpha	k_5
+k	k_6
+d0	k_7
+r1	k_8
+r2	k_9
+G	k_10
+I	k_11
+B	k_12
+cell	k_13

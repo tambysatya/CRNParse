@@ -1,0 +1,16 @@
+u	x_1
+v	x_2
+w	x_3
+r_1	k_1
+alpha_1	k_2
+alpha_2	k_3
+k_1	k_4
+r_2	k_5
+alpha_3	k_6
+k_2	k_7
+gamma_1	k_8
+k_3	k_9
+mu_1	k_10
+alpha_4	k_11
+k_4	k_12
+compartment	k_13

@@ -1,0 +1,16 @@
+auxin	x_1
+TIR1	x_2
+auxinTIR1	x_3
+auxinTIR1VENUS	x_4
+VENUS	x_5
+kd	k_1
+ka	k_2
+mu	k_3
+ld	k_4
+lm	k_5
+la	k_6
+delta	k_7
+lambda	k_8
+TIR1T	k_9
+alpha_tr	k_10
+cell	k_11

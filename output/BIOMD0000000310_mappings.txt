@@ -1,0 +1,16 @@
+R	x_1
+k0	k_1
+k1	k_2
+k2	k_3
+k2_prime	k_4
+k3	k_5
+J3	k_6
+k4	k_7
+J4	k_8
+Et	k_9
+Km3	k_10
+Km4	k_11
+S	k_12
+Ep	k_13
+E	k_14
+env	k_15

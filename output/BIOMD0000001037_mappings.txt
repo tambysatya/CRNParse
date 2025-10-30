@@ -1,0 +1,9 @@
+Normal_cells	x_1
+Tumor_cells	x_2
+r	k_1
+beta1	k_2
+gamma	k_3
+alpha1	k_4
+alpha2	k_5
+beta2	k_6
+Whole_organism	k_7

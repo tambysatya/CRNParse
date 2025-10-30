@@ -1,0 +1,5 @@
+S	x_1
+ES	x_2
+k1	k_1
+k2	k_2
+default	k_3

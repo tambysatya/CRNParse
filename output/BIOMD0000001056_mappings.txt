@@ -1,0 +1,13 @@
+C1	x_1
+C2	x_2
+C3	x_3
+s1	k_1
+s2	k_2
+k	k_3
+rho1	k_4
+rho2	k_5
+alpha1	k_6
+alpha2	k_7
+alpha3	k_8
+ModelValue_39	k_9
+Bone_marrow	k_10

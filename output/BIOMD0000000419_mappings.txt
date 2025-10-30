@@ -1,0 +1,17 @@
+P1	x_1
+P2	x_2
+Target	x_3
+Kd	k_1
+Ksp	k_2
+dsp1ksp	k_3
+dsp1p2kd	k_4
+h	k_5
+k0	k_6
+ka	k_7
+ks	k_8
+ku	k_9
+s	k_10
+univ	k_11
+___r2___RATE__	k_12
+___r4___RATE__	k_13
+___r6___RATE__	k_14

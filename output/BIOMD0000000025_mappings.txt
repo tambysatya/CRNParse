@@ -1,0 +1,15 @@
+Per	x_1
+dClk	x_2
+dClkF_tau1	k_1
+dClkF_tau2	k_2
+tau1	k_3
+tau2	k_4
+Vsp	k_5
+K1	k_6
+Vsc	k_7
+K2	k_8
+kdc	k_9
+kdp	k_10
+EmptySet	k_11
+dClkF	k_12
+CELL	k_13

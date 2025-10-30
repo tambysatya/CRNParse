@@ -1,0 +1,6 @@
+S	x_1
+N1	x_2
+N2	x_3
+v	k_1
+d	k_2
+compartment	k_3

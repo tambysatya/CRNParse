@@ -1,0 +1,7 @@
+X	x_1
+E	x_2
+P	x_3
+Q	x_4
+K2	k_1
+K3	k_2
+cell	k_3
